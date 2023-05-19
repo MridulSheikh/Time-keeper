@@ -2,7 +2,11 @@ import './globals.css'
 import localFont from "next/font/local"
 
 const oswadfont = localFont({src:[
-  
+  {
+    path : "../fonts/oswald/Oswald-Regular.ttf",
+    style : "400",
+    weight : "normal"
+  }
 ]})
 
 export const metadata = {
@@ -17,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={oswadfont.className}>{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
