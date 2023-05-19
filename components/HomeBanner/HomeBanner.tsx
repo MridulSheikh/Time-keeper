@@ -8,7 +8,7 @@ type sliderTypes = {
   banner: string;
   description: string;
 };
-
+// this banner should be carousel latter
 const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
   return (
     <div className=" grid grid-cols-2 h-[590px] relative">
