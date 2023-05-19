@@ -14,8 +14,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        oswoald: "var(--font-oswald)",
-        dubai: "var(--font-dubai)",
+        oswoald: "'Oswald', sans-serif",
+        roboto: "'Roboto', sans-serif",
       },
     },
   },

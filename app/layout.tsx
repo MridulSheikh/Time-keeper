@@ -1,6 +1,6 @@
 import { Nav } from "@/components";
 import "./globals.css";
-import { oswadfont } from "@/fonts/font";
+import TopNav from "@/components/Nav/TopNav";
 
 export const metadata = {
   title: "Time Kepeer",
@@ -14,7 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={oswadfont.className}>
+      <body>
+        <TopNav />
         <Nav />
         {children}
       </body>
