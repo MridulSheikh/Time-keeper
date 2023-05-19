@@ -3,12 +3,12 @@ import localFont from "next/font/local";
 export const oswadfont = localFont({
   src: [
     {
-      path: "../fonts/oswald/oswald-Regular.ttf",
+      path: "./oswald/oswald-Regular.ttf",
       style: "400",
       weight: "normal",
     },
     {
-      path: "../fonts/oswald/oswald-Medium.ttf",
+      path: "./oswald/oswald-Medium.ttf",
       style: "600",
       weight: "bold",
     },
@@ -19,12 +19,12 @@ export const oswadfont = localFont({
 export const dubaifont = localFont({
   src:[
     {
-      path: "../fonts/dubai/Dubai-Regular.woff",
+      path: "./dubai/Dubai-Regular.woff",
       style: "400",
       weight: "normal",
     },
     {
-      path: "../fonts/dubai/Dubai-Bold.woff",
+      path: "./dubai/Dubai-Bold.woff",
       style: "600",
       weight: "bold",
     },
