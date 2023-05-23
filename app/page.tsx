@@ -1,4 +1,4 @@
-import { HomeBanner, IdealHasNever, OurBestSellers, SwissEssence } from '@/components'
+import { Blog, HomeBanner, IdealHasNever, OurBestSellers, SwissEssence } from '@/components'
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
       <OurBestSellers />
       <IdealHasNever />
       <SwissEssence />
+      <Blog />
     </main>
   )
 }

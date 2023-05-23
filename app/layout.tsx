@@ -1,6 +1,7 @@
 import { Nav } from "@/components";
 import "./globals.css";
 import TopNav from "@/components/Nav/TopNav";
+import { Footer } from "@/components/Footer";
 
 export const metadata = {
   title: "Time Kepeer",
@@ -18,6 +19,7 @@ export default function RootLayout({
         <TopNav />
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   );
