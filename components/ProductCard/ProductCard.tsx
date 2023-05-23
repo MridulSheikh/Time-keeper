@@ -1,16 +1,16 @@
 import Ratting from '@/lib/Ratting'
-import { product_data_types } from '@/typedeclaration/types'
+import { product_card_data_types } from '@/typedeclaration/types'
 import { count } from 'console'
 import Image from 'next/image'
 import React from 'react'
 
-export const ProductCard = ({id, img, title, description, price, ratting, catagory, brand, off} : product_data_types ) => {
+export const ProductCard = ({id, img, title,price, ratting, off, isbig} : product_card_data_types) => {
   return (
-    <div className='bg-cs-pink-200 pt-[50px] relative group'>
+    <div className='bg-cs-pink-200 pt-[50px] relative group h-full'>
        <div className='bg-cs-pink-800 absolute top-3 right-3 text-white p-3 text-sm font-bold rounded-full'>
          -{off}%
        </div>
-        <div className='relative w-full h-56'>
+        <div className={`relative w-full ${isbig ? 'h-96' : 'h-56'}`}>
             <Image src={img} fill className='object-contain' alt={`${title} image`} />
         </div>
         <div className='mt-[55px] relative'>
