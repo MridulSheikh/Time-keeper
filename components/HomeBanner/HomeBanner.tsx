@@ -13,7 +13,7 @@ type sliderTypes = {
 // this banner should be carousel latter
 const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
   return (
-    <div className=" xl:grid grid-cols-2 h-[600px] relative font-oswald">
+    <div className=" lg:grid grid-cols-2 h-[570px] lg:h-[600px] lg:relative font-oswald">
       <Image
         alt="watch"
         src="/images/slider3_slide1_01-copyright (1).png"
@@ -21,7 +21,7 @@ const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
         height={300}
         className="xl:right-[37%] 2xl:right-[39%] top-[10%] absolute z-50 hidden xl:inline-block"
       />
-      <div className="overflow-hidden relative">
+      <div className="overflow-hidden lg:relative">
         <Image
           src="/images/slider3_slide1_02-copyright.jpg"
           alt="banner image"
@@ -29,16 +29,16 @@ const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
           className="object-cover object-center"
         />
       </div>
-      <div className="flex flex-col justify-center items-center">
-        <div className=" ml-32 w-3/5">
-          <h1 className=" text-7xl text-cs-black leading-[80px] font-oswoald">
+      <div className="flex flex-col justify-center lg:items-center px-4 lg:px-0 pt-10 lg:pt-0 relative z-30">
+        <div className="lg:ml-10 xl:ml-32 xl:w-3/5">
+          <h1 className="text-5xl md:text-7xl text-white lg:text-cs-black md:leading-[80px] font-oswoald">
             Small <br /> Pleasures From Time keeper
           </h1>
-          <p className={`mt-5 text-md font-roboto text-cs-black/70 w-3/4`}>
+          <p className={`mt-5 text-md font-roboto text-white lg:text-cs-black/70 w-3/4`}>
             we transparently build high-quality minimal watches from the finest
             components and materials.
           </p>
-          <button className="border py-2 px-5 border-black font-oswoald mt-5 hover:bg-black hover:text-white ease-in duration-200">
+          <button className="border py-2 px-5 border-white lg:border-black font-oswoald mt-5 hover:bg-white lg:hover:bg-black lg:hover:text-white text-white lg:text-black hover:text-black ease-in duration-200">
             SHOP NOW
           </button>
         </div>
@@ -49,19 +49,19 @@ const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
 
 const NextButton = () => {
   return (
-    <button className=" absolute bottom-10 right-0 pr-4 flex font-oswoald items-center gap-x-5 hover:gap-x-1 group transition-all">
-      <div className="border bg-black border-cs-black w-16" />
-      <p className=" group-hover:w-0  overflow-hidden ease-in duration-300">
+    <button className="pr-4 flex font-oswoald items-center gap-x-5 hover:gap-x-1 group transition-all">
+      <div className="border bg-white lg:bg-black border-white lg:border-cs-black w-4 lg:w-16" />
+      <p className=" group-hover:w-0 text-white lg:text-black  overflow-hidden ease-in duration-300">
         NEXT
       </p>
-      <MdOutlineArrowForwardIos />
+      <MdOutlineArrowForwardIos  className="text-white lg:text-black"/>
     </button>
   );
 };
 const PreviousButton = () => {
   return (
-    <button className=" absolute bottom-10 font-oswoald left-0 pl-4 flex flex-row-reverse items-center gap-x-5 hover:gap-x-1 group transition-all">
-      <div className="border bg-white border-white w-16" />
+    <button className="font-oswoald pl-4 flex flex-row-reverse items-center gap-x-5 hover:gap-x-1 group transition-all">
+      <div className="border bg-white border-white w-4 lg:w-16" />
       <p className=" text-white group-hover:w-0  overflow-hidden ease-in-out duration-700">
         PREVIOUS
       </p>
@@ -75,8 +75,10 @@ export const HomeBanner = () => {
     <div className="relative bg-cs-pink-200">
       <div className=" max-w-screen-2xl mx-auto relative">
         <Slider title="" productImg="" banner="" description="" />
-        <NextButton />
+        <div className=" flex w-full justify-between items-center z-30 absolute bottom-10 ">
         <PreviousButton />
+        <NextButton />
+        </div>
       </div>
     </div>
   );

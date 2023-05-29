@@ -7,7 +7,7 @@ export const OurBestSellers = () => {
   return (
     <div className='max-w-screen-2xl mx-auto mt-28 px-4'>
         <h1 className='text-center font-oswoald text-5xl font-normal'>Our Bestsellers</h1>
-        <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-20'>
+        <div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-20'>
             {
                 prodcutData.slice(0, 4).map((dt : product_data_types) =><ProductCard key={dt.id} id={dt.id} title={dt.title} img={dt.img} price={dt.price} off={dt.off} ratting={dt.ratting}
                  />)

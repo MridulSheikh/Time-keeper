@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { BsHandbag } from "react-icons/bs";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineMenu } from "react-icons/ai";
 
 type linktype = {
   name: string;
@@ -40,25 +40,25 @@ export const Nav = () => {
     <header className="py-5 top-0 bg-white z-40">
       <div className=" max-w-screen-2xl mx-auto flex justify-between items-center text-cs-black px-4">
         <h1 className="font-bold text-3xl font-oswoald">Time Kepeer</h1>
-        <div className="flex gap-x-10">
-          <ul
-            className={`flex gap-x-10 font-light text-md`}
-          >
+        <div className="gap-x-10 flex">
+          <ul className={`gap-x-10 font-light text-md  hidden lg:flex`}>
             {link.map((link: linktype) => (
               <NavLink key={link.href} name={link.name} href={link.href} />
             ))}
           </ul>
-          <div
-            className={`text-md font-light flex gap-x-10`}
-          >
+          <div className={`text-md font-light flex gap-x-5 md:gap-x-10`}>
             <div className="flex items-center gap-x-2 cursor-pointer">
-              <AiOutlineUser className=" w-4 font-bold" />
-              <p>login</p>
+              <AiOutlineUser className=" text-2xl md:text-lg" />
+              <p className="hidden md:inline-block">login</p>
             </div>
             <div className="flex items-center gap-x-2 cursor-pointer">
-              <BsHandbag className=" w-4 font-bold" />
-              <p>cart (0)</p>
+              <BsHandbag className="text-2xl md:text-lg" />
+              <p className="hidden md:inline-block">cart</p>
+              <p>(0)</p>
             </div>
+            <button>
+              <AiOutlineMenu className="text-2xl md:text-lg lg:hidden" />
+            </button>
           </div>
         </div>
       </div>
