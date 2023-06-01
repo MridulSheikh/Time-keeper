@@ -1,5 +1,5 @@
 "use client";
-import {Body, Sidebar, TopBanner } from "@/components";
+import {Body, IdealHasNever, Sidebar, TopBanner } from "@/components";
 const page = () => {
   return (
     <div>
@@ -8,6 +8,7 @@ const page = () => {
         <Sidebar />
         <Body />
       </div>
+      <IdealHasNever />
     </div>
   );
 };

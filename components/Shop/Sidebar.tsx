@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 
-const categories = ["Men's", "Women's", "Featured", "Kid's", "Best Sell"];
+const categories = ["All","Men's", "Women's", "Featured", "Kid's", "Best Sell"];
 
 export const Sidebar = () => {
   const router = useRouter();

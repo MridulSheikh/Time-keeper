@@ -3,6 +3,8 @@ import React from 'react'
 import { ProductCard } from '../ProductCard'
 import { product_data_types } from '@/typedeclaration/types'
 import { useSearchParams } from 'next/navigation'
+import { Pagination } from '../Pagination'
+import { IdealHasNever } from '../IdealHasNever'
 
 export const Body = () => {
 const searchParams = useSearchParams();
@@ -31,6 +33,7 @@ const searchParams = useSearchParams();
               />
             ))}
           </div>
+          <Pagination />
         </div>
   )
 }
