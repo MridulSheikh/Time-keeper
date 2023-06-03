@@ -23,7 +23,7 @@ export function DatePicker() {
       if (from === date) {
         setFrom(null);
       } else {
-        if(to > date && to != null){
+        if(to > date && to == null){
             setFrom(date);
         }else{
             setTo(date);
