@@ -1,71 +1,82 @@
 "use client";
-import React, { useState } from "react";
+import { format } from "date-fns";
+import React, { use, useState } from "react";
+import {
+  CaptionProps,
+  DayPicker,
+  addToRange,
+  useNavigation,
+} from "react-day-picker";
+import "react-day-picker/dist/style.css";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-const week = ["M", "T", "W", "T", "F", "S", "S"];
-const date = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30,
-];
+const css = `
+.Selectable .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
+  background-color: #f0f8ff !important;
+  color: #4a90e2;
+}
+.Selectable .DayPicker-Day {
+  border-radius: 0 !important;
+}
+.Selectable .DayPicker-Day--start {
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
+}
+.Selectable .DayPicker-Day--end {
+  border-top-right-radius: 50% !important;
+  border-bottom-right-radius: 50% !important;
+}
+
+`;
+
+const CustoCaption = (props: CaptionProps) => {
+  const { goToMonth, nextMonth, previousMonth } = useNavigation();
+  return (
+    <div className="flex justify-between items-center mb-5">
+      <button
+        disabled={!previousMonth}
+        onClick={() => previousMonth && goToMonth(previousMonth)}
+        className=" hover:bg-cs-pink-800/10 p-3 cursor-pointer rounded-full ease-in duration-300"
+      >
+        <AiOutlineLeft />
+      </button>
+      <h2>{format(props.displayMonth, 'MMM yyy')}</h2>
+      <button
+        disabled={!nextMonth}
+        onClick={() => nextMonth && goToMonth(nextMonth)}
+        className=" hover:bg-cs-pink-800/10 p-3 cursor-pointer rounded-full ease-in duration-300"
+      >
+        <AiOutlineRight />
+      </button>
+    </div>
+  );
+};
 
 export function DatePicker() {
-  const [from, setFrom] = useState<any>(null);
-  const [to, setTo] = useState<any>(null);
-  const handlesetdate = (date: number) => {
-    if ((from != date) && (from != null) && (date > from)) {
-      if (to === date) {
-        setTo(null);
-      } else {
-        setTo(date);
-      }
-    }
-    else {
-      if (from === date) {
-        setFrom(null);
-      } else {
-        if(to > date){
-            setFrom(date);
-        }else{
-            setTo(date);
-        }
-      }
-    }
+  const [range, setRange] = useState<any>();
+
+  const handleDayClicked = (day: any) => {
+    const rangs = addToRange(day, range);
+    setRange(rangs);
   };
   return (
-    <div className="bg-cs-pink-200 p-5 mt-10">
+    <div className="bg-cs-pink-200 py-5 mt-10">
+      <style>{css}</style>
       <h1 className="text-center text-2xl font-semibold">CALENDER</h1>
-      <div className=" flex items-center justify-between mt-10">
-        <button>
-          <AiOutlineLeft />
-        </button>
-        <span>May 2023</span>
-        <button>
-          <AiOutlineRight />
-        </button>
-      </div>
-      <div className=" grid grid-cols-7 font-bold w-full mt-7 text-center">
-        {week.map((wk) => (
-          <p key={wk} className="px-1">{wk}</p>
-        ))}
-      </div>
-      <div className=" grid grid-cols-7 gap-y-7 w-full mt-5">
-        {date.map((wk) => (
-          <div
-            key={wk}
-            onClick={() => handlesetdate(wk)}
-            className={`text-cs-gray p-1 text-center cursor-pointer ${
-              from === wk && "bg-cs-pink-800 rounded-l-md text-white"
-            } ${
-              from < wk && from != null &&
-              (to > wk && "text-cs-pink-800")
-            } ${
-                to === wk && "bg-cs-pink-800 rounded-r-md text-white"
-            }`}
-          >
-            {wk}
-          </div>
-        ))}
-      </div>
+      <DayPicker
+        mode="range"
+        selected={{ from: range?.from, to: range?.to }}
+        onDayClick={handleDayClicked}
+        modifiers={{ start: range?.from, end: range?.to }}
+        fromYear={2023}
+        fromMonth={new Date(2023, 4)}
+        modifiersClassNames={{
+          selected: "Selectable",
+        }}
+        components={{
+          Caption : CustoCaption
+        }}
+      />
     </div>
   );
 }
