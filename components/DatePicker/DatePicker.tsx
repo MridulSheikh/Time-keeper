@@ -1,6 +1,7 @@
 "use client";
 import { format } from "date-fns";
-import React, { use, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, {useState } from "react";
 import {
   CaptionProps,
   DayPicker,
@@ -55,13 +56,22 @@ const CustoCaption = (props: CaptionProps) => {
 export function DatePicker() {
   const [range, setRange] = useState<any>();
 
+  const router = useRouter();
+
   const handleDayClicked = (day: any) => {
     const rangs = addToRange(day, range);
     setRange(rangs);
   };
+
+  const handleSearch = () => {
+    const uri = `http://localhost:3000/blog?from=${format(range?.from, 'yyyy-MM-dd')}&to=${format(range?.to, 'yyyy-MM-dd')}`
+    router.push(uri)
+  }
+
   return (
+    <>
+    <style>{css}</style>
     <div className="bg-cs-pink-200 py-5 mt-10">
-      <style>{css}</style>
       <h1 className="text-center text-2xl font-semibold">CALENDER</h1>
       <DayPicker
         mode="range"
@@ -70,13 +80,19 @@ export function DatePicker() {
         modifiers={{ start: range?.from, end: range?.to }}
         fromYear={2023}
         fromMonth={new Date(2023, 4)}
-        modifiersClassNames={{
-          selected: "Selectable",
-        }}
         components={{
-          Caption : CustoCaption
+          Caption : CustoCaption,
+        }}
+        modifiersStyles={{
+          range_start : {backgroundColor : "#AF7F66"},
+          range_middle : {backgroundColor : "#AF7F66", opacity : "40%"},
+          range_end : {backgroundColor : "#AF7F66"},
         }}
       />
+      {
+        range &&  <button className=" bg-cs-pink-800 text-white px-3 py-1 text-center ml-5" onClick={handleSearch}>Filter</button>
+      }
     </div>
+    </>
   );
 }
