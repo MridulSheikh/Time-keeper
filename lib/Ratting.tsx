@@ -5,6 +5,7 @@ type props = {
   rating: {
     rate: number;
   };
+  className ? : string;
 };
 
 // const rattingStar = Array.from({ length: 5 }, (v, index) => {
@@ -22,9 +23,9 @@ type props = {
 //   });
 
 
-const Ratting = ({ rating }: props) => {
+const Ratting = ({ rating, className }: props) => {
   return (
-    <div className="flex items-center gap-x-1">
+    <div className={"flex items-center gap-x-1 "+className}>
         {
            Array.from({ length: 5 }, (v, index) => {
                 let number = index + 0.5;

@@ -1,10 +1,12 @@
+'use client'
 import Ratting from '@/lib/Ratting'
 import { product_card_data_types } from '@/typedeclaration/types'
-import { count } from 'console'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export const ProductCard = ({id, img, title,price, ratting, off, isbig} : product_card_data_types) => {
+  const router = useRouter()
   return (
     <div className='bg-cs-pink-200 pt-[50px] relative group h-full'>
        <div className='bg-cs-pink-800 absolute top-3 right-3 text-white p-3 text-sm font-bold rounded-full'>
@@ -22,7 +24,7 @@ export const ProductCard = ({id, img, title,price, ratting, off, isbig} : produc
                 <del className=' font-semibold'>${price.toFixed(2)}</del>
                 <h2 className=' text-cs-text'>${((price/100)*off).toFixed(2)}</h2>
             </div>
-            <div className='absolute ease-in duration-300 bottom-0 bg-cs-pink-200 h-0 group-hover:h-full overflow-hidden w-full flex justify-center items-center transition-all'>
+            <div onClick={() => router.push(`/shop/${title}`)} className='absolute ease-in duration-300 bottom-0 bg-cs-pink-200 h-0 group-hover:h-full overflow-hidden w-full flex justify-center items-center transition-all'>
                 <button className='border font-oswoald font-light px-7 py-3 border-cs-black hover:bg-cs-black hover:text-white ease-in duration-200 '>Details</button>
             </div>
         </div>

@@ -27,3 +27,12 @@ export interface Blog_card_data_types {
     title: string;
     create_at: string;
 }
+
+export interface Blog_feed_card_data_Types {
+    id : number;
+    cover : string;
+    slug : string;
+    title : string;
+    create_at : string;
+    discription : string;
+}
