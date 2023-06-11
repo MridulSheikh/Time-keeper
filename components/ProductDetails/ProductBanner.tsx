@@ -6,7 +6,7 @@ import { MdAddShoppingCart, MdKeyboardArrowDown, MdKeyboardArrowUp } from "react
 
 export const ProductBanner = () => {
   return (
-    <div className=" grid grid-cols-2 gap-x-10 my-10">
+    <div className=" grid lg:grid-cols-2 gap-10 my-10">
       <div className="bg-cs-pink-200 h-96 p-10 relative">
           <div className="relative h-full">
           <Image alt="product image" src="/images/slider3_slide2_02-copyright.png" fill className="object-contain" />
