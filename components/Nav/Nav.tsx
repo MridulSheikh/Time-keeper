@@ -50,7 +50,7 @@ export const Nav = () => {
             ))}
           </ul>
           <div className={`text-md font-light flex gap-x-5 md:gap-x-10`}>
-            <div className="flex items-center gap-x-2 cursor-pointer">
+            <div onClick={() => router.push("/login")} className="flex items-center gap-x-2 cursor-pointer">
               <AiOutlineUser className=" text-2xl md:text-lg" />
               <p className="hidden md:inline-block">login</p>
             </div>
