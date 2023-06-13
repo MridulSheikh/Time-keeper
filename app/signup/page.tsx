@@ -1,4 +1,5 @@
-import { TopBanner } from '@/components'
+'use client'
+import { TopBanner, GoogleLogin } from '@/components'
 import Link from 'next/link'
 import React from 'react'
 
@@ -28,7 +29,7 @@ const page = () => {
                 <input type='submit' className='w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3' />
             </form>
             <p className='text-center my-5'>-- or --</p>
-            <button className='w-full py-2 rounded-md bg-blue-600 text-white cursor-pointer'>Continue With Google</button>
+            <GoogleLogin />
         </div>
     </div>
   )
