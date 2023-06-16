@@ -1,9 +1,12 @@
 'use client'
 import { GoogleLogin, TopBanner } from '@/components'
+import useAuth from '@/hooks/useAuth'
 import Link from 'next/link'
 import React from 'react'
 
-const page = () => {
+const Login = () => {
+    const {authLoading} = useAuth();
+    console.log(authLoading)
   return (
     <div>
         <TopBanner page={"Login"} route={"home / login"} />
@@ -21,6 +24,9 @@ const page = () => {
                 <input type='checkbox'/>
                 <p>Show Password?</p>
                 </div>
+                {
+                    authLoading && <p>loading...</p>
+                }
                 <div className='mt-5'>New here? <Link href={"/signup"} className='underline'>create account</Link></div>
                 <input type='submit' className='w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3' />
             </form>
@@ -31,4 +37,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Login
