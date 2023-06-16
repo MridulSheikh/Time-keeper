@@ -7,6 +7,9 @@ interface ContextType {
   authLoading : boolean;
   LoginWithGoogle : () => void;
   sign_out : () => void;
+  Signup_password : (email : string, name : null, password : string) => void;
+  error : string | null | undefined;
+  loginpassword : (email : string, password: string) => void;
 }
 
 // @ts-ignore

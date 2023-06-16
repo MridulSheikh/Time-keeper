@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Rating from "react-rating";
 
 export const RevewsForm = () => {
   return (

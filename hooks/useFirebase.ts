@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -35,7 +37,7 @@ const useFirebase = () => {
        getuser(user.email)
       }
     });
-  }, []);
+  }, [user?.email]);
 
   //sign out user
   const sign_out = () => {
@@ -65,11 +67,39 @@ const useFirebase = () => {
     }
   };
 
+    //email password auth
+    const Signup_password = (email: string, name: null, password: string) => {
+      setAuthLoading(true)
+      setError(null)
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+          save_user(name, res?.user?.email)
+          alert("successfully create account")
+        })
+        .catch((error) => setError(error.message))
+        .finally(() => setAuthLoading(false));
+    };
+    // handle login password
+    const loginpassword = (email: string, password: string) => {
+      setAuthLoading(true)
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          getuser(user?.email)
+        })
+        .catch((error) => setError(error.message))
+        .finally(() => {
+          setAuthLoading(false)
+        });
+    };
+
   // get user
   const getuser = async (email : any) =>{
+    setError(null)
     setAuthLoading(true)
     axios.get(`https://free-time-server.onrender.com/api/v1/user/${email}`)
     .then(res => setUser(res.data.body))
+    .catch(error => {})
     .finally(()=>setAuthLoading(false))
   }
 
@@ -77,7 +107,10 @@ const useFirebase = () => {
     LoginWithGoogle,
     authLoading,
     user,
-    sign_out
+    sign_out, 
+    Signup_password, 
+    error,
+    loginpassword
   };
 };
 export default useFirebase;
