@@ -1,5 +1,5 @@
 "use client";
-import { GoogleLogin, TopBanner } from "@/components";
+import { GoogleLogin, LoadingModal, TopBanner } from "@/components";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -67,7 +67,6 @@ const Login = () => {
               onClick={() => setShowPass(!showPass)} />
             <p>Show Password?</p>
           </div>
-          {authLoading && <p>loading...</p>}
           <div className="mt-5">
             New here?{" "}
             <Link href={"/signup"} className="underline">

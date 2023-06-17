@@ -1,5 +1,5 @@
 "use client";
-import { TopBanner, GoogleLogin } from "@/components";
+import { TopBanner, GoogleLogin, LoadingModal } from "@/components";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -15,7 +15,7 @@ type inputType = {
 
 const Signup = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const { Signup_password, error } = useAuth();
+  const { Signup_password, error, authLoading } = useAuth();
   const formSchema = Yup.object().shape({
     email: Yup.string().required("email is medatory"),
     password: Yup.string()

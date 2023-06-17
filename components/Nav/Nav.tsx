@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import useFirebase from "@/hooks/useFirebase";
 import useAuth from "@/hooks/useAuth";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { LoadingModal } from "../LoadingModal";
 
 type linktype = {
   name: string;
@@ -58,9 +59,10 @@ const UserIdentity = ({text, signout} : any) => {
 
 export const Nav = () => {
   const router = useRouter();
-  const { user, sign_out } = useAuth();
+  const { user, sign_out, authLoading } = useAuth();
   return (
     <header className="py-5 top-0 bg-white z-40">
+      {authLoading && <LoadingModal />}
       <div className=" max-w-screen-2xl mx-auto flex justify-between items-center text-cs-black px-4">
         <h1
           onClick={() => router.push("/")}
