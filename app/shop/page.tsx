@@ -1,4 +1,3 @@
-"use client";
 import {Body, IdealHasNever, Sidebar, TopBanner } from "@/components";
 const page = () => {
   return (

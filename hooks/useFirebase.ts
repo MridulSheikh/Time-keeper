@@ -34,21 +34,23 @@ const useFirebase = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-       getuser(user.email)
+        getuser(user.email);
       }
     });
   }, [user?.email]);
 
   //sign out user
   const sign_out = () => {
-    setAuthLoading(true)
-    signOut(auth).then(() => {
-      setUser(null);
-     }).catch((error) => {
-       setError(error)
-     })
-     .finally(() => setAuthLoading(false))
-  }
+    setAuthLoading(true);
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => setAuthLoading(false));
+  };
 
   // save user
   const save_user = async (name: string | null, email: string | null) => {
@@ -56,61 +58,73 @@ const useFirebase = () => {
       name: name,
       email: email,
     };
-    const postdata = await axios.post(
-      "https://free-time-server.onrender.com/api/v1/user",
-      data
-    );
-    if (postdata.data.message === "successfully create user") {
-      setUser(postdata.data.body);
-    } else if (postdata.data.message === "user successfully found") {
-      setUser(postdata.data.body);
+    try {
+      const postdata = await axios.post(
+        "https://free-time-server.onrender.com/api/v1/user",
+        data
+      );
+      if (postdata.data.message === "successfully create user") {
+        setUser(postdata.data.body);
+      } else if (postdata.data.message === "user successfully found") {
+        setUser(postdata.data.body);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-    //email password auth
-    const Signup_password = (email: string, name: null, password: string) => {
-      setAuthLoading(true)
-      setError(null)
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((res) => {
-          save_user(name, res?.user?.email)
-          alert("successfully create account")
-        })
-        .catch((error) => setError(error.message))
-        .finally(() => setAuthLoading(false));
-    };
-    // handle login password
-    const loginpassword = (email: string, password: string) => {
-      setAuthLoading(true)
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          getuser(user?.email)
-        })
-        .catch((error) => setError(error.message))
-        .finally(() => {
-          setAuthLoading(false)
-        });
-    };
+  //email password auth
+  const Signup_password = (email: string, name: null, password: string) => {
+    setAuthLoading(true);
+    setError(null);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        save_user(name, res?.user?.email);
+      })
+      .catch((error) => {
+        if(error.message === "Firebase: Error (auth/email-already-in-use)."){
+          setError("Email already used")
+        }
+      })
+      .finally(() => setAuthLoading(false));
+  };
+  // handle login password
+  const loginpassword = (email: string, password: string) => {
+    setAuthLoading(true);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        getuser(user?.email);
+      })
+      .catch((error) => {
+        if(error.message){
+          setError("please input right details")
+        }
+      })
+      .finally(() => {
+        setAuthLoading(false);
+      });
+  };
 
   // get user
-  const getuser = async (email : any) =>{
-    setError(null)
-    setAuthLoading(true)
-    axios.get(`https://free-time-server.onrender.com/api/v1/user/${email}`)
-    .then(res => setUser(res.data.body))
-    .catch(error => {})
-    .finally(()=>setAuthLoading(false))
-  }
+  const getuser = async (email: any) => {
+    setError(null);
+    setAuthLoading(true);
+    axios
+      .get(`https://free-time-server.onrender.com/api/v1/user/${email}`)
+      .then((res) => setUser(res.data.body))
+      .catch((error) => setError(error.response.data.messgae))
+      .finally(() => setAuthLoading(false));
+  };
 
   return {
     LoginWithGoogle,
     authLoading,
     user,
-    sign_out, 
-    Signup_password, 
+    sign_out,
+    Signup_password,
     error,
-    loginpassword
+    loginpassword,
   };
 };
 export default useFirebase;

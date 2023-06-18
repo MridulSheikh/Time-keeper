@@ -4,6 +4,7 @@ import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import {RiErrorWarningLine} from "react-icons/ri"
 
 type inputType = {
   email: string;
@@ -11,7 +12,7 @@ type inputType = {
 };
 
 const Login = () => {
-    const [showPass, setShowPass] = useState<boolean>(false);
+  const [showPass, setShowPass] = useState<boolean>(false);
   const { authLoading, loginpassword, error } = useAuth();
   const {
     register,
@@ -73,10 +74,11 @@ const Login = () => {
               create account
             </Link>
           </div>
-          {error && <p className="mt-4 text-red-600">{error}</p>}
+          {error && <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md"><RiErrorWarningLine className="mt-1" /> <p>{error}</p></div>}
           <input
             type="submit"
             className="w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3"
+            value={"login"}
           />
         </form>
         <p className="text-center my-5">-- or --</p>

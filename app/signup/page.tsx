@@ -1,11 +1,12 @@
 "use client";
-import { TopBanner, GoogleLogin, LoadingModal } from "@/components";
+import { TopBanner, GoogleLogin} from "@/components";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useAuth from "@/hooks/useAuth";
+import { RiErrorWarningLine } from "react-icons/ri";
 
 type inputType = {
   email: string;
@@ -109,7 +110,7 @@ const Signup = () => {
               login
             </Link>
           </div>
-          {error && <p className="mt-4 text-red-600">{error}</p>}
+          {error && <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md"><RiErrorWarningLine className="mt-1" /> <p>{error}</p></div>}
           <input
             type="submit"
             className="w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3"
