@@ -1,10 +1,10 @@
 "use client"
-import { ProductBanner, RelatedProduct, Revews, RevewsForm, TopBanner } from '@/components'
+import { PrivateRoute, ProductBanner, RelatedProduct, Revews, RevewsForm, TopBanner } from '@/components'
 import React from 'react'
 
 const page = ({params} : any) => {
   return (
-    <div>
+    <PrivateRoute>
         <TopBanner page={"FAAST  TRACK ANALOG GOLDEN DEAL MEN'S WATCH"} route = {"home / shop / FAAST  TRACK ANALOG GOLDEN DEAL MEN'S WATCH "} />
         <div className='max-w-screen-2xl mx-auto px-4'>
             <ProductBanner />
@@ -14,7 +14,7 @@ const page = ({params} : any) => {
             <RevewsForm />
             </div>
         </div>
-    </div>
+    </PrivateRoute>
   )
 }
 

@@ -48,7 +48,7 @@ const UserIdentity = ({text, signout} : any) => {
       <button onClick={()=>setOpen(!open)} className="flex items-center gap-x-2"><p>{text.substring(0, 10)}...</p> <MdOutlineKeyboardArrowDown/></button>
       { open &&
         <div className="absolute top-7 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200">
-          <p className=" hover:bg-slate-300 px-2"><Link href={""}>dashboard</Link></p>
+          <p className=" hover:bg-slate-300 px-2"><Link href={"/dashboard"}>dashboard</Link></p>
           <p className=" hover:bg-slate-300 mt-4 px-2"><Link href={""}>my order</Link></p>
           <button onClick={signout} className=" w-full bg-cs-black text-white py-1 mt-4 px-2">Logout</button>
         </div>

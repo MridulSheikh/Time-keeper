@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams} from 'next/navigation';
 import { useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
@@ -23,21 +24,26 @@ const useFirebase = () => {
   const google_provider = new GoogleAuthProvider();
   // handle google login
   const LoginWithGoogle = () => {
-    setAuthLoading(true);
     signInWithPopup(auth, google_provider)
       .then((result) => {
         save_user(result.user.displayName, result.user.email);
       })
-      .catch((error) => console.log(error))
-      .finally(() => setAuthLoading(false));
+      .catch((error) => console.log(error));
   };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        getuser(user.email);
+        setAuthLoading(true)
+        axios
+          .get(
+            `https://free-time-server.onrender.com/api/v1/user/${user.email}`
+          )
+          .then((res) => setUser(res.data.body))
+          .catch((error) => {})
+          .finally(() => setAuthLoading(false));
       }
     });
-  }, [user?.email]);
+  },[user?.email]);
 
   //sign out user
   const sign_out = () => {
@@ -59,17 +65,21 @@ const useFirebase = () => {
       email: email,
     };
     try {
+      setAuthLoading(true);
       const postdata = await axios.post(
         "https://free-time-server.onrender.com/api/v1/user",
         data
       );
       if (postdata.data.message === "successfully create user") {
         setUser(postdata.data.body);
+        setAuthLoading(false);
       } else if (postdata.data.message === "user successfully found") {
         setUser(postdata.data.body);
+        setAuthLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setAuthLoading(false);
     }
   };
 
@@ -82,11 +92,13 @@ const useFirebase = () => {
         save_user(name, res?.user?.email);
       })
       .catch((error) => {
-        if(error.message === "Firebase: Error (auth/email-already-in-use)."){
-          setError("Email already used")
+        if (error.message === "Firebase: Error (auth/email-already-in-use).") {
+          setError("Email already used");
         }
       })
-      .finally(() => setAuthLoading(false));
+      .finally(() => {
+        setAuthLoading(false);
+      });
   };
   // handle login password
   const loginpassword = (email: string, password: string) => {
@@ -97,8 +109,8 @@ const useFirebase = () => {
         getuser(user?.email);
       })
       .catch((error) => {
-        if(error.message){
-          setError("please input right details")
+        if (error.message) {
+          setError("please input right details");
         }
       })
       .finally(() => {

@@ -2,6 +2,7 @@
 import { GoogleLogin, LoadingModal, TopBanner } from "@/components";
 import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {RiErrorWarningLine} from "react-icons/ri"
@@ -13,7 +14,7 @@ type inputType = {
 
 const Login = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const { authLoading, loginpassword, error } = useAuth();
+  const { authLoading, loginpassword, error, user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -22,6 +23,12 @@ const Login = () => {
   const onSubmit: SubmitHandler<inputType> = (data) => {
     loginpassword(data.email, data.password)
   };
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const rederect_uri = searchParams.get("from") || "/"
+  if(user?.email){
+    return router.replace(rederect_uri)
+  }
   return (
     <div>
       <TopBanner page={"Login"} route={"home / login"} />

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useAuth from "@/hooks/useAuth";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type inputType = {
   email: string;
@@ -16,7 +17,9 @@ type inputType = {
 
 const Signup = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const { Signup_password, error, authLoading } = useAuth();
+  const { Signup_password, error, user } = useAuth();
+
+  // validation check
   const formSchema = Yup.object().shape({
     email: Yup.string().required("email is medatory"),
     password: Yup.string()
@@ -26,6 +29,8 @@ const Signup = () => {
       .required("Password is mendatory")
       .oneOf([Yup.ref("password")], "Passwords does not match"),
   });
+
+  // react hooks form
   const formOptions = { resolver: yupResolver(formSchema) };
   const {
     register,
@@ -34,9 +39,16 @@ const Signup = () => {
     formState: { errors },
   } = useForm<inputType>(formOptions);
   const onSubmit: SubmitHandler<inputType> = (data) => {
-    const { email, password, c_password } = data;
-    Signup_password(email, null, password);
+    const { email, password} = data;
+    Signup_password(email.toLowerCase(), null, password);
   };
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const rederect_uri = searchParams.get("from") || "/"
+  if(user?.email){
+    return router.replace(rederect_uri)
+  }
   return (
     <div>
       <TopBanner page={"Sign up"} route={"home / signup"} />
@@ -114,6 +126,7 @@ const Signup = () => {
           <input
             type="submit"
             className="w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3"
+            value={"Create an account"}
           />
         </form>
         <p className="text-center my-5">-- or --</p>
