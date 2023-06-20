@@ -1,9 +1,16 @@
+'use client'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useEffect } from 'react'
 
-const page = () => {
+const Page = () => {
+  const router = useRouter()
+  useEffect(()=>{
+    router.replace("/dashboard/track-order")
+  },[])
   return (
-    <div>page</div>
+    <div>redirectng...</div>
   )
 }
 
-export default page
+export default Page
