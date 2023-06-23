@@ -16,6 +16,25 @@ const links = [
   },
 ];
 
+const admin_links = [
+  {
+    name: "Category",
+    link: "category",
+  },
+  {
+    name: "Brands",
+    link: "brands",
+  },
+  {
+    name: "Product",
+    link: "Product",
+  },
+  {
+    name : "Admin",
+    link : "admin"
+  }
+];
+
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div className="">
@@ -23,6 +42,13 @@ const layout = ({ children }: { children: ReactNode }) => {
       <div className="max-w-screen-2xl mx-auto px-4 py-8 grid grid-cols-12 gap-x-20">
         <div className="col-span-3">
           {links.map((link) => (
+            <Link key={link.link} href={`/dashboard/${link.link}`} className="border-b">
+              <div className="py-3 border-b uppercase text-cs-black">
+                {link.name}
+              </div>
+            </Link>
+          ))}
+           {admin_links.map((link) => (
             <Link key={link.link} href={`/dashboard/${link.link}`} className="border-b">
               <div className="py-3 border-b uppercase text-cs-black">
                 {link.name}
