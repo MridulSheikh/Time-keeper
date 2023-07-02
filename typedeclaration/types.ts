@@ -36,3 +36,12 @@ export interface Blog_feed_card_data_Types {
     create_at : string;
     discription : string;
 }
+
+export interface Category_data_types {
+    id: string;
+    name : string;
+    product: any;
+    create_by : string;
+    setMsg : any;
+    calldata : any;
+}

@@ -19,7 +19,7 @@ const Slider = ({ title, productImg, banner, description }: sliderTypes) => {
         src="/images/slider3_slide1_01-copyright (1).png"
         width={350}
         height={300}
-        className="xl:right-[37%] 2xl:right-[39%] top-[10%] absolute z-50 hidden xl:inline-block"
+        className="xl:right-[37%] 2xl:right-[39%] top-[10%] absolute z-30 hidden xl:inline-block"
       />
       <div className="overflow-hidden lg:relative">
         <Image
