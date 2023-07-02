@@ -85,6 +85,7 @@ const Category = () => {
             category.length > 0 ? <div>
             {category?.map((k: any) => (
               <CategoryCard
+                key={k._id}
                 setMsg={setMsg}
                 calldata={getcategory}
                 id={k._id}
