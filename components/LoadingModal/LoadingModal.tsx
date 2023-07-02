@@ -6,7 +6,7 @@ import { RotatingLines } from "react-loader-spinner";
 export const LoadingModal = () => {
   return (
     <Modal>
-      <div className="bg-white border p-5 rounded-md flex items-center gap-x-3">
+      <div className="bg-white border p-5 rounded-md flex items-center gap-x-3 cursor-wait">
         <RotatingLines
           strokeColor="grey"
           strokeWidth="5"
