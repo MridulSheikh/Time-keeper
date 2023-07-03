@@ -4,12 +4,14 @@ import React, { useState } from "react";
 import { Modal } from "../Modal";
 import axios from "axios";
 import { LoadingModal } from "../LoadingModal";
+import { useRouter } from "next/navigation";
 
 
 
 const CategoryCard = ({id, name, product, create_by, setMsg, calldata} : Category_data_types) => {
   const [isOpen, setIsopen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleDelete = () => {
     setIsLoading(true)
@@ -48,7 +50,7 @@ const CategoryCard = ({id, name, product, create_by, setMsg, calldata} : Categor
         >
           Delete
         </button>
-        <button className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
+        <button onClick={()=>router.push(`/dashboard/category/${id}`)} className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
           Details
         </button>
       </div>
