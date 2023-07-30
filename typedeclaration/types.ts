@@ -43,5 +43,6 @@ export interface Category_data_types {
     product: any;
     create_by : string;
     setMsg : any;
-    calldata : any;
+    setCategory : any;
+    category: any;
 }

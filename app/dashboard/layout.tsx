@@ -1,4 +1,6 @@
+'use client'
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
 
 const links = [
@@ -36,29 +38,28 @@ const admin_links = [
 ];
 
 const layout = ({ children }: { children: ReactNode }) => {
+  const pathname = usePathname()
+  // console.log(pathname)
   return (
-    <div className="">
-      <h1 className="font-semibold uppercase text-3xl p-3 bg-cs-pink-200">Dashboard</h1>
-      <div className="max-w-screen-2xl mx-auto grid grid-cols-12">
-        <div className="col-span-3">
+      <div className="max-w-screen-2xl mx-auto flex border-t">
+        <div className="w-80 bg-cs-black text-white h-screen overflow-y-scroll pt-5">
           {links.map((link) => (
-            <Link key={link.link} href={`/dashboard/${link.link}`} className="border-b">
-              <div className="p-3 border-b uppercase text-cs-black">
+            <Link key={link.link} href={`/dashboard/${link.link}`}>
+              <div className={`p-3 uppercase hover:bg-slate-800 ${pathname === `/dashboard/${link.link}` && 'bg-slate-800'}`}>
                 {link.name}
               </div>
             </Link>
           ))}
            {admin_links.map((link) => (
-            <Link key={link.link} href={`/dashboard/${link.link}`} className="border-b">
-              <div className="p-3 border-b uppercase text-cs-black">
+            <Link key={link.link} href={`/dashboard/${link.link}`}>
+              <div className={`p-3 uppercase hover:bg-slate-800 ${pathname === `/dashboard/${link.link}` && 'bg-slate-800'}`}>
                 {link.name}
               </div>
             </Link>
           ))}
         </div>
-        <div className="col-span-9">{children}</div>
+        <div className="w-full h-screen overflow-y-scroll">{children}</div>
       </div>
-    </div>
   );
 };
 

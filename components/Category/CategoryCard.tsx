@@ -5,10 +5,11 @@ import { Modal } from "../Modal";
 import axios from "axios";
 import { LoadingModal } from "../LoadingModal";
 import { useRouter } from "next/navigation";
+import { UpdateCategoryModal } from "../UpdateCategoryModal";
 
 
 
-const CategoryCard = ({id, name, product, create_by, setMsg, calldata} : Category_data_types) => {
+const CategoryCard = ({id, name, product, create_by, setMsg, setCategory, category} : Category_data_types) => {
   const [isOpen, setIsopen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -21,7 +22,9 @@ const CategoryCard = ({id, name, product, create_by, setMsg, calldata} : Categor
     .finally(() => {
         setIsLoading(false)
         setIsopen(false)
-        calldata()
+        // console.log(category)
+        const filterCategory = category?.filter((ct:any) => ct._id != id)
+        setCategory(filterCategory);
     })
   }
 
@@ -53,6 +56,7 @@ const CategoryCard = ({id, name, product, create_by, setMsg, calldata} : Categor
         <button onClick={()=>router.push(`/dashboard/category/${id}`)} className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
           Details
         </button>
+        <UpdateCategoryModal name={name} id={id} />
       </div>
     </div>
     </div>

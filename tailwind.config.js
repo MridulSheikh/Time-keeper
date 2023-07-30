@@ -16,6 +16,7 @@ module.exports = {
         },
         "cs-gray": "#9A9393",
         "cs-text": "#685B5B",
+        "cs-nural": "#f8f8f8",
       },
       fontFamily: {
         oswoald: "'Oswald', sans-serif",

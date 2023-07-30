@@ -35,7 +35,7 @@ const link = [
 
 const NavLink = ({ name, href }: linktype) => {
   return (
-    <li className=" cursor-pointer">
+    <li className=" cursor-pointer font-bold">
       <Link href={href}>{name}</Link>
     </li>
   );
@@ -44,7 +44,7 @@ const NavLink = ({ name, href }: linktype) => {
 const UserIdentity = ({text, signout} : any) => {
   const [open, setOpen] = useState<boolean>(false)
   return(
-    <div className="relative">
+    <div className="relative font-bold">
       <button onClick={()=>setOpen(!open)} className="flex items-center gap-x-2"><p>{text.substring(0, 10)}...</p> <MdOutlineKeyboardArrowDown/></button>
       { open &&
         <div className="absolute top-7 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200">
@@ -85,11 +85,11 @@ export const Nav = () => {
                 className="flex items-center gap-x-2 cursor-pointer"
               >
                 <AiOutlineUser className=" text-2xl md:text-lg" />
-                <p className="hidden md:inline-block">login</p>
+                <p className="hidden md:inline-block font-bold">login</p>
               </div>
             )}
 
-            <div className="flex items-center gap-x-2 cursor-pointer">
+            <div className="flex items-center gap-x-2 cursor-pointer font-bold">
               <BsHandbag className="text-2xl md:text-lg" />
               <p className="hidden md:inline-block">cart</p>
               <p>(0)</p>

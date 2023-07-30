@@ -1,0 +1,1 @@
+export {UpdateCategoryModal} from "./UpdateCategoryModal"
