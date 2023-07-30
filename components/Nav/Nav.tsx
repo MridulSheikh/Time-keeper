@@ -16,19 +16,19 @@ type linktype = {
 
 const link = [
   {
-    name: "shop",
+    name: "Shop",
     href: "/shop",
   },
   {
-    name: "about",
+    name: "About",
     href: "/about",
   },
   {
-    name: "journal&blog",
+    name: "Journal&blog",
     href: "/blog",
   },
   {
-    name: "contact us",
+    name: "Contact us",
     href: "/contact",
   },
 ];
@@ -47,9 +47,9 @@ const UserIdentity = ({text, signout} : any) => {
     <div className="relative font-bold">
       <button onClick={()=>setOpen(!open)} className="flex items-center gap-x-2"><p>{text.substring(0, 10)}...</p> <MdOutlineKeyboardArrowDown/></button>
       { open &&
-        <div className="absolute top-7 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200">
-          <p className=" hover:bg-slate-300 px-2"><Link href={"/dashboard"}>dashboard</Link></p>
-          <p className=" hover:bg-slate-300 mt-4 px-2"><Link href={""}>my order</Link></p>
+        <div className="absolute top-7 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200 border">
+          <p onClick={()=>setOpen(!open)} className=" hover:bg-slate-300 px-2"><Link href={"/dashboard"}>Dashboard</Link></p>
+          <p onClick={()=>setOpen(!open)} className=" hover:bg-slate-300 mt-4 px-2"><Link href={""}>My order</Link></p>
           <button onClick={signout} className=" w-full bg-cs-black text-white py-1 mt-4 px-2">Logout</button>
         </div>
       }
@@ -85,13 +85,13 @@ export const Nav = () => {
                 className="flex items-center gap-x-2 cursor-pointer"
               >
                 <AiOutlineUser className=" text-2xl md:text-lg" />
-                <p className="hidden md:inline-block font-bold">login</p>
+                <p className="hidden md:inline-block font-bold">Login</p>
               </div>
             )}
 
             <div className="flex items-center gap-x-2 cursor-pointer font-bold">
               <BsHandbag className="text-2xl md:text-lg" />
-              <p className="hidden md:inline-block">cart</p>
+              <p className="hidden md:inline-block">Cart</p>
               <p>(0)</p>
             </div>
             <button>
