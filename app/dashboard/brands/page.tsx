@@ -1,25 +1,29 @@
+import { AddBrand } from "@/components";
 import React from "react";
 
-const page = () => {
-    const category = false;
+const Brand = () => {
   return (
-    <div>
-      {category ? (
-        <div>order</div>
-      ) : (
-        <div className=" w-full flex justify-center items-center">
-          <div className="py-5 text-center">
-            <h1 className=" text-3xl font-bold text-cs-pink-800">
-              You are didn&apos;t add any brands
-            </h1>
-            <button className=" bg-cs-black py-1 px-5 rounded-md text-white mt-5 active:opacity-70">
-              Please add some brands
-            </button>
-          </div>
+    <div className="p-5">
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold">Brands</h1>
+        <div className="flex space-x-3 items-center">
+          <AddBrand />
+          <button className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md">
+            Refresh
+          </button>
         </div>
-      )}
+      </div>
+      <div className="mt-4 border rounded-md overflow-hidden bg-white">
+        <div className="bg-cs-black grid grid-cols-5 p-2 text-white">
+          <h2>Logo</h2>
+          <h2>Name</h2>
+          <h2>Product</h2>
+          <h2>Supplier Number</h2>
+          <h2>Action</h2>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default page;
+export default Brand;

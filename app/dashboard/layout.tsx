@@ -34,7 +34,11 @@ const admin_links = [
   {
     name : "Admin",
     link : "admin"
-  }
+  },
+  {
+    name: "Resources",
+    link: "resources",
+  },
 ];
 
 const Layout = ({ children }: { children: ReactNode }) => {
