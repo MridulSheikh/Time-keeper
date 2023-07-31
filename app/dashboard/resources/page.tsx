@@ -3,7 +3,9 @@ import axios from "axios";
 import React, { use, useEffect, useState } from "react";
 import { AiFillFolder } from "react-icons/ai";
 import { RotatingLines } from "react-loader-spinner";
-import DateFormate from "../../../lib/DateFormate"
+import DateFormate from "../../../lib/DateFormate";
+import { useRouter } from "next/navigation";
+import { AddFolder } from "@/components";
 
 interface foldertype {
   _id: string;
@@ -13,17 +15,31 @@ interface foldertype {
 }
 
 const FolderCard = ({ _id, name, create_by, modified_date }: foldertype) => {
+  const router = useRouter();
   return (
-    <div className="grid grid-cols-5 p-2">
-      <div className=" flex items-center gap-x-3 text-lg col-span-2">
+    <div className="grid grid-cols-5 p-2 cursor-pointer hover:bg-slate-100 ease-in-out duration-200">
+      <div
+        onClick={() => router.push(`/dashboard/resources/${_id}`)}
+        className=" flex items-center gap-x-3 text-lg col-span-2"
+      >
         <h1 className=" font-xl">
           <AiFillFolder />
         </h1>
         <h1>{name}</h1>
       </div>
-      <div>{DateFormate(modified_date)}</div>
-      <div>0</div>
-      <div></div>
+      <div onClick={() => router.push(`/dashboard/resources/${_id}`)}>{DateFormate(modified_date)}</div>
+      <div onClick={() => router.push(`/dashboard/resources/${_id}`)}>0</div>
+      <div className="flex gap-x-4">
+        <button className="bg-red-800 text-white p-1 rounded-sm hover:opacity-70">
+          Delete
+        </button>
+        <button className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
+          Details
+        </button>
+        <button className="bg-blue-800 text-white p-1 rounded-sm hover:opacity-70">
+          Rename
+        </button>
+      </div>
     </div>
   );
 };
@@ -32,6 +48,9 @@ const Folder = () => {
   const [folder, setFolder] = useState<any>();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    getFolderHandler();
+  }, []);
+  const getFolderHandler = () => {
     setLoading(true);
     axios
       .get("http://localhost:5000/api/v1/folder")
@@ -39,20 +58,18 @@ const Folder = () => {
         setFolder(res?.data?.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data.errormessage);
       })
       .finally(() => setLoading(false));
-  }, []);
+  };
   return (
     <div className="px-5">
       <div className=" sticky top-0 pt-5 w-full bg-white">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Resources</h1>
           <div className="flex space-x-3 items-center">
-            <button className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md">
-              Add folder
-            </button>
-            <button className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md">
+            <AddFolder />
+            <button onClick={getFolderHandler} className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md hover:opacity-70">
               Refresh
             </button>
           </div>
