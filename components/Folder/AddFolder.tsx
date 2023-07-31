@@ -14,7 +14,6 @@ type Inputs = {
 
 const AddFolderForm = ({ condition, setCondition }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<null | string>();
   const { user } = useAuth();
   const {
     register,

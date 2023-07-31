@@ -5,7 +5,7 @@ import { AiFillFolder } from "react-icons/ai";
 import { RotatingLines } from "react-loader-spinner";
 import DateFormate from "../../../lib/DateFormate";
 import { useRouter } from "next/navigation";
-import { AddFolder } from "@/components";
+import { AddFolder, DeleteFolder } from "@/components";
 
 interface foldertype {
   _id: string;
@@ -30,9 +30,7 @@ const FolderCard = ({ _id, name, create_by, modified_date }: foldertype) => {
       <div onClick={() => router.push(`/dashboard/resources/${_id}`)}>{DateFormate(modified_date)}</div>
       <div onClick={() => router.push(`/dashboard/resources/${_id}`)}>0</div>
       <div className="flex gap-x-4">
-        <button className="bg-red-800 text-white p-1 rounded-sm hover:opacity-70">
-          Delete
-        </button>
+        <DeleteFolder id={_id} name={name} />
         <button className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
           Details
         </button>
