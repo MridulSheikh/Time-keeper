@@ -4,10 +4,15 @@ import { ConfirmModal } from "../ConfirmModal";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const DeleteFolder = ({ id, name }: any) => {
+export const DeleteFolder = ({ id, name, resources }: any) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const deletFolderHandaler = () =>{
+        if(resources.length > 0){
+          setIsOpen(false)
+          toast.warning("Please delete all images then delete this folder !")
+          return;
+        }
         setIsLoading(true)
         axios.delete(`http://localhost:5000/api/v1/folder/${id}`)
         .then(res => {
