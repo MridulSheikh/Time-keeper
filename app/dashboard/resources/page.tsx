@@ -5,7 +5,7 @@ import { AiFillFolder } from "react-icons/ai";
 import { RotatingLines } from "react-loader-spinner";
 import DateFormate from "../../../lib/DateFormate";
 import { useRouter } from "next/navigation";
-import { AddFolder, DeleteFolder } from "@/components";
+import { AddFolder, DeleteFolder, FolderDetails, RenameFolder } from "@/components";
 
 interface foldertype {
   _id: string;
@@ -31,12 +31,8 @@ const FolderCard = ({ _id, name, create_by, modified_date }: foldertype) => {
       <div onClick={() => router.push(`/dashboard/resources/${_id}`)}>0</div>
       <div className="flex gap-x-4">
         <DeleteFolder id={_id} name={name} />
-        <button className="bg-green-800 text-white p-1 rounded-sm hover:opacity-70">
-          Details
-        </button>
-        <button className="bg-blue-800 text-white p-1 rounded-sm hover:opacity-70">
-          Rename
-        </button>
+        <FolderDetails _id={_id} name={name} create_by={create_by} modified_date={modified_date} />
+        <RenameFolder id={_id} name={name} />
       </div>
     </div>
   );
@@ -92,7 +88,7 @@ const Folder = () => {
           </div>
         ) : (
           <div>
-            {folder ? (
+            {folder?.length > 0 ? (
               <div>
                 {folder?.map((fl: any) => (
                   <FolderCard
@@ -105,7 +101,9 @@ const Folder = () => {
                 ))}
               </div>
             ) : (
-              <div></div>
+              <div className=" h-96 w-full flex justify-center items-center">
+                  <h1 className=" text-cs-black/75">Folder Not Found!</h1>
+              </div>
             )}
           </div>
         )}

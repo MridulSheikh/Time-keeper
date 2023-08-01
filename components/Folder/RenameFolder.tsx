@@ -1,18 +1,18 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { Modal } from "../Modal";
-import { useForm, SubmitHandler } from "react-hook-form";
-import useAuth from "@/hooks/useAuth";
-import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import useAuth from "@/hooks/useAuth";
+import {toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
   name: string;
 };
 
-const AddFolderForm = ({ condition, setCondition }: any) => {
+const RenameFolderForm = ({ condition, setCondition, id, name }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useAuth();
   const {
@@ -27,14 +27,14 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
       create_by: user?.email,
     };
     axios
-      .post("http://localhost:5000/api/v1/folder", body)
+      .patch(`http://localhost:5000/api/v1/folder/${id}`, body)
       .then((res) => {
         toast.success(res.data.message);
-        setCondition(false)
+        setCondition(false);
       })
       .catch((error) => {
         toast.error(error.response.data.errormessage);
-        setCondition(false)
+        setCondition(false);
       })
       .finally(() => setIsLoading(false));
   };
@@ -62,7 +62,7 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)}>
-                <p>Folder Name*</p>
+                <p>Rename Folder</p>
                 {errors.name && (
                   <p className="text-sm text-red-700 mt-2">
                     {errors.name.message}
@@ -74,7 +74,7 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
                   })}
                   type="text"
                   className="border px-4 py-2 w-full rounded-md mt-2"
-                  placeholder="New folder"
+                  placeholder={name}
                 />
               </form>
             )}
@@ -85,17 +85,13 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
   );
 };
 
-export const AddFolder = () => {
+export const RenameFolder = ({ id, name }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-        <ToastContainer />
-      <AddFolderForm condition={isOpen} setCondition={setIsOpen} />
-      <button
-        onClick={() => setIsOpen(true)}
-        className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md hover:opacity-70"
-      >
-        Add folder
+      <RenameFolderForm condition={isOpen} setCondition={setIsOpen} id={id} name={name} />
+      <button onClick={() => setIsOpen(true)} className="bg-blue-800 text-white p-1 rounded-sm hover:opacity-70">
+        Rename
       </button>
     </div>
   );

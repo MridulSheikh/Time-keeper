@@ -5,6 +5,7 @@ import { Modal } from "../Modal";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 type Inputs = {
   name: string;
@@ -12,7 +13,6 @@ type Inputs = {
 
 const UpdateModal = ({ name, id, setIsOpen }: any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<boolean | string>(false);
   const {
     register,
     handleSubmit,
@@ -21,32 +21,23 @@ const UpdateModal = ({ name, id, setIsOpen }: any) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setIsLoading(true);
     axios
-      .patch("https://free-time-server.onrender.com/api/v1/category", {
+      .patch("http://localhost:5000/api/v1/category", {
         id: id,
         name: data.name,
       })
-      .then((res) => setSuccessMessage(res.data.message))
-      .catch((err) =>  alert(err.response.data.errormessage))
+      .then((res) => {
+        toast.success(res.data.message)
+        setIsOpen(false)
+      })
+      .catch((err) =>  {
+        toast.error(err.response.data.errormessage)
+        setIsOpen(false)
+      })
       .finally(() => setIsLoading(false));
   };
   return (
     <Modal>
-      {successMessage ? (
-        <div className="bg-white border rounded-md p-7 w-96 relative">
-           <button
-            onClick={() => setIsOpen(false)}
-            className=" w-8 h-8 bg-red-800 rounded-full absolute -top-4 -right-4 text-white"
-          >
-            X
-          </button>
-          <div className="text-center">
-            <div className=" w-40 h-40 relative mx-auto">
-              <Image src={"/images/1398913_circle_correct_mark_success_tick_icon.png"} alt="success image" fill className="object-contain" />
-            </div>
-            <p className="text-xl font-bold">{successMessage}</p>
-          </div>
-          </div>
-      ) : (
+      
         <div className="bg-white border rounded-md p-7 w-96 relative">
           <button
             onClick={() => setIsOpen(false)}
@@ -87,7 +78,6 @@ const UpdateModal = ({ name, id, setIsOpen }: any) => {
             )}
           </form>
         </div>
-      )}
     </Modal>
   );
 };

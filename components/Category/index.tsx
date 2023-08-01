@@ -1,15 +1,14 @@
 "use client";
-import { LoadingModal, MessageModal } from "@/components";
 import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
 import { RotatingLines } from "react-loader-spinner";
+import { ToastContainer, toast } from "react-toastify";
 
 const Category = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [msg, setMsg] = useState<null | string>(null);
   const [category, setCategory] = useState([]);
   const handleAddCategory = (e: any) => {
     const type = e.target.type.value;
@@ -19,8 +18,8 @@ const Category = () => {
         name: type,
         create_by: user.email,
       })
-      .then((res) => setMsg(res.data.message))
-      .catch((error) => setMsg(error.response.data.message))
+      .then((res) => toast.success(res.data.message))
+      .catch((error) => toast.error(error.response.data.message))
       .finally(() => {
         getcategory();
       });
@@ -40,14 +39,14 @@ const Category = () => {
       })
       .catch((error) => {
         setCategory([]);
-        setMsg(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
       })
       .finally(() => setIsLoading(false));
   };
 
   return (
     <div className="p-5">
-      {msg && <MessageModal text={msg} setMsg={setMsg} />}
+      <ToastContainer />
       <div className=" flex justify-between">
         <div>
           <h1 className=" text-xl font-bold text-cs-black">Category</h1>
@@ -102,7 +101,6 @@ const Category = () => {
                   {category?.map((k: any) => (
                     <CategoryCard
                       key={k._id}
-                      setMsg={setMsg}
                       setCategory={setCategory}
                       id={k._id}
                       name={k.name}

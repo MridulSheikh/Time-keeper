@@ -6,10 +6,11 @@ import axios from "axios";
 import { LoadingModal } from "../LoadingModal";
 import { useRouter } from "next/navigation";
 import { UpdateCategoryModal } from "../UpdateCategoryModal";
+import {toast } from "react-toastify";
 
 
 
-const CategoryCard = ({id, name, product, create_by, setMsg, setCategory, category} : Category_data_types) => {
+const CategoryCard = ({id, name, product, create_by,setCategory, category} : Category_data_types) => {
   const [isOpen, setIsopen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -17,8 +18,14 @@ const CategoryCard = ({id, name, product, create_by, setMsg, setCategory, catego
   const handleDelete = () => {
     setIsLoading(true)
     axios.delete(`https://free-time-server.onrender.com/api/v1/category/${id}`)
-    .then(res => setMsg(res.data.message))
-    .catch(error => setMsg(error.response.data.message))
+    .then(res => {
+      toast.success(res.data.message)
+      setIsopen(false)
+    })
+    .catch(error => {
+      toast.error(error.response.data.message)
+      setIsopen(false)
+    })
     .finally(() => {
         setIsLoading(false)
         setIsopen(false)

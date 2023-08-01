@@ -42,7 +42,6 @@ export interface Category_data_types {
     name : string;
     product: any;
     create_by : string;
-    setMsg : any;
     setCategory : any;
     category: any;
 }
