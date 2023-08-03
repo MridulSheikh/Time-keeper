@@ -105,12 +105,12 @@ const UploadImageModal = ({
             <div className="mt-5">
               <p>Choose Image*</p>
               {file && (
-                <div className="w-full h-40 relative mt-2">
+                <div className="w-full h-48 relative mt-2">
                   <Image
                     alt={"image"}
                     src={previewImage}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
               )}

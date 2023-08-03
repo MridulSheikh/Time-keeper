@@ -6,7 +6,7 @@ import DateFormate from "../../../../lib/DateFormate";
 import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { AddImage } from "@/components";
+import { AddImage, DeleteOneImage, RenameImage } from "@/components";
 
 interface propTypes {
   name: string;
@@ -14,9 +14,10 @@ interface propTypes {
   id: string;
   create_by: string;
   createdAt: string;
+  folder : string
 }
 
-const ImageCard = ({ name, imageUrl, id, create_by, createdAt }: propTypes) => {
+const ImageCard = ({ name, imageUrl, id, create_by, createdAt, folder }: propTypes) => {
   return (
     <div className=" cursor-pointer shadow-md rounded-md overflow-hidden relative">
       <button className=" absolute top-2 left-2 border-2 border-white/60 bg-transparent z-20 w-4 h-4 " />
@@ -26,7 +27,7 @@ const ImageCard = ({ name, imageUrl, id, create_by, createdAt }: propTypes) => {
             alt={name + " " + "images"}
             src={imageUrl}
             fill
-            className="object-cover"
+            className="object-contain"
           />
         </div>
       </a>
@@ -39,12 +40,8 @@ const ImageCard = ({ name, imageUrl, id, create_by, createdAt }: propTypes) => {
           Created At {DateFormate(createdAt)}
         </p>
         <div className="flex justify-between gap-x-3 mt-3">
-        <button className="bg-blue-800 text-white p-1 rounded-sm hover:opacity-70 w-full">
-          Rename
-        </button>
-        <button className="bg-red-800 text-white p-1 rounded-sm hover:opacity-70 w-full">
-          Delete
-        </button>
+        <RenameImage id ={id} name={name} />
+        <DeleteOneImage imageUrl={imageUrl} folder={folder} id={id} />
         </div>
       </div>
     </div>
@@ -94,18 +91,31 @@ const FolderDetails = () => {
             />
           </div>
         ) : (
-          <div className=" grid grid-cols-4 gap-5 m-5">
-            {folder?.resources?.map((fl: any) => (
-              <ImageCard
-                key={fl._id}
-                name={fl?.name}
-                imageUrl={fl?.imageUrl}
-                id={fl.id}
-                create_by={fl?.create_by}
-                createdAt={fl?.createdAt}
-              />
-            ))}
+          <div>
+            {
+              folder?.resources?.length > 0 ? 
+              (
+                <div className=" grid grid-cols-4 gap-5 m-5">
+                {folder?.resources?.map((fl: any) => (
+                  <ImageCard
+                    key={fl._id}
+                    name={fl?.name}
+                    imageUrl={fl?.imageUrl}
+                    id={fl._id}
+                    create_by={fl?.create_by}
+                    createdAt={fl?.createdAt}
+                    folder ={fl?.folder}
+                  />
+                ))}
+              </div>
+              )
+              :
+              <div className="w-full h-96 flex justify-center items-center">
+                  <h1 className=" text-cs-black/50">Your folder is empty!</h1>
+              </div>
+            }
           </div>
+         
         )}
       </div>
     </div>

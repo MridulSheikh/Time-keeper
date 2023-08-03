@@ -4,16 +4,21 @@ import { Modal } from "../Modal";
 import { RiImageAddLine } from "react-icons/ri";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ImageUrlSetter } from "../ImageUrlSetter";
 
 type Inputs = {
   name: string;
   number: string;
 };
 
-const AddBrandLogo = () => {
+const AddBrandLogo = ({setImageUrl} : {setImageUrl : any}) => {
+   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
     <div className="mt-2">
-      <div className="w-full h-40 flex justify-center items-center border border-dashed rounded-md cursor-pointer hover:bg-slate-300">
+      {
+        isOpen && <ImageUrlSetter setIsOpen={setIsOpen} />
+      }
+      <div onClick={() => setIsOpen(true)} className="w-full h-40 flex justify-center items-center border border-dashed rounded-md cursor-pointer hover:bg-slate-300">
         <h1 className="text-4xl text-cs-black/60">
           <RiImageAddLine />
         </h1>
@@ -23,6 +28,7 @@ const AddBrandLogo = () => {
 };
 
 const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
+  const [imageUrl, setImageUrl] = useState<string | null>()
   const {
     register,
     handleSubmit,
@@ -64,7 +70,7 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
         </div>
         <div className="mt-5">
           <p>Brand Logo*</p>
-          <AddBrandLogo />
+          <AddBrandLogo setImageUrl={setImageUrl} />
         </div>
         <button className="w-full py-2 rounded-md bg-cs-black text-white mt-5">
           Save

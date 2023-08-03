@@ -15,8 +15,7 @@ const Brand = () => {
       </div>
       <div className="mt-4 border rounded-md overflow-hidden bg-white">
         <div className="bg-cs-black grid grid-cols-5 p-2 text-white">
-          <h2>Logo</h2>
-          <h2>Name</h2>
+          <h2 className="col-span-2">Name</h2>
           <h2>Product</h2>
           <h2>Supplier Number</h2>
           <h2>Action</h2>
