@@ -10,7 +10,7 @@ export const DeleteFolder = ({ id, name, resources }: any) => {
   const deletFolderHandaler = () =>{
         if(resources.length > 0){
           setIsOpen(false)
-          toast.warning("Please delete all images then delete this folder !")
+          toast.warning("Please remove all images from this folder")
           return;
         }
         setIsLoading(true)
