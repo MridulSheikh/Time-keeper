@@ -5,12 +5,21 @@ import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import { AiFillFolder } from "react-icons/ai";
 import Image from "next/image";
+import { MdDone } from "react-icons/md";
 
-const ImageCard = ({ id }: { id: string }) => {
+const ImageCard = ({
+  id,
+  selectImage,
+  setSelectImage,
+}: {
+  id: string;
+  setSelectImage: any;
+  selectImage: any;
+}) => {
   const [image, setImage] = useState<any>();
   const [loading, setLoading] = useState<boolean>();
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     axios
       .get(`http://localhost:5000/api/v1/image/${id}`)
       .then((res) => {
@@ -20,7 +29,7 @@ const ImageCard = ({ id }: { id: string }) => {
         console.log(error.response.data.errormessage);
       })
       .finally(() => setLoading(false));
-  },[]);
+  }, []);
   return (
     <>
       {loading ? (
@@ -34,7 +43,20 @@ const ImageCard = ({ id }: { id: string }) => {
           />
         </div>
       ) : (
-        <div className="text-center shadow-md border rounded-md overflow-hidden cursor-pointer">
+        <div
+          onClick={() => setSelectImage({id : id, imageUrl : image?.imageUrl})}
+          className={`text-center shadow-md  rounded-md overflow-hidden cursor-pointer relative ${
+            selectImage?.id === id ? "border-2 border-green-700" : "border"
+          }`}
+        >
+          {selectImage?.id === id && (
+            <div className=" text-white flex justify-center items-center bg-green-700 absolute top-2 left-2 w-4 h-4 z-20 rounded-sm">
+              <h1 className="text-md">
+                <MdDone />
+              </h1>
+            </div>
+          )}
+
           <div className=" w-full h-24 relative mx-auto">
             <Image
               alt="images"
@@ -43,17 +65,18 @@ const ImageCard = ({ id }: { id: string }) => {
               className="object-contain"
             />
           </div>
-          <h1 className="p-2">{image?.name}</h1>
+          <h1 className="p-2">{image?.name?.substring(0, 40)}</h1>
         </div>
       )}
     </>
   );
 };
 
-export const ImageUrlSetter = ({setIsOpen} : {setIsOpen : any}) => {
+export const ImageUrlSetter = ({ setIsOpen, setImage }: { setIsOpen: any, setImage : any }) => {
   const [folders, setFolders] = useState([]);
   const [images, setImages] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [selectImage, setSelectImage] = useState<any>();
   useEffect(() => {
     setLoading(true);
     axios
@@ -67,6 +90,11 @@ export const ImageUrlSetter = ({setIsOpen} : {setIsOpen : any}) => {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const imageSetHandler = () => {
+       setImage(selectImage?.imageUrl)
+       setIsOpen(false)
+  }
   return (
     <div>
       <div className="fixed z-50 top-0 w-screen h-screen flex justify-center items-center bg-black/50 left-0">
@@ -74,10 +102,16 @@ export const ImageUrlSetter = ({setIsOpen} : {setIsOpen : any}) => {
           <div className="flex justify-between py-3 px-5 bg-cs-black text-white">
             <h1>Select Image</h1>
             <div className="flex gap-x-4 items-center">
-              <button className="px-4 py-2 rounded-md bg-green-700 text-white focus:bg-green-700/60">
-                select
-              </button>
-              <button onClick={() => setIsOpen(false)} className=" bg-red-800 focus:bg-red-800/60 text-lg text-white w-6 h-6 rounded-full flex justify-center items-center cursor-pointer">
+              {selectImage && (
+                <button onClick={imageSetHandler} className="px-4 py-2 rounded-md bg-green-700 text-white focus:bg-green-700/60">
+                  select
+                </button>
+              )}
+
+              <button
+                onClick={() => setIsOpen(false)}
+                className=" bg-red-800 focus:bg-red-800/60 text-lg text-white w-6 h-6 rounded-full flex justify-center items-center cursor-pointer"
+              >
                 X
               </button>
             </div>
@@ -123,7 +157,12 @@ export const ImageUrlSetter = ({setIsOpen} : {setIsOpen : any}) => {
               {images?.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4 p-5">
                   {images?.map((im: any) => (
-                    <ImageCard key={im} id={im} />
+                    <ImageCard
+                      key={im}
+                      id={im}
+                      selectImage={selectImage}
+                      setSelectImage={setSelectImage}
+                    />
                   ))}
                 </div>
               ) : (

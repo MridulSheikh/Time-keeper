@@ -45,3 +45,14 @@ export interface Category_data_types {
     setCategory : any;
     category: any;
 }
+
+export interface Brand_data_types {
+    _id : string;
+    logo : string;
+    name : string;
+    number : string;
+    products : any;
+    createdAt : string;
+    updatedAt : string;
+    __v : number;
+}
