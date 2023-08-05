@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { DeleteBrand } from "./DeleteBrand";
+import { UpadteBrand } from "./UpdateBrand";
+import Link from "next/link";
 
 interface propsType {
   logo: string;
@@ -33,12 +35,12 @@ export const BrandCard = ({ logo, name, _id, product, number }: propsType) => {
 
       <div className="flex justify-center items-center gap-x-3">
         <DeleteBrand id={_id} name={name} />
-        <button className="w-full py-1 text-sm rounded-md bg-blue-800 text-white active:opacity-50">
-          update
-        </button>
-        <button className="w-full py-1 text-sm rounded-md bg-green-800 text-white active:opacity-50">
+        <UpadteBrand id={_id} name={name} logo={logo} number={number} />
+        <Link href={`/dashboard/brands/${_id}`}>
+        <button className="w-full py-1 px-4 text-sm rounded-md bg-green-800 text-white active:opacity-50">
           more
         </button>
+        </Link>
       </div>
     </div>
   );

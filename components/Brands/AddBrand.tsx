@@ -15,7 +15,7 @@ type Inputs = {
   number: string;
 };
 
-const AddBrandLogo = ({
+ export const SetImageContainer = ({
   setImageUrl,
   imageUrl,
 }: {
@@ -135,7 +135,7 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
         </div>
         <div className="mt-5">
           <p>Brand Logo*</p>
-          <AddBrandLogo setImageUrl={setImageUrl} imageUrl={imageUrl} />
+          <SetImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} />
         </div>
         <button className="w-full py-2 rounded-md bg-cs-black text-white mt-5 focus:opacity-50">
           Save
@@ -160,7 +160,6 @@ export const AddBrand = () => {
       >
         Add Brand
       </button>
-      <ToastContainer />
     </>
   );
 };

@@ -20,6 +20,7 @@ const Brand = () => {
         setBrands(res?.data?.data);
       })
       .catch((error) => {
+        setBrands(null)
         toast.error(error.response.data.errormessage);
       })
       .finally(() => setIsLoading(false));
@@ -82,7 +83,7 @@ const Brand = () => {
           </div>
         )}
       </div>
-      <ToastContainer />
+      <ToastContainer limit={1} />
     </>
   );
 };
