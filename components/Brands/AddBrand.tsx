@@ -15,7 +15,7 @@ type Inputs = {
   number: string;
 };
 
- export const SetImageContainer = ({
+export const SetImageContainer = ({
   setImageUrl,
   imageUrl,
 }: {
@@ -24,9 +24,9 @@ type Inputs = {
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <>
+    <div className="w-full h-full">
       {imageUrl ? (
-        <div className="w-full h-40 relative mt-2 rounded-md overflow-hidden">
+        <div className="w-full h-full relative mt-2 rounded-md overflow-hidden">
           <Image src={imageUrl} alt="image" fill className="object-contain" />
           <div
             onClick={() => setImageUrl(null)}
@@ -36,13 +36,13 @@ type Inputs = {
           </div>
         </div>
       ) : (
-        <div className="mt-2">
+        <div className="mt-2 h-full w-full">
           {isOpen && (
             <ImageUrlSetter setIsOpen={setIsOpen} setImage={setImageUrl} />
           )}
           <div
             onClick={() => setIsOpen(true)}
-            className="w-full h-40 flex justify-center items-center border border-dashed rounded-md cursor-pointer hover:bg-slate-300"
+            className="w-full h-full flex justify-center items-center border border-dashed rounded-md cursor-pointer hover:bg-slate-300"
           >
             <h1 className="text-4xl text-cs-black/60">
               <RiImageAddLine />
@@ -50,7 +50,7 @@ type Inputs = {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
@@ -64,11 +64,11 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!imageUrl) {
-      setIsOpen(false)
+      setIsOpen(false);
       toast.error("Image not found");
       return;
     }
-    setIsOpen(false)
+    setIsOpen(false);
     toastId.current = toast.loading("please wait...");
     const body = {
       name: data.name,
@@ -135,7 +135,9 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
         </div>
         <div className="mt-5">
           <p>Brand Logo*</p>
-          <SetImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} />
+          <div className="w-full h-40">
+            <SetImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} />
+          </div>
         </div>
         <button className="w-full py-2 rounded-md bg-cs-black text-white mt-5 focus:opacity-50">
           Save

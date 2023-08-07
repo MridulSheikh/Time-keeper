@@ -15,7 +15,14 @@ type Inputs = {
   number: string;
 };
 
-const UpdateBrandForm = ({ condition, setCondition, id, name, logo, number }: any) => {
+const UpdateBrandForm = ({
+  condition,
+  setCondition,
+  id,
+  name,
+  logo,
+  number,
+}: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [image, setImage] = useState<null | string | undefined>(logo);
   const { user } = useAuth();
@@ -29,8 +36,8 @@ const UpdateBrandForm = ({ condition, setCondition, id, name, logo, number }: an
     const body = {
       name: data.name,
       create_by: user?.email,
-      number : data.number,
-      logo : image,
+      number: data.number,
+      logo: image,
     };
     axios
       .patch(`http://localhost:5000/api/v1/brand/${id}`, body)
@@ -104,9 +111,16 @@ const UpdateBrandForm = ({ condition, setCondition, id, name, logo, number }: an
                 </div>
                 <div className="mt-5">
                   <p>brand logo*</p>
-                  <SetImageContainer setImageUrl={setImage} imageUrl={image} />
+                  <div className="w-full h-40">
+                    <SetImageContainer
+                      setImageUrl={setImage}
+                      imageUrl={image}
+                    />
+                  </div>
                 </div>
-                <button className=" bg-cs-black py-2 text-white rounded-md active:opacity-80 w-full mt-5">update</button>
+                <button className=" bg-cs-black py-2 text-white rounded-md active:opacity-80 w-full mt-5">
+                  update
+                </button>
               </form>
             )}
           </div>
@@ -126,7 +140,7 @@ export const UpadteBrand = ({ id, name, logo, number }: any) => {
         id={id}
         name={name}
         logo={logo}
-        number = {number}
+        number={number}
       />
       <button
         onClick={() => setIsOpen(true)}

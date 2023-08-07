@@ -2,11 +2,10 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { BsHandbag } from "react-icons/bs";
-import { AiOutlineUser, AiOutlineMenu } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
 import { useRouter } from "next/navigation";
-import useFirebase from "@/hooks/useFirebase";
 import useAuth from "@/hooks/useAuth";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineSpaceDashboard } from "react-icons/md";
 import { LoadingModal } from "../LoadingModal";
 
 type linktype = {
@@ -35,7 +34,7 @@ const link = [
 
 const NavLink = ({ name, href }: linktype) => {
   return (
-    <li className=" cursor-pointer font-bold">
+    <li className=" cursor-pointer font-semibold hover:text-cs-pink-800 ease-in-out duration-200">
       <Link href={href}>{name}</Link>
     </li>
   );
@@ -44,13 +43,13 @@ const NavLink = ({ name, href }: linktype) => {
 const UserIdentity = ({text, signout} : any) => {
   const [open, setOpen] = useState<boolean>(false)
   return(
-    <div className="relative font-bold">
-      <button onClick={()=>setOpen(!open)} className="flex items-center gap-x-2"><p>{text.substring(0, 10)}...</p> <MdOutlineKeyboardArrowDown/></button>
+    <div className="relative font-semibold">
+      <button onClick={()=>setOpen(!open)} className="flex items-center hover:text-cs-pink-800 ease-in-out duration-200"><p>{text}</p> {open ? <MdOutlineKeyboardArrowUp className="text-2xl pt-1"/> : <MdOutlineKeyboardArrowDown className="text-2xl pt-1"/> }</button>
       { open &&
-        <div className="absolute top-7 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200 border">
-          <p onClick={()=>setOpen(!open)} className=" hover:bg-slate-300 px-2"><Link href={"/dashboard"}>Dashboard</Link></p>
-          <p onClick={()=>setOpen(!open)} className=" hover:bg-slate-300 mt-4 px-2"><Link href={""}>My order</Link></p>
-          <button onClick={signout} className=" w-full bg-cs-black text-white py-1 mt-4 px-2">Logout</button>
+        <div className="absolute top-14 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200 text-cs-pink-800 shadow-md">
+          <p onClick={()=>setOpen(!open)} className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"><MdOutlineSpaceDashboard /><Link href={"/dashboard"}>Dashboard</Link></p>
+          <p onClick={()=>setOpen(!open)} className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"><AiOutlineHistory /><Link href={""}>My order</Link></p>
+          <button onClick={signout} className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800">Logout</button>
         </div>
       }
     </div>
@@ -82,14 +81,14 @@ export const Nav = () => {
             ) : (
               <div
                 onClick={() => router.push("/login")}
-                className="flex items-center gap-x-2 cursor-pointer"
+                className="flex items-center gap-x-2 cursor-pointer hover:text-cs-pink-800 ease-in-out duration-200"
               >
                 <AiOutlineUser className=" text-2xl md:text-lg" />
-                <p className="hidden md:inline-block font-bold">Login</p>
+                <p className="hidden md:inline-block font-semibold">Login</p>
               </div>
             )}
 
-            <div className="flex items-center gap-x-2 cursor-pointer font-bold">
+            <div className="flex items-center gap-x-2 cursor-pointer font-semibold hover:text-cs-pink-800 ease-in-out duration-200">
               <BsHandbag className="text-2xl md:text-lg" />
               <p className="hidden md:inline-block">Cart</p>
               <p>(0)</p>
