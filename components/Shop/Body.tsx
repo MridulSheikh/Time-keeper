@@ -21,7 +21,7 @@ const searchParams = useSearchParams();
             )}
           </div>
          <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {prodcutData.map((dt: product_data_types) => (
+            {prodcutData.map((dt:any) => (
               <ProductCard
                 key={dt.id}
                 id={dt.id}
