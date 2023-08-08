@@ -1,13 +1,15 @@
 export interface product_data_types {
-    id : number;
-    img : string;
-    title : string;
-    ratting : number;
-    price : number;
-    description : string;
-    catagory : string;
-    brand : string;
-    off : number
+   _id : string;
+   img : string;
+   name : string;
+   description : string;
+   brand : string | Brand_data_types;
+   category : string | Category_data_types;
+   price : number;
+   reviews : any;
+   createdAt : string;
+   updatedAt : string;
+   __v : number;
 }
 
 export interface product_card_data_types {

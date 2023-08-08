@@ -9,10 +9,10 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 
 interface productRowPropsType {
   _id: string;
-  name: string;
   img: string;
-  category: Category_data_types;
+  name: string;
   brand: Brand_data_types;
+  category: Category_data_types;
   price: number;
   handleSingleItemSelect: any;
   findItemFromArray: any;
@@ -37,7 +37,7 @@ export const PorductRow = ({
   return (
     <div className="grid grid-cols-6 px-5 py-2 my-3">
       <div className="col-span-3 flex justify-start gap-x-2">
-        <button onClick={() => handleSingleItemSelect(_id)} className="text-xl">
+        <button onClick={() => handleSingleItemSelect({_id : _id, category : category, brand : brand})} className="text-xl">
           {find ? <IoIosCheckbox /> : <MdCheckBoxOutlineBlank />}
         </button>
         <div className="w-10 h-10 relative overflow-hidden -z-10">
@@ -55,7 +55,7 @@ export const PorductRow = ({
       <Link href={"/"}>
         <h1 className=" hover:underline">{category?.name}</h1>
       </Link>
-      <Link href={"/"}>
+      <Link href={`/dashboard/brands/${brand?._id}`}>
         <h1 className=" hover:underline">{brand?.name}</h1>
       </Link>
       <div className="flex justify-center items-center gap-x-3">

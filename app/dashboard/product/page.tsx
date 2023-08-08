@@ -1,11 +1,9 @@
 "use client";
-import { AddProduct, PorductRow } from "@/components";
+import { AddProduct, DeletProduct, PorductRow } from "@/components";
 import useSelectItem from "@/hooks/useSelectItem";
 import { Brand_data_types, Category_data_types } from "@/typedeclaration/types";
 import axios from "axios";
 import React, { use, useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
-import { BiCheckbox } from "react-icons/bi";
 import { GrRefresh } from "react-icons/gr";
 import { IoIosCheckbox } from "react-icons/io";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
@@ -23,23 +21,21 @@ interface productTypes {
   reviews: any[];
   createdAt: string;
   updatedAt: string;
-  __v: string;
+  __v: number;
 }
 
 const Page = () => {
-  const [products, setProducts] = useState<productTypes[] | null>();
-  const [productsId, setProductsId] = useState<any>([]);
+  const [products, setProducts] = useState<productTypes[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     selectItem,
     handleSingleItemSelect,
     findItemFromArray,
     handleAllselect,
-    setSelectItem
+    setSelectItem,
   } = useSelectItem();
   const getProdcutsData = () => {
-    setProductsId([])
-    setSelectItem([])
+    setSelectItem([]);
     setIsLoading(true);
     axios
       .get("http://localhost:5000/api/v1/product")
@@ -47,22 +43,14 @@ const Page = () => {
         setProducts(res.data.data);
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
-        setProducts(null);
+        setProducts([]);
       })
       .finally(() => setIsLoading(false));
   };
   useEffect(() => {
     getProdcutsData();
   }, []);
-  useEffect(() => {
-    setProductIdhandler();
-  }, [products]);
-  const setProductIdhandler = () => {
-    products?.map((pt: productTypes) =>
-      setProductsId((a: any) => [...a, pt._id])
-    );
-  };
+  console.log(selectItem);
   return (
     <div>
       <div className="bg-cs-black text-white px-5 py-2 flex justify-between items-center sticky top-0 z-20">
@@ -70,10 +58,7 @@ const Page = () => {
         <div className=" flex items-center gap-x-3">
           <AddProduct />
           {selectItem?.length > 0 && (
-            <button className="bg-red-800 py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2">
-              <AiOutlineDelete className=" text-white text-xl" />
-              <p>delete {selectItem?.length} item</p>
-            </button>
+            <DeletProduct selectItem={selectItem} />
           )}
 
           <button
@@ -87,10 +72,7 @@ const Page = () => {
       </div>
       <div className=" grid grid-cols-6 px-5 py-2 bg-cs-nural border-b sticky top-14">
         <div className=" col-span-3 flex justify-start gap-x-2 items-center">
-          <button
-            onClick={() => handleAllselect(productsId)}
-            className="text-xl"
-          >
+          <button onClick={() => handleAllselect(products)} className="text-xl">
             {selectItem.length === products?.length ? (
               <IoIosCheckbox />
             ) : (
@@ -116,7 +98,7 @@ const Page = () => {
           </div>
         ) : (
           <div>
-            {products ? (
+            {products?.length > 0 ? (
               <div>
                 {products?.map((product: productTypes) => (
                   <PorductRow
@@ -125,8 +107,8 @@ const Page = () => {
                     handleSingleItemSelect={handleSingleItemSelect}
                     key={product?._id}
                     _id={product?._id}
-                    name={product?.name}
                     img={product?.img}
+                    name={product?.name}
                     brand={product?.brand}
                     category={product?.category}
                     price={product?.price}
