@@ -1,5 +1,5 @@
 "use client";
-import { TopBanner, GoogleLogin} from "@/components";
+import { TopBanner, GoogleLogin } from "@/components";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import useAuth from "@/hooks/useAuth";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { useRouter, useSearchParams } from "next/navigation";
+import { RotatingLines } from "react-loader-spinner";
 
 type inputType = {
   email: string;
@@ -17,7 +18,7 @@ type inputType = {
 
 const Signup = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const { Signup_password, error, user } = useAuth();
+  const { Signup_password, error, user, authLoading } = useAuth();
 
   // validation check
   const formSchema = Yup.object().shape({
@@ -39,17 +40,31 @@ const Signup = () => {
     formState: { errors },
   } = useForm<inputType>(formOptions);
   const onSubmit: SubmitHandler<inputType> = (data) => {
-    const { email, password} = data;
+    const { email, password } = data;
     Signup_password(email.toLowerCase(), null, password);
   };
 
   const searchParams = useSearchParams();
   const router = useRouter();
-  const rederect_uri = searchParams.get("from") || "/"
-  if(user?.email){
-    return router.replace(rederect_uri)
+  const rederect_uri = searchParams.get("from") || "/";
+  if (user?.email) {
+    return router.replace(rederect_uri);
   }
-  return (
+  return authLoading ? (
+    <div>
+      <TopBanner page={"Login"} route={"home / login"} />
+      <div className="w h-96 flex justify-center items-center gap-x-2">
+        <RotatingLines
+          strokeColor="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="20"
+          visible={true}
+        />
+        <p>Creating user</p>
+      </div>
+    </div>
+  ) : (
     <div>
       <TopBanner page={"Sign up"} route={"home / signup"} />
       <div className="max-w-screen-sm mx-auto px-4 my-14">
@@ -122,7 +137,11 @@ const Signup = () => {
               login
             </Link>
           </div>
-          {error && <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md"><RiErrorWarningLine className="mt-1" /> <p>{error}</p></div>}
+          {error && (
+            <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md">
+              <RiErrorWarningLine className="mt-1" /> <p>{error}</p>
+            </div>
+          )}
           <input
             type="submit"
             className="w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3"

@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import {RiErrorWarningLine} from "react-icons/ri"
+import { RiErrorWarningLine } from "react-icons/ri";
+import { RotatingLines } from "react-loader-spinner";
 
 type inputType = {
   email: string;
@@ -21,15 +22,29 @@ const Login = () => {
     formState: { errors },
   } = useForm<inputType>();
   const onSubmit: SubmitHandler<inputType> = (data) => {
-    loginpassword(data.email, data.password)
+    loginpassword(data.email, data.password);
   };
   const searchParams = useSearchParams();
   const router = useRouter();
-  const rederect_uri = searchParams.get("from") || "/"
-  if(user?.email){
-    return router.replace(rederect_uri)
+  const rederect_uri = searchParams.get("from") || "/";
+  if (user?.email) {
+    return router.replace(rederect_uri);
   }
-  return (
+  return authLoading ? (
+    <div>
+      <TopBanner page={"Login"} route={"home / login"} />
+      <div className="w h-96 flex justify-center items-center gap-x-2">
+        <RotatingLines
+          strokeColor="grey"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="20"
+          visible={true}
+        />
+        <p>Login user</p>
+      </div>
+    </div>
+  ) : (
     <div>
       <TopBanner page={"Login"} route={"home / login"} />
       <div className="max-w-screen-sm mx-auto px-4 my-14">
@@ -60,7 +75,7 @@ const Login = () => {
               <p className="mt-4 text-red-600">{errors.password.message}</p>
             )}
             <input
-             {...register("password", {
+              {...register("password", {
                 required: "please enter the password",
               })}
               type={showPass ? "text" : "password"}
@@ -71,8 +86,11 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center gap-x-2 mt-3">
-            <input type="checkbox" checked={showPass}
-              onClick={() => setShowPass(!showPass)} />
+            <input
+              type="checkbox"
+              checked={showPass}
+              onClick={() => setShowPass(!showPass)}
+            />
             <p>Show Password?</p>
           </div>
           <div className="mt-5">
@@ -81,7 +99,11 @@ const Login = () => {
               create account
             </Link>
           </div>
-          {error && <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md"><RiErrorWarningLine className="mt-1" /> <p>{error}</p></div>}
+          {error && (
+            <div className="mt-4 text-red-600 flex gap-x-1 items-center text-md">
+              <RiErrorWarningLine className="mt-1" /> <p>{error}</p>
+            </div>
+          )}
           <input
             type="submit"
             className="w-full py-2 rounded-md bg-cs-black text-white cursor-pointer mt-3"
