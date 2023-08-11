@@ -10,14 +10,14 @@ import {toast } from "react-toastify";
 
 
 
-const CategoryCard = ({id, name, product, create_by,setCategory, category} : Category_data_types) => {
+const CategoryCard = ({id, name, product, create_by,setCategory, category} : any) => {
   const [isOpen, setIsopen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleDelete = () => {
     setIsLoading(true)
-    axios.delete(`https://free-time-server.onrender.com/api/v1/category/${id}`)
+    axios.delete(`http://localhost:5000/api/v1/category/${id}`)
     .then(res => {
       toast.success(res.data.message)
       setIsopen(false)

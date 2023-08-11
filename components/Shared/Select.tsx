@@ -8,16 +8,27 @@ export const Select = ({
   state,
   setState,
   className,
+  disabled
 }: {
   name: string;
   value: any[];
   state: any;
   setState: any;
   className: string;
+  disabled?: boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    switch (disabled) {
+      case false:
+        setIsOpen( !isOpen)
+        return
+      default:
+        return;
+    }
+  }
   return (
-    <div onClick={() => setIsOpen(!isOpen)} className={className + " relative"}>
+    <div onClick={handleOpen} className={className + " relative"}>
       <div className=" border rounded-md px-4 py-2 cursor-pointer">
         <div className=" flex justify-between items-center">
           {state ? <p>{state?.name}</p> : <p>{name}</p>}

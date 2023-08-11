@@ -40,7 +40,7 @@ export const PorductRow = ({
         <button onClick={() => handleSingleItemSelect({_id : _id, category : category, brand : brand})} className="text-xl">
           {find ? <IoIosCheckbox /> : <MdCheckBoxOutlineBlank />}
         </button>
-        <div className="w-10 h-10 relative overflow-hidden -z-10">
+        <div className="w-10 h-10 relative overflow-hidden">
           <Image
             src={img}
             alt={"product image"}
@@ -48,15 +48,13 @@ export const PorductRow = ({
             className="object-contain"
           />
         </div>
-        <Link href={"/"}>
           <h1 className=" hover:underline">{name}</h1>
-        </Link>
       </div>
-      <Link href={"/"}>
-        <h1 className=" hover:underline">{category?.name}</h1>
+      <Link href={`/dashboard/brands/${category?._id}`}>
+        <h1 className=" hover:underline">{category?.name ? category.name : "Category not found"}</h1>
       </Link>
       <Link href={`/dashboard/brands/${brand?._id}`}>
-        <h1 className=" hover:underline">{brand?.name}</h1>
+        <h1 className=" hover:underline">{brand?.name ? brand.name : "Brand not found"}</h1>
       </Link>
       <div className="flex justify-center items-center gap-x-3">
         <h1>${price}</h1>

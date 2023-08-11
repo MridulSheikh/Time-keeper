@@ -11,11 +11,7 @@ const links = [
   {
     name: "Cart",
     link: "cart",
-  },
-  {
-    name: "Shipping address",
-    link: "shipping-address",
-  },
+  }
 ];
 
 const admin_links = [
@@ -45,8 +41,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname()
   // console.log(pathname)
   return (
-      <div className="max-w-screen-2xl mx-auto flex border-t">
-        <div className="w-80 bg-cs-black text-white h-screen overflow-y-scroll pt-5">
+      <div className="max-w-screen-2xl mx-auto flex border-t bg-cs-nural">
+        <div className="w-80 bg-cs-black text-white h-screen overflow-y-scroll">
           {links.map((link) => (
             <Link key={link.link} href={`/dashboard/${link.link}`}>
               <div className={`p-3 uppercase hover:bg-slate-800 ${pathname === `/dashboard/${link.link}` && 'bg-slate-800'}`}>

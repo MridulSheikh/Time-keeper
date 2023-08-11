@@ -14,8 +14,8 @@ interface propsType {
 
 export const BrandCard = ({ logo, name, _id, product, number }: propsType) => {
   return (
-    <div className="grid grid-cols-5 p-2">
-      <div className=" h-10 relative overflow-hidden -z-10">
+    <div className="grid grid-cols-5 p-2 bg-white rounded-md shadow-md border mb-5">
+      <div className=" h-10 relative overflow-hidden">
         <Image
           src={logo}
           alt="brand logo image"

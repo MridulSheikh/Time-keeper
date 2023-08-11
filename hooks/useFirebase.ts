@@ -1,5 +1,4 @@
 "use client";
-import { useSearchParams} from 'next/navigation';
 import { useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
@@ -26,6 +25,7 @@ const useFirebase = () => {
   const LoginWithGoogle = () => {
     signInWithPopup(auth, google_provider)
       .then((result) => {
+        console.log(result)
         save_user(result.user.displayName, result.user.email);
       })
       .catch((error) => console.log(error));
@@ -36,10 +36,10 @@ const useFirebase = () => {
         setAuthLoading(true)
         axios
           .get(
-            `https://free-time-server.onrender.com/api/v1/user/${user.email}`
+            `http://localhost:5000/api/v1/user/${user.email}`
           )
           .then((res) => setUser(res.data.body))
-          .catch((error) => {})
+          .catch((error) => {console.log(error)})
           .finally(() => setAuthLoading(false));
       }
     });
@@ -67,7 +67,7 @@ const useFirebase = () => {
     try {
       setAuthLoading(true);
       const postdata = await axios.post(
-        "https://free-time-server.onrender.com/api/v1/user",
+        "http://localhost:5000/api/v1/user",
         data
       );
       if (postdata.data.message === "successfully create user") {
@@ -123,7 +123,7 @@ const useFirebase = () => {
     setError(null);
     setAuthLoading(true);
     axios
-      .get(`https://free-time-server.onrender.com/api/v1/user/${email}`)
+      .get(`http://localhost:5000/api/v1/user/${email}`)
       .then((res) => setUser(res.data.body))
       .catch((error) => setError(error.response.data.messgae))
       .finally(() => setAuthLoading(false));

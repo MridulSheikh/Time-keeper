@@ -40,12 +40,13 @@ export interface Blog_feed_card_data_Types {
 }
 
 export interface Category_data_types {
-    id: string;
+    _id: string;
     name : string;
     product: any;
     create_by : string;
-    setCategory : any;
-    category: any;
+    createdAt : string;
+    updatedAt : string;
+    __v : number;
 }
 
 export interface Brand_data_types {

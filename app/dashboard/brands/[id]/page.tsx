@@ -13,7 +13,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   useEffect(() => {
     axios
-      .get(`https://free-time-server.onrender.com/api/v1/brand/${params.id}`)
+      .get(`http://localhost:5000/api/v1/brand/${params.id}`)
       .then((res) => {
         setBrand(res.data.data);
       })

@@ -126,6 +126,7 @@ const AddProductModal = ({ setOpen }: { setOpen: any }) => {
                 value={brands}
                 setState={setBrand}
                 state={brand}
+                disabled={false}
               />
             </div>
             <div className="text-cs-black mt-5">
@@ -136,6 +137,7 @@ const AddProductModal = ({ setOpen }: { setOpen: any }) => {
                 value={categories}
                 setState={setCategory}
                 state={category}
+                disabled={false}
               />
             </div>
             <div className="text-cs-black mt-5">

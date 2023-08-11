@@ -174,6 +174,7 @@ const Page = () => {
                   value={brands}
                   setState={setBrand}
                   state={brand}
+                  disabled={true}
                 />
               </div>
               <div className="text-cs-black mt-5">
@@ -184,6 +185,7 @@ const Page = () => {
                   value={categories}
                   setState={setCategory}
                   state={category}
+                  disabled={true}
                 />
               </div>
               <div className="mt-5">
