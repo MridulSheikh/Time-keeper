@@ -71,7 +71,7 @@ export const Pagination = ({
           </p>
           <MdOutlineArrowBackIosNew className="text-black" />
         </button>
-        {[...new Array(pageCount)].map((cn, index) => (
+        {[...new Array(pageCount || 0)].map((cn, index) => (
           <button
             key={index}
             onClick={() => handleSingleButton(index)}

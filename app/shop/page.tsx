@@ -5,12 +5,22 @@ import {
   Sidebar,
   TopBanner,
 } from "@/components";
+import queryString from "query-string";
 const Shop = async ({ searchParams }: { searchParams: any }) => {
-  const uri = `http://localhost:5000/api/v1/product?limit=${
-    searchParams?.limit || 9
-  }&page=${searchParams?.page || 1}&fields=_id,img,price,reviews,name${
-    searchParams?.category && `&category=${searchParams?.category}`
-  }`;
+  const urlParam = {
+    category: searchParams.category,
+    brand: searchParams.brand,
+    "price[gte]": searchParams.minimum,
+    "price[lte]": searchParams.maximum,
+    fields: "_id,img,price,reviews,name",
+    page: searchParams?.page || 1,
+    limit: searchParams?.limit || 9,
+  };
+
+  const searchQuery = queryString.stringify(urlParam);
+
+  const uri = `http://localhost:5000/api/v1/product?${searchQuery}`;
+  console.log(uri);
   const res = await fetch(uri, { cache: "no-store" });
   const products = await res.json();
   return (
