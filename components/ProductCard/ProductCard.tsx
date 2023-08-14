@@ -10,7 +10,7 @@ export const ProductCard = ({id, img, title,price, ratting, off, isbig} : produc
   return (
     <div className='bg-cs-pink-200 pt-[50px] relative group h-full'>
        <div className='bg-cs-pink-800 absolute top-3 right-3 text-white p-3 text-sm font-bold rounded-full'>
-         -{off}%
+         -{30}%
        </div>
         <div className={`relative w-full ${isbig ? 'h-96' : 'h-56'}`}>
             <Image src={img} fill className='object-contain' alt={`${title} image`} />
@@ -21,10 +21,9 @@ export const ProductCard = ({id, img, title,price, ratting, off, isbig} : produc
                   <Ratting rating={{rate : ratting}} />
             </div>
             <div className='flex gap-x-4 text-lg justify-center text-cs-gray mt-[24px] pb-6'>
-                <del className=' font-semibold'>${price.toFixed(2)}</del>
-                <h2 className=' text-cs-text'>${((price/100)*off).toFixed(2)}</h2>
+                <h2 className=' text-cs-text'>${price.toFixed(2)}</h2>
             </div>
-            <div onClick={() => router.push(`/shop/${title}`)} className='absolute ease-in duration-300 bottom-0 bg-cs-pink-200 h-0 group-hover:h-full overflow-hidden w-full flex justify-center items-center transition-all'>
+            <div onClick={() => router.push(`/shop/${id}`)} className='absolute ease-in duration-300 bottom-0 bg-cs-pink-200 h-0 group-hover:h-full overflow-hidden w-full flex justify-center items-center transition-all'>
                 <button className='border font-oswoald font-light px-7 py-3 border-cs-black hover:bg-cs-black hover:text-white ease-in duration-200 '>Details</button>
             </div>
         </div>

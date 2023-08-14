@@ -2,7 +2,7 @@ import prodcutData from '@/mockdata/PRODUCT_MOCK_DATA'
 import { product_data_types } from '@/typedeclaration/types'
 import React from 'react'
 import { ProductCard } from '../ProductCard'
-import { Pagination } from '../Pagination'
+// import { Pagination } from '../DashboardPagination'
 
 export const RelatedProduct = () => {
   return (
@@ -14,7 +14,7 @@ export const RelatedProduct = () => {
                  />)
             }
         </div>
-       <Pagination />
+       {/* <Pagination /> */}
     </div>
   )
 }

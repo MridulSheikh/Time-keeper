@@ -1,5 +1,5 @@
 "use client";
-import { AddProduct, DeletProduct, PorductRow } from "@/components";
+import { AddProduct, DeletProduct, DahsboardPagination, PorductRow } from "@/components";
 import useSelectItem from "@/hooks/useSelectItem";
 import { Brand_data_types, Category_data_types } from "@/typedeclaration/types";
 import axios from "axios";
@@ -10,7 +10,7 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 
-interface productTypes {
+export interface productTypes {
   _id: string;
   img: string;
   name: string;
@@ -24,9 +24,17 @@ interface productTypes {
   __v: number;
 }
 
+interface dataTypes{
+  total : number,
+  pagecount : number,
+  products : productTypes[]
+}
+
 const Page = () => {
-  const [products, setProducts] = useState<productTypes[]>([]);
+  const [data, setData] = useState<dataTypes | null>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1)
+  const [limit, setLimit] = useState<number>(9)
   const {
     selectItem,
     handleSingleItemSelect,
@@ -38,52 +46,54 @@ const Page = () => {
     setSelectItem([]);
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/product")
+      .get(`http://localhost:5000/api/v1/product?page=${page}&limit=${limit}&populate=brand,category&fields=img,_id,category,brand,name,price`)
       .then((res) => {
-        setProducts(res.data.data);
+        setData(res.data.data);
       })
       .catch((error) => {
-        setProducts([]);
+        setData(null);
       })
       .finally(() => setIsLoading(false));
   };
   useEffect(() => {
     getProdcutsData();
-  }, []);
-  console.log(selectItem);
+  }, [page, limit]);
   return (
-    <div>
-      <div className="bg-cs-black text-white px-5 py-2 flex justify-between items-center sticky top-0 z-20">
-        <h1 className=" text-xl">Product</h1>
-        <div className=" flex items-center gap-x-3">
-          <AddProduct />
-          {selectItem?.length > 0 && (
-            <DeletProduct selectItem={selectItem} />
-          )}
+    <div className="relative">
+      <div className="sticky top-0 z-20">
+        <div className="bg-cs-black text-white px-5 py-2 flex justify-between items-center">
+          <h1 className=" text-xl">Product</h1>
+          <div className=" flex items-center gap-x-3">
+            <AddProduct />
+            {selectItem?.length > 0 && <DeletProduct selectItem={selectItem} />}
 
-          <button
-            onClick={getProdcutsData}
-            className="bg-blue-800 py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
-          >
-            <GrRefresh className=" text-white text-xl" />
-            <p>Refresh</p>
-          </button>
+            <button
+              onClick={getProdcutsData}
+              className="bg-blue-800 py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+            >
+              <GrRefresh className=" text-white text-xl" />
+              <p>Refresh</p>
+            </button>
+          </div>
         </div>
-      </div>
-      <div className=" grid grid-cols-6 px-5 py-2 bg-cs-nural border-b sticky top-14">
-        <div className=" col-span-3 flex justify-start gap-x-2 items-center">
-          <button onClick={() => handleAllselect(products)} className="text-xl">
-            {selectItem.length === products?.length ? (
-              <IoIosCheckbox />
-            ) : (
-              <MdCheckBoxOutlineBlank />
-            )}
-          </button>
-          <h1>Name</h1>
+        <div className=" grid grid-cols-6 px-5 py-2 bg-white border-b">
+          <div className=" col-span-3 flex justify-start gap-x-2 items-center">
+            <button
+              onClick={() => handleAllselect(data?.products)}
+              className="text-xl"
+            >
+              {selectItem.length === data?.products.length ? (
+                <IoIosCheckbox />
+              ) : (
+                <MdCheckBoxOutlineBlank />
+              )}
+            </button>
+            <h1>Name</h1>
+          </div>
+          <h1>Category</h1>
+          <h1>Brand</h1>
+          <h1>Price</h1>
         </div>
-        <h1>Category</h1>
-        <h1>Brand</h1>
-        <h1>Price</h1>
       </div>
       <div>
         {isLoading ? (
@@ -98,9 +108,10 @@ const Page = () => {
           </div>
         ) : (
           <div>
-            {products?.length > 0 ? (
-              <div>
-                {products?.map((product: productTypes) => (
+            {data ? (
+              <div className=" mb-40">
+                {/* @ts-ignore */}
+                {data?.products?.map((product: productTypes) => (
                   <PorductRow
                     findItemFromArray={findItemFromArray}
                     selectItem={selectItem}
@@ -114,6 +125,7 @@ const Page = () => {
                     price={product?.price}
                   />
                 ))}
+                <DahsboardPagination page={page} setPage={setPage} pageCount={data?.pagecount} />
               </div>
             ) : (
               <div className="w-full h-96 flex justify-center items-center">

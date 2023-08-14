@@ -35,12 +35,12 @@ export const PorductRow = ({
     setFind(findItemFromArray(_id));
   }, [selectItem]);
   return (
-    <div className="grid grid-cols-6 px-5 py-2 my-3">
+    <div className="grid grid-cols-6 px-5 py-2 my-3 relative">
       <div className="col-span-3 flex justify-start gap-x-2">
         <button onClick={() => handleSingleItemSelect({_id : _id, category : category, brand : brand})} className="text-xl">
           {find ? <IoIosCheckbox /> : <MdCheckBoxOutlineBlank />}
         </button>
-        <div className="w-10 h-10 relative overflow-hidden">
+        <div className="w-10 h-10 relative overflow-hidden z-10">
           <Image
             src={img}
             alt={"product image"}

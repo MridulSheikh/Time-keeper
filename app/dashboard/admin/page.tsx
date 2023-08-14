@@ -39,7 +39,7 @@ const Page = () => {
       })
       .catch((error) => {
         toast.update(toastId.current, {
-          render: error.response.data.message,
+          render: 'user not found',
           type: "error",
           isLoading: false,
           closeButton: true,
@@ -100,7 +100,7 @@ const Page = () => {
         </div>
       </div>
       <div className="bg-white border px-5 py-3 rounded-md shadow-md mx-auto w-8/12 grid grid-cols-3 mt-10 font-bold text-cs-black">
-        <h1 className="col-span-2">Email</h1>
+        <h1 className="col-span-2 my-auto">Email</h1>
         <div className="flex justify-end">
           <button
             onClick={getAdminData}

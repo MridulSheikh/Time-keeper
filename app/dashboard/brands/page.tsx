@@ -27,7 +27,7 @@ const Brand = () => {
   };
   return (
     <>
-      <div className="p-5 sticky top-0">
+      <div className="p-5 sticky top-0 bg-white z-30">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Brands</h1>
           <div className="flex space-x-3 items-center">
