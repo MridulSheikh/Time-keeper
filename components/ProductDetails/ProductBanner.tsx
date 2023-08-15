@@ -1,3 +1,5 @@
+import cartState from "@/context/cartState";
+import useCounter, { DECREMENT, INCREMENT } from "@/hooks/useCounter";
 import Ratting from "@/lib/Ratting";
 import Image from "next/image";
 import React from "react";
@@ -15,9 +17,13 @@ interface propsType {
   brand: string;
   category: string;
   discription: string;
+  _id: string;
+  name: string;
 }
 
 export const ProductBanner = ({
+  _id,
+  name,
   img,
   price,
   reviews,
@@ -25,6 +31,8 @@ export const ProductBanner = ({
   category,
   discription,
 }: propsType) => {
+  const { countHandler, count } = useCounter();
+  const { handleAddToCart } = cartState();
   const totalRating =
     reviews.length > 0
       ? reviews?.reduce(
@@ -63,17 +71,28 @@ export const ProductBanner = ({
         <div className=" text-md mt-5 text-cs-gray">{discription}</div>
         <div className="flex gap-x-6 mt-5">
           <div className=" flex border-4 border-r-0 border-cs-pink-800">
-            <p className="px-3 py-1 text-xl text-cs-gray">1</p>
+            <p className="px-3 py-1 text-xl text-cs-gray">{count}</p>
             <div className="flex flex-col">
-              <button className="bg-cs-pink-800 text-white text-xl border-b border-white">
+              <button
+                onClick={() => countHandler(INCREMENT)}
+                className="bg-cs-pink-800 text-white text-xl border-b border-white"
+              >
                 <MdKeyboardArrowUp />
               </button>
-              <button className="bg-cs-pink-800 text-white text-xl border-t border-white">
+              <button
+                onClick={() => countHandler(DECREMENT)}
+                className="bg-cs-pink-800 text-white text-xl border-t border-white"
+              >
                 <MdKeyboardArrowDown />
               </button>
             </div>
           </div>
-          <button className="flex justify-center px-5 py-2 text-xl items-center text-white bg-cs-black gap-x-3">
+          <button
+            onClick={() =>
+              handleAddToCart({ _id, name, img, quantity: count, price })
+            }
+            className="flex justify-center px-5 py-2 text-xl items-center text-white bg-cs-black gap-x-3 active:opacity-80"
+          >
             <MdAddShoppingCart />
             <p>Add to Cart</p>
           </button>

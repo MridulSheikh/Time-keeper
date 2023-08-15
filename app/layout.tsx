@@ -3,6 +3,7 @@ import "./globals.css";
 import TopNav from "@/components/Nav/TopNav";
 import { Footer } from "@/components/Footer";
 import AuthProvider from "@/context/AuthProvider";
+import Context from "@/context/Context";
 
 export const metadata = {
   title: "Time Kepeer",
@@ -18,9 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-        <Nav />
-        {children}
-        <Footer />
+          <Context>
+            <Nav />
+            {children}
+            <Footer />
+          </Context>
         </AuthProvider>
       </body>
     </html>

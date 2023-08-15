@@ -22,6 +22,8 @@ const page = async ({ params }: any) => {
       />
       <div className="max-w-screen-2xl mx-auto px-4">
         <ProductBanner
+          name={product.data.name}
+          _id={product.data._id}
           img={product.data.img}
           price={product.data.price}
           reviews={product.data.reviews}
