@@ -20,8 +20,8 @@ const CartDropDown = ({ setOpen, items }: any) => {
         <p className=" text-gray-600 text-center my-20">cart is emply!</p>
       )}
       <div>
-        {items?.map((item: any) => (
-          <div className="grid grid-cols-3 mt-4">
+        {items?.map((item: any, index: number) => (
+          <div key={index} className="grid grid-cols-3 mt-4">
             <div className="relative">
               <Image
                 src={item.img}
