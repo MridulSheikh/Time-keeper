@@ -13,12 +13,11 @@ export interface product_data_types {
 }
 
 export interface product_card_data_types {
-    id : number;
+    _id : number;
     img : string;
-    title : string;
-    ratting : number;
+    name : string;
+    reviews : any;
     price : number;
-    off : number;
     isbig? :boolean;
 }
 

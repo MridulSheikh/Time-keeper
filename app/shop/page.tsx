@@ -20,7 +20,6 @@ const Shop = async ({ searchParams }: { searchParams: any }) => {
   const searchQuery = queryString.stringify(urlParam);
 
   const uri = `http://localhost:5000/api/v1/product?${searchQuery}`;
-  console.log(uri);
   const res = await fetch(uri, { cache: "no-store" });
   const products = await res.json();
   return (

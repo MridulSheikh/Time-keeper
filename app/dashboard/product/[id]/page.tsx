@@ -50,11 +50,11 @@ const Page = () => {
       brand: brand?.id,
       category: category.id,
     };
-    console.log(body)
+    console.log(body);
     axios
       .patch(`http://localhost:5000/api/v1/product/${params.id}`, body)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         toast.update(toastId.current, {
           render: res.data.message,
           type: "success",
@@ -65,7 +65,7 @@ const Page = () => {
         });
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         toast.update(toastId.current, {
           render: error.response.data.message,
           type: "error",
@@ -153,12 +153,12 @@ const Page = () => {
               <div className="mt-5">
                 <p>description*</p>
                 {errors.description && (
-                <p className="mt-2 text-sm text-red-700">
-                  {errors.description.message}
-                </p>
-              )}
+                  <p className="mt-2 text-sm text-red-700">
+                    {errors.description.message}
+                  </p>
+                )}
                 <textarea
-                  rows={7}
+                  rows={15}
                   defaultValue={product.description}
                   className=" w-full border px-4 py-2 rounded-md mt-2"
                   {...register("description", {
@@ -191,10 +191,10 @@ const Page = () => {
               <div className="mt-5">
                 <p>price*</p>
                 {errors.price && (
-                <p className="mt-2 text-sm text-red-700">
-                  {errors.price.message}
-                </p>
-              )}
+                  <p className="mt-2 text-sm text-red-700">
+                    {errors.price.message}
+                  </p>
+                )}
                 <input
                   type="number"
                   defaultValue={product.price}

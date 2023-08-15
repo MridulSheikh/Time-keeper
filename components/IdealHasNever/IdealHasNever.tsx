@@ -22,20 +22,24 @@ export const IdealHasNever = () => {
         </div>
       </div>
       <div className="grid grid-cols-6">
-      <div className=" col-span-5">
-        <ProductCard
-          img="/images/slider3_slide2_02-copyright.png"
-          title="FAAST  TRACK ANALOG GOLDEN DEAL MEN WATCH"
-          id={1}
-          ratting={4.5}
-          price={500}
-          off={50}
-          isbig={true}
-        />
-      </div>
-      <div className="col-span-1 relative">
-        <Image fill src="/images/05.jpg" className=" object-cover" alt="image" />
-      </div>
+        <div className=" col-span-5">
+          <ProductCard
+            img="/images/slider3_slide2_02-copyright.png"
+            name="FAAST  TRACK ANALOG GOLDEN DEAL MEN WATCH"
+            _id={1}
+            reviews={4.5}
+            price={500}
+            isbig={true}
+          />
+        </div>
+        <div className="col-span-1 relative">
+          <Image
+            fill
+            src="/images/05.jpg"
+            className=" object-cover"
+            alt="image"
+          />
+        </div>
       </div>
     </div>
   );

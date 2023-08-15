@@ -15,12 +15,11 @@ export const Body = async ({
           {products?.map((dt: any) => (
             <ProductCard
               key={dt._id}
-              id={dt._id}
-              title={dt.name}
+              _id={dt._id}
+              name={dt.name}
               img={dt.img}
               price={dt.price}
-              off={dt.off}
-              ratting={dt.ratting}
+              reviews={dt.reviews}
             />
           ))}
         </div>
