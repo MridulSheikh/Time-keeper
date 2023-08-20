@@ -5,7 +5,7 @@ import { RotatingLines } from "react-loader-spinner";
 const loading = () => {
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-cs-nural">
-      <div className="flex items-center gap-x-4">
+      <div className="flex items-center">
         <RotatingLines
           strokeColor="grey"
           strokeWidth="5"

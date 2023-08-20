@@ -7,7 +7,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 
 const Category = () => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState([]);
   const handleAddCategory = (e: any) => {
@@ -17,6 +17,11 @@ const Category = () => {
       .post("http://localhost:5000/api/v1/category", {
         name: type,
         create_by: user.email,
+      },{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
       })
       .then((res) => toast.success(res.data.message))
       .catch((error) => toast.error(error.response.data.message))
@@ -33,7 +38,12 @@ const Category = () => {
   const getcategory = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/category")
+      .get("http://localhost:5000/api/v1/category",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setCategory(res.data.data);
       })

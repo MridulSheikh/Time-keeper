@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { ConfirmModal } from "../ConfirmModal";
 import axios from "axios";
 import { toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
 
 export const DeleteFolder = ({ id, name, resources }: any) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {token} = useAuth()
   const deletFolderHandaler = () =>{
         if(resources.length > 0){
           setIsOpen(false)
@@ -14,7 +16,13 @@ export const DeleteFolder = ({ id, name, resources }: any) => {
           return;
         }
         setIsLoading(true)
-        axios.delete(`http://localhost:5000/api/v1/folder/${id}`)
+        axios.delete(`http://localhost:5000/api/v1/folder/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer" + " " + token,
+          },
+        })
         .then(res => {
             toast.success(res.data.message)
             setIsOpen(false)

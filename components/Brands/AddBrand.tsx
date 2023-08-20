@@ -9,6 +9,7 @@ import Image from "next/image";
 import { FiEdit } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import useAuth from "@/hooks/useAuth";
 
 type Inputs = {
   name: string;
@@ -56,6 +57,7 @@ export const SetImageContainer = ({
 
 const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
   const [imageUrl, setImageUrl] = useState<string | null>();
+  const {token} = useAuth()
   const toastId = useRef<any>(null);
   const {
     register,
@@ -76,7 +78,12 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
       logo: imageUrl,
     };
     axios
-      .post("http://localhost:5000/api/v1/brand", body)
+      .post("http://localhost:5000/api/v1/brand", body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.update(toastId.current, {
           render: res.data.message,

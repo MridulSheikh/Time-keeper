@@ -12,7 +12,7 @@ export const RelatedProduct = ({ brand }: { brand: Brand_data_types }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/api/v1/product?brand=${brand._id}&limit=4&page=${page}`
+        `http://localhost:5000/api/v1/product?brand=${brand?._id}&limit=4&page=${page}`
       )
       .then((res) => setProduct(res.data.data))
       .catch((error) => setProduct([]));

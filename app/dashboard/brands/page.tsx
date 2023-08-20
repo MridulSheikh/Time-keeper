@@ -1,5 +1,6 @@
 "use client";
 import { AddBrand, BrandCard } from "@/components";
+import useAuth from "@/hooks/useAuth";
 import { Brand_data_types } from "@/typedeclaration/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 
 const Brand = () => {
+  const {token} = useAuth()
   const [brands, setBrands] = useState<Brand_data_types[] | null>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -15,13 +17,18 @@ const Brand = () => {
   const getBrandData = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/brand")
+      .get("http://localhost:5000/api/v1/brand",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setBrands(res?.data?.data);
       })
       .catch((error) => {
         setBrands(null)
-        toast.error(error.response.data.errormessage);
+        toast.error(error.response.data.message);
       })
       .finally(() => setIsLoading(false));
   };

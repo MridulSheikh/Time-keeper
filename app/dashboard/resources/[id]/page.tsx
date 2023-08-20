@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { AddImage, DeleteOneImage, RenameImage } from "@/components";
+import useAuth from "@/hooks/useAuth";
 
 interface propTypes {
   name: string;
@@ -51,11 +52,17 @@ const ImageCard = ({ name, imageUrl, id, create_by, createdAt, folder }: propTyp
 const FolderDetails = () => {
   const [folder, setFolder] = useState<null | any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {token} = useAuth()
   const params = useParams();
   const getFolderData = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/folder/${params.id}`)
+      .get(`http://localhost:5000/api/v1/folder/${params.id}`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setFolder(res.data.data);
       })

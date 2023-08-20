@@ -4,13 +4,20 @@ import { ConfirmModal } from "../ConfirmModal";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AiFillDelete } from "react-icons/ai";
+import useAuth from "@/hooks/useAuth";
 
 export const DeleteBrand = ({ id, name}: {id : string , name : string}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {token} = useAuth()
   const deletBrandHandaler = () =>{
         setIsLoading(true)
-        axios.delete(`http://localhost:5000/api/v1/Brand/${id}`)
+        axios.delete(`http://localhost:5000/api/v1/Brand/${id}`,{
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer" + " " + token,
+          },
+        })
         .then(res => {
             toast.success(res.data.message)
             setIsOpen(false)

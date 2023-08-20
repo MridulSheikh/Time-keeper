@@ -34,7 +34,7 @@ export const ProductBanner = ({
   const { countHandler, count } = useCounter();
   const { handleAddToCart } = cartState();
   const totalRating =
-    reviews.length > 0
+    reviews?.length > 0
       ? reviews?.reduce(
           (total: number, current: any) => total + current?.ratting,
           0
@@ -64,7 +64,7 @@ export const ProductBanner = ({
             <h2 className="text-cs-black">${price}</h2>
           </div>
           <Ratting
-            rating={{ rate: totalRating / reviews.length }}
+            rating={{ rate: totalRating / reviews?.length }}
             className="text-cs-pink-800"
           />
         </div>

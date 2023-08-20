@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { BsHandbag } from "react-icons/bs";
+import { BsCart4 } from "react-icons/bs";
 import { AiOutlineUser, AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
+import { FaRegAddressBook } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import {
@@ -11,7 +12,6 @@ import {
   MdOutlineSpaceDashboard,
 } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
-import useCart from "@/hooks/useCart";
 
 type linktype = {
   name: string;
@@ -48,7 +48,7 @@ const NavLink = ({ name, href }: linktype) => {
 const UserIdentity = ({ text, signout }: any) => {
   const [open, setOpen] = useState<boolean>(false);
   return (
-    <div className="relative font-semibold">
+    <div className="relative font-semibold ease-in-out duration-700">
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center hover:text-cs-pink-800 ease-in-out duration-200"
@@ -74,7 +74,14 @@ const UserIdentity = ({ text, signout }: any) => {
             className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
           >
             <AiOutlineHistory />
-            <Link href={""}>My order</Link>
+            <Link href={"/order"}>My order</Link>
+          </p>
+          <p
+            onClick={() => setOpen(!open)}
+            className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
+          >
+            <BsCart4 />
+            <Link href={"/cart"}>My cart</Link>
           </p>
           <button
             onClick={signout}

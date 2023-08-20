@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ConfirmModal } from "../ConfirmModal";
 import axios from "axios";
 import { toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
 
 interface propsType {
   imageUrl: string;
@@ -13,17 +14,23 @@ interface propsType {
 export const DeleteOneImage = ({ imageUrl, folder, id }: propsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { token } = useAuth()
   console.log(id)
   console.log(imageUrl)
   const deleteImageshandler = () => {
     setIsLoading(true);
     const body = {
-        imageUrl : imageUrl,
-        folder : folder
+      imageUrl: imageUrl,
+      folder: folder
     }
-    console.log(body)
     axios
-      .delete(`http://localhost:5000/api/v1/image/${id}`,{data : body})
+      .delete(`http://localhost:5000/api/v1/image/${id}`, {
+        data: body,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
         setIsOpen(false);

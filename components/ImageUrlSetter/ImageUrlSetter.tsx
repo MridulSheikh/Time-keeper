@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Modal } from "../Modal";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import { AiFillFolder } from "react-icons/ai";
 import Image from "next/image";
 import { MdDone } from "react-icons/md";
+import useAuth from "@/hooks/useAuth";
 
 const ImageCard = ({
   id,
@@ -18,10 +19,16 @@ const ImageCard = ({
 }) => {
   const [image, setImage] = useState<any>();
   const [loading, setLoading] = useState<boolean>();
+  const {token} = useAuth()
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/image/${id}`)
+      .get(`http://localhost:5000/api/v1/image/${id}`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setImage(res?.data?.data);
       })
@@ -77,10 +84,16 @@ export const ImageUrlSetter = ({ setIsOpen, setImage }: { setIsOpen: any, setIma
   const [images, setImages] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const [selectImage, setSelectImage] = useState<any>();
+  const {token} = useAuth()
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/folder")
+      .get("http://localhost:5000/api/v1/folder",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setFolders(res?.data?.data);
         setImages(res?.data?.data[0]?.resources);

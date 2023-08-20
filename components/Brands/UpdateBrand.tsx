@@ -25,7 +25,7 @@ const UpdateBrandForm = ({
 }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [image, setImage] = useState<null | string | undefined>(logo);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -40,13 +40,18 @@ const UpdateBrandForm = ({
       logo: image,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/brand/${id}`, body)
+      .patch(`http://localhost:5000/api/v1/brand/${id}`, body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
         setCondition(false);
       })
       .catch((error) => {
-        toast.error(error.response.data.errormessage);
+        toast.error(error.response.data.message);
         setCondition(false);
       })
       .finally(() => setIsLoading(false));

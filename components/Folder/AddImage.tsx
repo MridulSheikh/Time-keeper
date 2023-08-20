@@ -26,7 +26,7 @@ const UploadImageModal = ({
   const [previewImage, setPreviewImage] = useState<any>();
   const [fileError, setFileError] = useState<string | null>();
   const toastId = useRef<any>(null);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -48,7 +48,12 @@ const UploadImageModal = ({
     fromData.append("image", file);
     fromData.append("data", JSON.stringify(body));
     axios
-      .post(`http://localhost:5000/api/v1/image`, fromData)
+      .post(`http://localhost:5000/api/v1/image`, fromData,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.update(toastId.current, {
           render: res.data.message,

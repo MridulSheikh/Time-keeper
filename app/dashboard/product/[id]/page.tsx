@@ -1,6 +1,7 @@
 "use client";
 import { Select } from "@/components";
 import { SetImageContainer } from "@/components/Brands/AddBrand";
+import useAuth from "@/hooks/useAuth";
 import { useFetchData } from "@/hooks/useFetchData";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -25,6 +26,7 @@ const Page = () => {
   const [category, setCategory] = useState<any>();
   const toastId = useRef<any>(null);
   const params = useParams();
+  const {token} = useAuth()
   const {
     register,
     handleSubmit,
@@ -50,9 +52,13 @@ const Page = () => {
       brand: brand?.id,
       category: category.id,
     };
-    console.log(body);
     axios
-      .patch(`http://localhost:5000/api/v1/product/${params.id}`, body)
+      .patch(`http://localhost:5000/api/v1/product/${params.id}`, body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         toast.update(toastId.current, {
@@ -79,7 +85,12 @@ const Page = () => {
   const getProdcutsData = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/product/${params.id}`)
+      .get(`http://localhost:5000/api/v1/product/${params.id}`,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setProduct(res.data.data);
         setImage(res.data.data.img);

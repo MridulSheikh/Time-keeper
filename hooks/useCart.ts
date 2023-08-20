@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { DECREMENT, INCREMENT } from './useCounter';
 
 interface cartType {
     _id : string;
@@ -12,7 +13,6 @@ interface cartType {
 
 const useCart = () => {
     const [cart, setCart] = useState<cartType[]>()
-    console.log(cart)
     const handleAddToCart = (item : any) =>{
         const cart = localStorage.getItem("cart");
         const products = cart ? JSON.parse(cart) : [];
@@ -50,10 +50,49 @@ const useCart = () => {
         setCart(products);
     },[])
 
+    const handleRremovedItemFromCart = (value : string) => {
+          const filtercart = cart?.filter((item : any) => item._id !== value)
+          localStorage.setItem("cart", JSON.stringify(filtercart));
+          setCart(filtercart)
+          toast.success(`Successfully removed item from cart.`)
+    }
+    const handleQuantityIncrementDecrement = (id:string, type:string) => {
+          switch (type) {
+            case INCREMENT:
+                const updatedCart  = cart?.map((item : any) => {
+                    if(item._id !== id){
+                        return item
+                    }
+                    return {
+                        ...item,
+                        quantity : item.quantity + 1,
+                    }
+                })
+                  localStorage.setItem("cart", JSON.stringify(updatedCart));
+                  setCart(updatedCart)
+                break;
+          
+            case DECREMENT:
+                const updatedDecrementCart  = cart?.map((item : any) => {
+                    if(item._id !== id){
+                        return item
+                    }
+                    return {
+                        ...item,
+                        quantity : item.quantity <= 1 ? 1 : item.quantity - 1,
+                    }
+                })
+                  localStorage.setItem("cart", JSON.stringify(updatedDecrementCart));
+                  setCart(updatedDecrementCart)
+                break;
+          }
+    }
   return {
        handleAddToCart,
        cart,
-       setCart
+       setCart,
+       handleRremovedItemFromCart,
+       handleQuantityIncrementDecrement
   }
 }
 

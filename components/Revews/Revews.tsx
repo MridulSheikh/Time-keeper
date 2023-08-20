@@ -55,7 +55,7 @@ export const Revews = ({
 }) => {
   return (
     <div className="font">
-      <h1 className="text-2xl">Reviews ({reviews.length})</h1>
+      <h1 className="text-2xl">Reviews ({reviews?.length})</h1>
       <div className="mt-10">
         {reviews?.map((rv, index) => (
           <RevewCard key={index} ratting={rv.ratting} reveiw={rv.review} />

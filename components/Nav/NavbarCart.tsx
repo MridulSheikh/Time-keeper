@@ -12,7 +12,7 @@ const CartDropDown = ({ setOpen, items }: any) => {
       ? items.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0)
       : 0;
   return (
-    <div className="absolute top-20 right-14 bg-white p-3 rounded-md z-50 ease-in transition-all duration-200 shadow-md w-auto font-semibold">
+    <div className="absolute top-20 right-14 bg-white p-3 rounded-md z-40 ease-in transition-all duration-200 shadow-md w-auto font-semibold">
       <div className="pb-3 border-b text-cs-pink-800">
         <h1>Total : ${total} </h1>
       </div>
@@ -32,7 +32,7 @@ const CartDropDown = ({ setOpen, items }: any) => {
             </div>
             <div className="col-span-2">
               <h1 className=" text-cs-pink-800">
-                {item.name.substring(0, 102)}...
+                {item.name.substring(0, 14)}...
               </h1>
               <h1 className="text-gray-500">
                 ${item.price}x{item.quantity}
@@ -59,7 +59,7 @@ const NavbarCart = () => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
     setOpen(true);
-  }, [cart]);
+  }, []);
   return (
     <div>
       {open && <CartDropDown items={cart} setOpen={setOpen} />}

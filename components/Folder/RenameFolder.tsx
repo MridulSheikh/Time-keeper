@@ -14,7 +14,7 @@ type Inputs = {
 
 const RenameFolderForm = ({ condition, setCondition, id, name }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -27,7 +27,12 @@ const RenameFolderForm = ({ condition, setCondition, id, name }: any) => {
       create_by: user?.email,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/folder/${id}`, body)
+      .patch(`http://localhost:5000/api/v1/folder/${id}`, body, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
         setCondition(false);

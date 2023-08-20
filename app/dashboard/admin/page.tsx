@@ -1,4 +1,5 @@
 "use client";
+import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { RiAdminFill } from "react-icons/ri";
@@ -6,6 +7,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 
 const Page = () => {
+  const { token } = useAuth();
   const [users, setUsers] = useState<any>([]);
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
@@ -17,16 +19,36 @@ const Page = () => {
   const getAdminData = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/user")
+      .get("http://localhost:5000/api/v1/user", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => setUsers(res.data.body))
-      .catch((error) => setUsers([]))
+      .catch((error) => {
+        toast.error(error.response.data.message)
+      })
       .finally(() => setIsLoading(false));
   };
 
   const addAdminHandler = () => {
+    if(!email){
+      toast.warn("email not found!")
+      return;
+    }
     toastId.current = toast.loading("please wait...");
     axios
-      .patch(`http://localhost:5000/api/v1/user/${email}`, { role: "admin" })
+      .patch(
+        `http://localhost:5000/api/v1/user/${email}`,
+        { role: "admin" },
+        {
+          headers: {
+            "Content-Type": "application/json",
+           " Authorization": "Bearer" + " " + token,
+          },
+        }
+      )
       .then((res) => {
         toast.update(toastId.current, {
           render: "successfully add admin please refresh page",
@@ -39,7 +61,7 @@ const Page = () => {
       })
       .catch((error) => {
         toast.update(toastId.current, {
-          render: 'user not found',
+          render: error.response.data.message,
           type: "error",
           isLoading: false,
           closeButton: true,
@@ -49,10 +71,19 @@ const Page = () => {
       });
   };
 
-  const removedAdmin = (email : any) => {
+  const removedAdmin = (email: any) => {
     toastId.current = toast.loading("please wait...");
     axios
-      .patch(`http://localhost:5000/api/v1/user/${email}`, { role: "buyer" })
+      .patch(
+        `http://localhost:5000/api/v1/user/${email}`,
+        { role: "buyer" },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer" + " " + token,
+          },
+        }
+      )
       .then((res) => {
         toast.update(toastId.current, {
           render: "successfully remove admin please refresh page",
@@ -73,7 +104,7 @@ const Page = () => {
           autoClose: 6000,
         });
       });
-  }
+  };
   return (
     <div className="w-full pb-20">
       <ToastContainer />
@@ -125,9 +156,15 @@ const Page = () => {
           {users
             ?.filter((user: any) => user.role === "admin")
             .map((user: any) => (
-              <div key={user?._id} className="flex justify-between p-4 border-b items-center">
+              <div
+                key={user?._id}
+                className="flex justify-between p-4 border-b items-center"
+              >
                 <h1>{user.email}</h1>
-                <button onClick={() => removedAdmin(user.email)} className="bg-red-500 px-4 py-2 rounded-md active:opacity-80">
+                <button
+                  onClick={() => removedAdmin(user.email)}
+                  className="bg-red-500 px-4 py-2 rounded-md active:opacity-80"
+                >
                   Remove
                 </button>
               </div>

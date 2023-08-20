@@ -11,7 +11,7 @@ type Inputs = {
 };
 
 export const RevewsForm = ({ name, id }: { name: string; id: string }) => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const toastId = useRef<any>(null);
   const {
     register,
@@ -26,7 +26,12 @@ export const RevewsForm = ({ name, id }: { name: string; id: string }) => {
       review: data.review,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/product/review/${id}`, body)
+      .patch(`http://localhost:5000/api/v1/product/review/${id}`, body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.update(toastId.current, {
           render: res.data.message,

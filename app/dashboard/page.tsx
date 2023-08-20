@@ -7,7 +7,7 @@ import { RotatingLines } from "react-loader-spinner";
 const Page = () => {
   const router = useRouter();
   useEffect(() => {
-    router.replace("/dashboard/track-order");
+    router.replace("/dashboard/product");
   }, []);
   return (
     <div className="w-full h-full flex justify-center items-center">

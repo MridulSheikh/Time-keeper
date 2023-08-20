@@ -6,6 +6,7 @@ import { RotatingLines } from "react-loader-spinner";
 import DateFormate from "../../../lib/DateFormate";
 import { useRouter } from "next/navigation";
 import { AddFolder, DeleteFolder, FolderDetails, RenameFolder } from "@/components";
+import useAuth from "@/hooks/useAuth";
 
 interface foldertype {
   _id: string;
@@ -42,13 +43,19 @@ const FolderCard = ({ _id, name, create_by, modified_date, resources }: folderty
 const Folder = () => {
   const [folder, setFolder] = useState<any>();
   const [loading, setLoading] = useState(false);
+  const {token} = useAuth();
   useEffect(() => {
     getFolderHandler();
   }, []);
   const getFolderHandler = () => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/folder")
+      .get("http://localhost:5000/api/v1/folder",{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         setFolder(res?.data?.data);
       })

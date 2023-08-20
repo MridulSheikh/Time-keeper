@@ -7,20 +7,29 @@ import { LoadingModal } from "../LoadingModal";
 import { useRouter } from "next/navigation";
 import { UpdateCategoryModal } from "../UpdateCategoryModal";
 import {toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
 
 
 
 const CategoryCard = ({id, name, product, create_by,setCategory, category} : any) => {
+  const {token} = useAuth();
   const [isOpen, setIsopen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleDelete = () => {
     setIsLoading(true)
-    axios.delete(`http://localhost:5000/api/v1/category/${id}`)
+    axios.delete(`http://localhost:5000/api/v1/category/${id}`,{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer" + " " + token,
+      },
+    })
     .then(res => {
       toast.success(res.data.message)
       setIsopen(false)
+      const filterCategory = category?.filter((ct:any) => ct._id != id)
+      setCategory(filterCategory);
     })
     .catch(error => {
       toast.error(error.response.data.message)
@@ -29,9 +38,6 @@ const CategoryCard = ({id, name, product, create_by,setCategory, category} : any
     .finally(() => {
         setIsLoading(false)
         setIsopen(false)
-        // console.log(category)
-        const filterCategory = category?.filter((ct:any) => ct._id != id)
-        setCategory(filterCategory);
     })
   }
 

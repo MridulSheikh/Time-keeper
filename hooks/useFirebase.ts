@@ -17,6 +17,7 @@ firebaseInitialize();
 
 const useFirebase = () => {
   const [user, setUser] = useState<any>(null);
+  const [token, setToken] = useState<string>();
   const [error, setError] = useState<string | null>();
   const [authLoading, setAuthLoading] = useState<boolean>(false);
   const auth = getAuth();
@@ -25,25 +26,26 @@ const useFirebase = () => {
   const LoginWithGoogle = () => {
     signInWithPopup(auth, google_provider)
       .then((result) => {
-        console.log(result)
-        save_user(result.user.displayName, result.user.email);
+        result.user.getIdToken().then((tokenId) => {
+          if (tokenId) {
+            save_user(result.user.email, tokenId);
+          }
+        });
       })
       .catch((error) => console.log(error));
   };
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setAuthLoading(true)
-        axios
-          .get(
-            `http://localhost:5000/api/v1/user/${user.email}`
-          )
-          .then((res) => setUser(res.data.body))
-          .catch((error) => {console.log(error)})
-          .finally(() => setAuthLoading(false));
+        user.getIdToken()
+        .then((tokenId) => {
+          if (tokenId) {
+            save_user(user.email, tokenId);
+          }
+        });
       }
     });
-  },[user?.email]);
+  }, []);
 
   //sign out user
   const sign_out = () => {
@@ -59,22 +61,28 @@ const useFirebase = () => {
   };
 
   // save user
-  const save_user = async (name: string | null, email: string | null) => {
+  const save_user = async (email: string | null, token = "") => {
     const data = {
-      name: name,
       email: email,
     };
     try {
       setAuthLoading(true);
       const postdata = await axios.post(
-        "http://localhost:5000/api/v1/user",
-        data
+        "http://localhost:5000/api/v1/user",data,
+        {
+          headers : {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer" +" " + token,
+          }
+        }
       );
       if (postdata.data.message === "successfully create user") {
-        setUser(postdata.data.body);
+        setUser(postdata.data.body._doc);
+        setToken(postdata.data.body.token);
         setAuthLoading(false);
       } else if (postdata.data.message === "user successfully found") {
-        setUser(postdata.data.body);
+        setUser(postdata.data.body._doc);
+        setToken(postdata.data.body.token);
         setAuthLoading(false);
       }
     } catch (error) {
@@ -88,8 +96,12 @@ const useFirebase = () => {
     setAuthLoading(true);
     setError(null);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        save_user(name, res?.user?.email);
+      .then((result) => {
+        result.user.getIdToken().then((tokenId) => {
+          if (tokenId) {
+            save_user(result.user.email, tokenId);
+          }
+        });
       })
       .catch((error) => {
         if (error.message === "Firebase: Error (auth/email-already-in-use).") {
@@ -104,9 +116,12 @@ const useFirebase = () => {
   const loginpassword = (email: string, password: string) => {
     setAuthLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        getuser(user?.email);
+      .then((result) => {
+        result.user.getIdToken().then((tokenId) => {
+          if (tokenId) {
+            save_user(result.user.email, tokenId);
+          }
+        });
       })
       .catch((error) => {
         if (error.message) {
@@ -118,16 +133,16 @@ const useFirebase = () => {
       });
   };
 
-  // get user
-  const getuser = async (email: any) => {
-    setError(null);
-    setAuthLoading(true);
-    axios
-      .get(`http://localhost:5000/api/v1/user/${email}`)
-      .then((res) => setUser(res.data.body))
-      .catch((error) => setError(error.response.data.messgae))
-      .finally(() => setAuthLoading(false));
-  };
+  // // get user
+  // const getuser = async (email: any) => {
+  //   setError(null);
+  //   setAuthLoading(true);
+  //   axios
+  //     .get(`http://localhost:5000/api/v1/user/${email}`)
+  //     .then((res) => setUser(res.data.body))
+  //     .catch((error) => setError(error.response.data.messgae))
+  //     .finally(() => setAuthLoading(false));
+  // };
 
   return {
     LoginWithGoogle,
@@ -137,6 +152,7 @@ const useFirebase = () => {
     Signup_password,
     error,
     loginpassword,
+    token,
   };
 };
 export default useFirebase;

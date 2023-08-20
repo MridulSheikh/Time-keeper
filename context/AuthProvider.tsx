@@ -10,6 +10,7 @@ interface ContextType {
   Signup_password: (email: string, name: null, password: string) => void;
   error: string | null | undefined;
   loginpassword: (email: string, password: string) => void;
+  token: any;
 }
 
 // @ts-ignore

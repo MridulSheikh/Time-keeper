@@ -6,12 +6,16 @@ interface ContextType {
   cart: any;
   handleAddToCart: any;
   setCart: any;
+  handleRremovedItemFromCart: any;
+  handleQuantityIncrementDecrement: any;
 }
 
 export const cart = createContext<ContextType>({
   cart: null,
   handleAddToCart: null,
   setCart: null,
+  handleRremovedItemFromCart: null,
+  handleQuantityIncrementDecrement: null,
 });
 const Context = ({ children }: { children: ReactNode }) => {
   const carContext = useCart();

@@ -8,6 +8,7 @@ import { SetImageContainer } from "../Brands/AddBrand";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { useFetchData } from "@/hooks/useFetchData";
+import useAuth from "@/hooks/useAuth";
 
 type Inputs = {
   name: string;
@@ -20,6 +21,7 @@ const AddProductModal = ({ setOpen }: { setOpen: any }) => {
   const [brand, setBrand] = useState<any>();
   const [category, setCategory] = useState<any>();
   const [imageUrl, setImageUrl] = useState<string | null | undefined>();
+  const {token} = useAuth()
   const toastId = useRef<any>(null);
 
   const {
@@ -50,7 +52,12 @@ const AddProductModal = ({ setOpen }: { setOpen: any }) => {
       category: category.id,
     };
     axios
-      .post("http://localhost:5000/api/v1/product", body)
+      .post("http://localhost:5000/api/v1/product", body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         console.log(res.data)
         toast.update(toastId.current, {

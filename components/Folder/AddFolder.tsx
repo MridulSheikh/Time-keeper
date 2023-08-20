@@ -14,7 +14,7 @@ type Inputs = {
 
 const AddFolderForm = ({ condition, setCondition }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -27,7 +27,12 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
       create_by: user?.email,
     };
     axios
-      .post("http://localhost:5000/api/v1/folder", body)
+      .post("http://localhost:5000/api/v1/folder", body,{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
         setCondition(false)

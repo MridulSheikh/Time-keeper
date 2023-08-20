@@ -1,17 +1,19 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Modal } from "../Modal";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import useAuth from "@/hooks/useAuth";
 
 type Inputs = {
   name: string;
 };
 
 const UpdateModal = ({ name, id, setIsOpen }: any) => {
+  const {token} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -24,13 +26,18 @@ const UpdateModal = ({ name, id, setIsOpen }: any) => {
       .patch("http://localhost:5000/api/v1/category", {
         id: id,
         name: data.name,
+      },{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
       })
       .then((res) => {
         toast.success(res.data.message)
         setIsOpen(false)
       })
       .catch((err) =>  {
-        toast.error(err.response.data.errormessage)
+        toast.error(err.response.data.message)
         setIsOpen(false)
       })
       .finally(() => setIsLoading(false));
