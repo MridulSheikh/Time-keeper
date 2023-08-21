@@ -12,6 +12,7 @@ import {
   MdOutlineSpaceDashboard,
 } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
+import VerifyEmail from "../Shared/VerifyEmail";
 
 type linktype = {
   name: string;
@@ -47,6 +48,7 @@ const NavLink = ({ name, href }: linktype) => {
 
 const UserIdentity = ({ text, signout }: any) => {
   const [open, setOpen] = useState<boolean>(false);
+  const {user} = useAuth()
   return (
     <div className="relative font-semibold ease-in-out duration-700">
       <button
@@ -89,6 +91,9 @@ const UserIdentity = ({ text, signout }: any) => {
           >
             Logout
           </button>
+          {
+            !user?.verified && <VerifyEmail />
+          }
         </div>
       )}
     </div>
