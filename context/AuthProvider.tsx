@@ -11,6 +11,7 @@ interface ContextType {
   error: string | null | undefined;
   loginpassword: (email: string, password: string) => void;
   token: any;
+  setUser : any;
 }
 
 // @ts-ignore

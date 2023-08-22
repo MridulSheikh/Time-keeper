@@ -153,6 +153,7 @@ const useFirebase = () => {
     error,
     loginpassword,
     token,
+    setUser,
   };
 };
 export default useFirebase;

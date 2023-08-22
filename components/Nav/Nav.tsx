@@ -10,6 +10,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
   MdOutlineSpaceDashboard,
+  MdVerified,
 } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
 import VerifyEmail from "../Shared/VerifyEmail";
@@ -48,7 +49,7 @@ const NavLink = ({ name, href }: linktype) => {
 
 const UserIdentity = ({ text, signout }: any) => {
   const [open, setOpen] = useState<boolean>(false);
-  const {user} = useAuth()
+  const { user } = useAuth();
   return (
     <div className="relative font-semibold ease-in-out duration-700">
       <button
@@ -85,15 +86,21 @@ const UserIdentity = ({ text, signout }: any) => {
             <BsCart4 />
             <Link href={"/cart"}>My cart</Link>
           </p>
+          {!user?.verified && (
+            <p
+              onClick={() => setOpen(!open)}
+              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
+            >
+              <MdVerified />
+              <Link href={"/verifyemail"}>verificaiton</Link>
+            </p>
+          )}
           <button
             onClick={signout}
             className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800"
           >
             Logout
           </button>
-          {
-            !user?.verified && <VerifyEmail />
-          }
         </div>
       )}
     </div>

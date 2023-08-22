@@ -9,12 +9,7 @@ const VerifyEmail = () => {
     const toastId = useRef<any>(null);
     const handlerequest = () =>{
         toastId.current = toast.loading("please wait...");
-         axios.post(`http://localhost:5000/api/v1/user/verify/${user.email}`,{
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer" + " " + token,
-              },
-         }).then(res => {
+         axios.post(`http://localhost:5000/api/v1/user/verify/${user.email}`).then(res => {
             toast.update(toastId.current, {
                 render: res.data.message,
                 type: "success",
@@ -24,6 +19,7 @@ const VerifyEmail = () => {
                 autoClose: 6000,
               });
          }).catch(error=>{
+           console.log(error)
             toast.update(toastId.current, {
                 render: error.response.data.message,
                 type: "error",
@@ -39,7 +35,7 @@ const VerifyEmail = () => {
     <ToastContainer />
     <button
       onClick={handlerequest}
-      className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-green-800"
+      className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-yellow-500"
     >
       verify email
     </button>
