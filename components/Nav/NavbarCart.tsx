@@ -4,6 +4,7 @@ import cartState from "../../context/cartState";
 import React, { useEffect, useState } from "react";
 import { BsHandbag } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CartDropDown = ({ setOpen, items }: any) => {
   const router = useRouter();
@@ -12,7 +13,13 @@ const CartDropDown = ({ setOpen, items }: any) => {
       ? items.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0)
       : 0;
   return (
-    <div className="absolute top-20 right-14 bg-white p-3 rounded-md z-40 ease-in transition-all duration-200 shadow-md w-auto font-semibold">
+    <motion.div
+      initial={{ opacity: 0}}
+      animate={{ opacity: 1}}
+      exit={{ opacity: 0}}
+      transition={{duration : 0.50}}
+      className="absolute top-20 right-14 bg-white p-3 rounded-md z-40 shadow-md w-auto font-semibold overflow-hidden"
+    >
       <div className="pb-3 border-b text-cs-pink-800">
         <h1>Total : ${total} </h1>
       </div>
@@ -50,7 +57,7 @@ const CartDropDown = ({ setOpen, items }: any) => {
       >
         checkout
       </button>
-    </div>
+    </motion.div>
   );
 };
 
@@ -62,14 +69,19 @@ const NavbarCart = () => {
   }, []);
   return (
     <div>
-      {open && <CartDropDown items={cart} setOpen={setOpen} />}
+      <AnimatePresence>
+        {open && cart.length > 0 && (
+          <CartDropDown items={cart} setOpen={setOpen} />
+        )}
+      </AnimatePresence>
       <div
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-x-2 cursor-pointer font-semibold hover:text-cs-pink-800 ease-in-out duration-200"
+        className="flex items-center gap-x-2 cursor-pointer font-semibold hover:text-cs-pink-800  ease-in-out duration-200 relative"
       >
-        <BsHandbag className="text-2xl md:text-lg" />
-        <p className="hidden md:inline-block">Cart</p>
-        <p>({cart?.length || 0})</p>
+        <BsHandbag className="text-3xl md:text-2xl" />
+        <div className=" w-4 h-4 bg-cs-pink-800 rounded-full flex justify-center items-center absolute text-white text-sm -top-2 -right-3">
+          <p>{cart?.length || 0}</p>
+        </div>
       </div>
     </div>
   );

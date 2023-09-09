@@ -2,18 +2,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { BsCart4 } from "react-icons/bs";
-import { AiOutlineUser, AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
-import { FaRegAddressBook } from "react-icons/fa";
+import { AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
+import { BiUserCircle } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
-  MdOutlineSpaceDashboard,
-  MdVerified,
-} from "react-icons/md";
+import { AnimatePresence, motion } from "framer-motion";
+import { MdOutlineSpaceDashboard, MdVerified } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
-import VerifyEmail from "../Shared/VerifyEmail";
+import { GrLogin } from "react-icons/gr";
 
 type linktype = {
   name: string;
@@ -54,55 +50,63 @@ const UserIdentity = ({ text, signout }: any) => {
     <div className="relative font-semibold ease-in-out duration-700">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center hover:text-cs-pink-800 ease-in-out duration-200"
+        className="flex items-center focus:text-cs-pink-800 ease-in-out duration-200"
       >
-        <p>{text}</p>{" "}
-        {open ? (
+        <BiUserCircle className="text-3xl" />
+        {/* {open ? (
           <MdOutlineKeyboardArrowUp className="text-2xl pt-1" />
         ) : (
           <MdOutlineKeyboardArrowDown className="text-2xl pt-1" />
-        )}
+        )} */}
       </button>
-      {open && (
-        <div className="absolute top-14 left-0 bg-white p-3 rounded-md w-full z-50 ease-in transition-all duration-200 text-cs-pink-800 shadow-md">
-          <p
-            onClick={() => setOpen(!open)}
-            className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            exit={{ opacity: 0}}
+            transition={{duration : 0.50}}
+            className="absolute top-14 right-0 w-40 bg-white p-3 rounded-md z-50 ease-in transition-all duration-200 text-cs-pink-800 shadow-md overflow-hidden"
           >
-            <MdOutlineSpaceDashboard />
-            <Link href={"/dashboard"}>Dashboard</Link>
-          </p>
-          <p
-            onClick={() => setOpen(!open)}
-            className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
-          >
-            <AiOutlineHistory />
-            <Link href={"/order"}>My order</Link>
-          </p>
-          <p
-            onClick={() => setOpen(!open)}
-            className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
-          >
-            <BsCart4 />
-            <Link href={"/cart"}>My cart</Link>
-          </p>
-          {!user?.verified && (
+            <p
+              onClick={() => setOpen(!open)}
+              className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"
+            >
+              <MdOutlineSpaceDashboard />
+              <Link href={"/dashboard"}>Dashboard</Link>
+            </p>
             <p
               onClick={() => setOpen(!open)}
               className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
             >
-              <MdVerified />
-              <Link href={"/verifyemail"}>verificaiton</Link>
+              <AiOutlineHistory />
+              <Link href={"/order"}>My order</Link>
             </p>
-          )}
-          <button
-            onClick={signout}
-            className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800"
-          >
-            Logout
-          </button>
-        </div>
-      )}
+            <p
+              onClick={() => setOpen(!open)}
+              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
+            >
+              <BsCart4 />
+              <Link href={"/cart"}>My cart</Link>
+            </p>
+            {!user?.verified && (
+              <p
+                onClick={() => setOpen(!open)}
+                className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
+              >
+                <MdVerified />
+                <Link href={"/verifyemail"}>verificaiton</Link>
+              </p>
+            )}
+            <button
+              onClick={signout}
+              className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800"
+            >
+              Logout
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -119,7 +123,7 @@ export const Nav = () => {
         >
           Time Kepeer
         </h1>
-        <div className="gap-x-10 flex">
+        <div className="gap-x-10 flex items-center">
           <ul
             className={`gap-x-10 font-light text-md  hidden lg:flex items-center`}
           >
@@ -127,21 +131,24 @@ export const Nav = () => {
               <NavLink key={link.href} name={link.name} href={link.href} />
             ))}
           </ul>
+        </div>
+        <div className=" flex items-center gap-x-6">
+          <NavbarCart />
           <div
             className={`text-md font-light flex items-center gap-x-5 md:gap-x-10`}
           >
             {user?.email ? (
               <UserIdentity text={user.email} signout={sign_out} />
             ) : (
-              <div
+              <button
                 onClick={() => router.push("/login")}
-                className="flex items-center gap-x-2 cursor-pointer hover:text-cs-pink-800 ease-in-out duration-200"
+                className="flex items-center gap-x-2 cursor-pointer hover:border-cs-pink-800 hover:text-white hover:bg-cs-pink-800 ease-in-out duration-200 px-4 py-2 rounded-md border-2 border-cs-black"
               >
-                <AiOutlineUser className=" text-2xl md:text-lg" />
-                <p className="hidden md:inline-block font-semibold">Login</p>
-              </div>
+                <p className="hidden md:inline-block font-semibold text-md">
+                  Login
+                </p>
+              </button>
             )}
-            <NavbarCart />
             <button>
               <AiOutlineMenu className="text-2xl md:text-lg lg:hidden" />
             </button>

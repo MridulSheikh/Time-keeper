@@ -4,6 +4,7 @@ import { product_card_data_types } from "@/typedeclaration/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { motion } from "framer-motion";
 
 export const ProductCard = ({
   _id,
@@ -22,7 +23,12 @@ export const ProductCard = ({
         )
       : 0;
   return (
-    <div className="bg-cs-pink-200 pt-[50px] relative group h-full">
+    <motion.div
+      initial={{ opacity: 0, width: "0%" }}
+      animate={{ opacity: 1, width: "100%" }}
+      transition={{ duration: 0.90 }}
+      className="bg-cs-pink-200 pt-[50px] relative group h-full"
+    >
       <div className="bg-cs-pink-800 absolute top-3 right-3 text-white p-3 text-sm font-bold rounded-full">
         -{30}%
       </div>
@@ -48,6 +54,6 @@ export const ProductCard = ({
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

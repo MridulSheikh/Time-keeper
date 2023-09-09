@@ -1,25 +1,27 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
-import { useForm, SubmitHandler } from "react-hook-form";
 import useAuth from "@/hooks/useAuth";
 import cartState from "@/context/cartState";
+import axios from "axios";
 
-const CheckoutForm = () => {
-  const { user } = useAuth();
+const CheckoutForm = ({total, order_id, setIsOpen} : {total : number, order_id : string, setIsOpen : any}) => {
+  const { user, token } = useAuth();
   const { cart } = cartState();
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<any>(null);
-  const total =
-    cart?.length > 0
-      ? cart.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0)
-      : 0;
+  const [ClientSecreet, setClientSecreet] = useState<string>();
+  const [loading, setLoading] = useState(false)
+  const paymenthandler = async (event: any) => {
+    // Block native form submission.
+    event.preventDefault();
+    
+    setLoading(true)
 
-  const paymenthandler= async () => {
     // @ts-ignore
-   const card = elements.getElement(CardElement);
+    const card = elements.getElement(CardElement);
 
     if (card == null) {
       return;
@@ -46,10 +48,56 @@ const CheckoutForm = () => {
     } else {
       console.log("[PaymentMethod]", paymentMethod);
     }
+
+    //confirm card payment
+    const { paymentIntent, error: intentError } =
+      // @ts-ignore
+      await stripe.confirmCardPayment(ClientSecreet!, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user.displayName,
+            email: user.email,
+          },
+        },
+      });
+      if (intentError) {
+        toast.error(intentError?.message!);
+      } else {
+        toast.success("your payment is complete");
+        axios.patch(`http://localhost:5000/api/v1/order/${order_id}`,{paid : true},{
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer" + " " + token,
+          },
+        })
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+        // setTransitionId(paymentIntent.id);
+      }
+      setLoading(false)
+      setIsOpen(false)
   };
+
+
+  useEffect(() => {
+    axios
+    .post("http://localhost:5000/api/v1/create-payment-intent",{total : total},{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer" + " " + token,
+      },
+    })
+    .then((res) => {
+      setClientSecreet(res.data.clientSecret)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }, [token]);
+
   return (
-      <div>
-      <p className="mt-5">Card Information*</p>
+    <form onSubmit={paymenthandler}>
       <CardElement
         className="border-2 rounded-md py-2 px-4 mt-2 border-cs-pink-800"
         options={{
@@ -67,14 +115,17 @@ const CheckoutForm = () => {
           },
         }}
       />
+      {
+
+      }
       <button
         type="submit"
         className="mt-5 bg-cs-pink-800 px-4 py-2 rounded-md active:opacity-80 w-full"
         disabled={!stripe}
       >
-        Pay
+        {loading ? "Please wait...." : "Pay"}
       </button>
-     </div>
+    </form>
   );
 };
 

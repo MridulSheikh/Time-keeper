@@ -1,8 +1,10 @@
 "use client";
 import cartState from "@/context/cartState";
 import useAuth from "@/hooks/useAuth";
-import React from "react";
+import axios from "axios";
+import React, { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 
 type Inputs = {
   country: string;
@@ -13,8 +15,9 @@ type Inputs = {
 };
 
 export const ShippingForm = () => {
-  const { user } = useAuth();
-  const { cart } = cartState();
+  const { user, token } = useAuth();
+  const { cart, setCart } = cartState();
+  const toastId = useRef<any>(null);
   const total =
     cart?.length > 0
       ? cart.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0)
@@ -39,6 +42,34 @@ export const ShippingForm = () => {
         address_1_line: data.address_1_line,
       },
     };
+    toastId.current = toast.loading("please wait...");
+    axios.post(`http://localhost:5000/api/v1/order`,body,{
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer" + " " + token,
+      },
+    })
+    .then((res)=>{
+      localStorage.removeItem("cart");
+      setCart(null)
+      toast.update(toastId.current, {
+        render: "please check your email to confirm your order",
+        type: "success",
+        isLoading: false,
+        closeButton: true,
+        closeOnClick: true,
+        autoClose: 6000,
+      });
+    }).catch(error => {
+      toast.update(toastId.current, {
+        render: "your order not placed please try again",
+        type: "error",
+        isLoading: false,
+        closeButton: true,
+        closeOnClick: true,
+        autoClose: 6000,
+      });
+    })
   };
   return (
     <>

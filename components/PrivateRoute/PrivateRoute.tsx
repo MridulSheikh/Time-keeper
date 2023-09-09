@@ -8,11 +8,9 @@ export const PrivateRoute = ({ children }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   useEffect(() => {
-      if (authLoading) return
-      if (!user?.email) {
+      if (!user?.email || authLoading) {
       router.replace(`/login?from=${pathname}`)
     }
   }, [user]);
-  if(authLoading) return <div className="h-screen w-full" />
   return <div>{children}</div>
 };

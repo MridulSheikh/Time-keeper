@@ -10,10 +10,10 @@ import {
 import useAuth from "@/hooks/useAuth";
 import React from "react";
 
-const ProductDetails = async ({ params }: any) => {
+const ProductDetails = async ({ params }: {params : {id : string}}) => {
   const {token} = useAuth()
-  const { slug } = params;
-  const uri = `http://localhost:5000/api/v1/product/${slug}`;
+  const { id } = params;
+  const uri = `http://localhost:5000/api/v1/product/${id}`;
   const res = await fetch(uri, {
     next: { revalidate: 60 }, 
     headers: {

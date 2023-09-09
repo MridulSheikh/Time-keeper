@@ -1,7 +1,9 @@
+'use client'
 import React from "react";
 import { ProductCard } from "../ProductCard";
 import { product_data_types } from "@/typedeclaration/types";
 import Image from "next/image";
+import { AnimatePresence } from "framer-motion";
 
 export const Body = async ({
   products,
@@ -12,6 +14,7 @@ export const Body = async ({
     <div className="col-span-9 ">
       {products?.length > 0 ? (
         <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence>
           {products?.map((dt: any) => (
             <ProductCard
               key={dt._id}
@@ -22,6 +25,7 @@ export const Body = async ({
               reviews={dt.reviews}
             />
           ))}
+          </AnimatePresence>
         </div>
       ) : (
         <div className="flex justify-center items-center w-full h-96">

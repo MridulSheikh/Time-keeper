@@ -58,3 +58,29 @@ export interface Brand_data_types {
     updatedAt : string;
     __v : number;
 }
+
+export interface Order_data_types{
+    _id : string;
+    total : number;
+    address : {
+        country: string,
+        number: string,
+        state: string,
+        post: string,
+        email: string,
+        address_1_line: string;
+    };
+    confirm : boolean;
+    paid : boolean;
+    item : [{
+        _id : string;
+        img : string;
+        name : string;
+        price : number;
+        quantity : number;
+    }];
+    createdAt : string;
+    updatedAt : string;
+    status : string;
+    __v: number;
+}

@@ -26,7 +26,7 @@ const Page = () => {
   const [category, setCategory] = useState<any>();
   const toastId = useRef<any>(null);
   const params = useParams();
-  const {token} = useAuth()
+  const { token } = useAuth();
   const {
     register,
     handleSubmit,
@@ -53,10 +53,10 @@ const Page = () => {
       category: category.id,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/product/${params.id}`, body,{
+      .patch(`http://localhost:5000/api/v1/product/${params.id}`, body, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer" + " " + token,
+          Authorization: "Bearer" + " " + token,
         },
       })
       .then((res) => {
@@ -85,10 +85,10 @@ const Page = () => {
   const getProdcutsData = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/product/${params.id}`,{
+      .get(`http://localhost:5000/api/v1/product/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer" + " " + token,
+          Authorization: "Bearer" + " " + token,
         },
       })
       .then((res) => {
@@ -139,7 +139,7 @@ const Page = () => {
           <h1>product not found!</h1>
         </div>
       ) : (
-        <div className="p-5 grid grid-cols-2 gap-x-5">
+        <div className="p-5">
           <div>
             <div className="w-full h-96 bg-slate-100">
               <SetImageContainer imageUrl={image} setImageUrl={setImage} />
@@ -148,7 +148,7 @@ const Page = () => {
           <div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <p>name*</p>
+                <p className=" font-bold text-lg">Name*</p>
                 {errors.name && (
                   <p className="mt-2 text-sm text-red-700">
                     {errors.name.message}
@@ -162,7 +162,7 @@ const Page = () => {
                 />
               </div>
               <div className="mt-5">
-                <p>description*</p>
+                <p className=" font-bold text-lg">Description*</p>
                 {errors.description && (
                   <p className="mt-2 text-sm text-red-700">
                     {errors.description.message}
@@ -178,29 +178,15 @@ const Page = () => {
                 />
               </div>
               <div className="text-cs-black mt-5">
-                <p>Brand*</p>
-                <Select
-                  className="mt-2"
-                  name="please select a brand"
-                  value={brands}
-                  setState={setBrand}
-                  state={brand}
-                  disabled={true}
-                />
+                <p className=" font-bold text-lg">Brand*</p>
+                <p className="mt-2">{brand.name}</p>
               </div>
               <div className="text-cs-black mt-5">
-                <p>Category*</p>
-                <Select
-                  className="mt-2"
-                  name="please select a Category"
-                  value={categories}
-                  setState={setCategory}
-                  state={category}
-                  disabled={true}
-                />
+                <p className=" font-bold text-lg">Category*</p>
+                <p className="mt-2">{category.name}</p>
               </div>
               <div className="mt-5">
-                <p>price*</p>
+                <p className=" font-bold text-lg">Price*</p>
                 {errors.price && (
                   <p className="mt-2 text-sm text-red-700">
                     {errors.price.message}

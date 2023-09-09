@@ -29,3 +29,4 @@ export * from "./Shared";
 export * from "./Pagination";
 export * from "./Cart";
 export * from "./shipping"
+export * from "./OrderDetails"

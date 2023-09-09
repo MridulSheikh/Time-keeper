@@ -13,7 +13,7 @@ const NotFound = () => {
     </h1>
     <button
       className="text-white bg-red-500 px-4 py-2 rounded-md mt-4 mx-auto active:opacity-80"
-      onClick={() => router.replace("/verifyemail")}
+      onClick={() => router.replace("/")}
     >
       back to home
     </button>
