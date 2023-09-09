@@ -27,7 +27,7 @@ const AddFolderForm = ({ condition, setCondition }: any) => {
       create_by: user?.email,
     };
     axios
-      .post("http://localhost:5000/api/v1/folder", body,{
+      .post("https://free-time-server.onrender.com/api/v1/folder", body,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

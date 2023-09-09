@@ -15,7 +15,7 @@ const ConfirmOrder = ({params} : {params : {token : string}}) => {
     if (params?.token) {
       setLoading(true);
       axios
-        .post(`http://localhost:5000/api/v1/order/confirm`,{}, {
+        .post(`https://free-time-server.onrender.com/api/v1/order/confirm`,{}, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer" + " " + params?.token,

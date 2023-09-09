@@ -43,7 +43,7 @@ export const ShippingForm = () => {
       },
     };
     toastId.current = toast.loading("please wait...");
-    axios.post(`http://localhost:5000/api/v1/order`,body,{
+    axios.post(`https://free-time-server.onrender.com/api/v1/order`,body,{
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer" + " " + token,

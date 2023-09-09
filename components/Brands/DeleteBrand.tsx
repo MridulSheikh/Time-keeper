@@ -12,7 +12,7 @@ export const DeleteBrand = ({ id, name}: {id : string , name : string}) => {
   const {token} = useAuth()
   const deletBrandHandaler = () =>{
         setIsLoading(true)
-        axios.delete(`http://localhost:5000/api/v1/Brand/${id}`,{
+        axios.delete(`https://free-time-server.onrender.com/api/v1/Brand/${id}`,{
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer" + " " + token,

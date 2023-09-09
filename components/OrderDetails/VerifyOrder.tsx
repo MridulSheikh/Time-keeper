@@ -36,7 +36,7 @@ export const VerifyOrder = ({_id, total, item, country, number, state, post, ema
                 address_1_line: address_1_line,
               },
         }
-        axios.post(`http://localhost:5000/api/v1/order/verify`,body,{
+        axios.post(`https://free-time-server.onrender.com/api/v1/order/verify`,body,{
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer" + " " + token,

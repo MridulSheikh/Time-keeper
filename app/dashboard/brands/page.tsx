@@ -17,7 +17,7 @@ const Brand = () => {
   const getBrandData = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/brand",{
+      .get("https://free-time-server.onrender.com/api/v1/brand",{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

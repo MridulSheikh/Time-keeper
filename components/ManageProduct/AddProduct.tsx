@@ -52,7 +52,7 @@ const AddProductModal = ({ setOpen }: { setOpen: any }) => {
       category: category.id,
     };
     axios
-      .post("http://localhost:5000/api/v1/product", body,{
+      .post("https://free-time-server.onrender.com/api/v1/product", body,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

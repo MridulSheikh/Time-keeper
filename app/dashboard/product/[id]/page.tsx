@@ -53,7 +53,7 @@ const Page = () => {
       category: category.id,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/product/${params.id}`, body, {
+      .patch(`https://free-time-server.onrender.com/api/v1/product/${params.id}`, body, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer" + " " + token,
@@ -85,7 +85,7 @@ const Page = () => {
   const getProdcutsData = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/product/${params.id}`, {
+      .get(`https://free-time-server.onrender.com/api/v1/product/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer" + " " + token,

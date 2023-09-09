@@ -62,22 +62,24 @@ const UserIdentity = ({ text, signout }: any) => {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0}}
-            animate={{ opacity: 1}}
-            exit={{ opacity: 0}}
-            transition={{duration : 0.50}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
             className="absolute top-14 right-0 w-40 bg-white p-3 rounded-md z-50 ease-in transition-all duration-200 text-cs-pink-800 shadow-md overflow-hidden"
           >
+            {user?.role === "admin" && (
+              <p
+                onClick={() => setOpen(!open)}
+                className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg mb-5"
+              >
+                <MdOutlineSpaceDashboard />
+                <Link href={"/dashboard"}>Dashboard</Link>
+              </p>
+            )}
             <p
               onClick={() => setOpen(!open)}
-              className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"
-            >
-              <MdOutlineSpaceDashboard />
-              <Link href={"/dashboard"}>Dashboard</Link>
-            </p>
-            <p
-              onClick={() => setOpen(!open)}
-              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
+              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"
             >
               <AiOutlineHistory />
               <Link href={"/order"}>My order</Link>

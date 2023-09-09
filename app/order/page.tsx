@@ -38,7 +38,7 @@ const Order = () => {
   const {user} = useAuth()
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/order?email=${user?.email}`)
+      .get(`https://free-time-server.onrender.com/api/v1/order?email=${user?.email}`)
       .then((res) => setOrders(res.data.data))
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));

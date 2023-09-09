@@ -68,7 +68,7 @@ const useFirebase = () => {
     try {
       setAuthLoading(true);
       const postdata = await axios.post(
-        "http://localhost:5000/api/v1/user",data,
+        "https://free-time-server.onrender.com/api/v1/user",data,
         {
           headers : {
             'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ const useFirebase = () => {
   //   setError(null);
   //   setAuthLoading(true);
   //   axios
-  //     .get(`http://localhost:5000/api/v1/user/${email}`)
+  //     .get(`https://free-time-server.onrender.com/api/v1/user/${email}`)
   //     .then((res) => setUser(res.data.body))
   //     .catch((error) => setError(error.response.data.messgae))
   //     .finally(() => setAuthLoading(false));

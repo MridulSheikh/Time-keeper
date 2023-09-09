@@ -14,7 +14,7 @@ const Category = () => {
     const type = e.target.type.value;
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/api/v1/category", {
+      .post("https://free-time-server.onrender.com/api/v1/category", {
         name: type,
         create_by: user.email,
       },{
@@ -38,7 +38,7 @@ const Category = () => {
   const getcategory = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/category",{
+      .get("https://free-time-server.onrender.com/api/v1/category",{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,
