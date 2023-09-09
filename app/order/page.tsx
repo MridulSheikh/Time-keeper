@@ -1,5 +1,6 @@
 "use client";
-import { PrivateRoute, TopBanner } from "@/components";
+import { Nav, PrivateRoute, TopBanner } from "@/components";
+import { Footer } from "@/components/Footer";
 import useAuth from "@/hooks/useAuth";
 import formatDate from "@/lib/DateFormate";
 import { Order_data_types } from "@/typedeclaration/types";
@@ -44,6 +45,7 @@ const Order = () => {
   }, [user]);
   return (
     <PrivateRoute>
+      <Nav />
       <TopBanner page="order" route="home/order" />
       <div className="bg-cs-nural">
       <div className=" max-w-screen-xl mx-auto px-4  py-5">
@@ -74,6 +76,7 @@ const Order = () => {
         </div>
       </div>
       </div>
+      <Footer />
     </PrivateRoute>
   );
 };

@@ -2,9 +2,11 @@
 import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { GrRefresh } from "react-icons/gr";
 import { RiAdminFill } from "react-icons/ri";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
+import {FaUserCircle} from "react-icons/fa"
 
 const Page = () => {
   const { token } = useAuth();
@@ -22,19 +24,19 @@ const Page = () => {
       .get("http://localhost:5000/api/v1/user", {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer" + " " + token,
+          Authorization: "Bearer" + " " + token,
         },
       })
       .then((res) => setUsers(res.data.body))
       .catch((error) => {
-        toast.error(error.response.data.message)
+        toast.error(error.response.data.message);
       })
       .finally(() => setIsLoading(false));
   };
 
   const addAdminHandler = () => {
-    if(!email){
-      toast.warn("email not found!")
+    if (!email) {
+      toast.warn("email not found!");
       return;
     }
     toastId.current = toast.loading("please wait...");
@@ -45,7 +47,7 @@ const Page = () => {
         {
           headers: {
             "Content-Type": "application/json",
-           " Authorization": "Bearer" + " " + token,
+            "Authorization": "Bearer" + " " + token,
           },
         }
       )
@@ -108,14 +110,14 @@ const Page = () => {
   return (
     <div className="w-full pb-20">
       <ToastContainer />
-      <div className="flex justify-between items-center px-5 py-3">
+      <div className="flex justify-between items-center px-5 py-3 bg-white border-b">
         <div className="flex items-center gap-x-3">
           <RiAdminFill className="text-xl" />
           <h1 className="text-xl text-cs-black font-bold">Admin</h1>
         </div>
-        <div className="flex items-center gap-x-5">
+        <div className="flex items-center">
           <input
-            className="px-4 py-2 rounded-md border shadow-md bg-white"
+            className="px-4 py-2 rounded-md border rounded-r-none bg-cs-nural"
             placeholder="Add admin by email"
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -124,25 +126,21 @@ const Page = () => {
           />
           <button
             onClick={addAdminHandler}
-            className=" bg-cs-black text-white px-4 py-2 rounded-md active:opacity-80"
+            className=" border  bg-cs-black text-white px-4 py-2 rounded-md rounded-l-none active:opacity-80"
           >
             Add
           </button>
         </div>
-      </div>
-      <div className="bg-white border px-5 py-3 rounded-md shadow-md mx-auto w-8/12 grid grid-cols-3 mt-10 font-bold text-cs-black">
-        <h1 className="col-span-2 my-auto">Email</h1>
-        <div className="flex justify-end">
-          <button
-            onClick={getAdminData}
-            className="bg-cs-black text-white px-4 py-2 rounded-md active:opacity-80"
-          >
-            Refresh
-          </button>
-        </div>
+        <button
+          onClick={getAdminData}
+          className="bg-blue-800 text-white py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+        >
+          <GrRefresh className="text-white text-xl" />
+          <p>Refresh</p>
+        </button>
       </div>
       {IsLoading ? (
-        <div className="bg-white border rounded-md shadow-md mx-auto w-8/12 mt-5 h-96 flex justify-center items-center">
+        <div className="mx-auto w-8/12 mt-5 h-96 flex justify-center items-center">
           <RotatingLines
             strokeColor="grey"
             strokeWidth="5"
@@ -152,18 +150,19 @@ const Page = () => {
           />
         </div>
       ) : (
-        <div className="bg-white border rounded-md shadow-md mx-auto w-8/12 mt-5">
+        <div className=" grid grid-cols-4 mt-5 px-4 gap-5">
           {users
             ?.filter((user: any) => user.role === "admin")
             .map((user: any) => (
               <div
                 key={user?._id}
-                className="flex justify-between p-4 border-b items-center"
+                className="flex flex-col p-4 bg-white gap-y-3 items-center border rounded-md"
               >
+                <h1 className="text-4xl text-gray-500" ><FaUserCircle /></h1>
                 <h1>{user.email}</h1>
                 <button
                   onClick={() => removedAdmin(user.email)}
-                  className="bg-red-500 px-4 py-2 rounded-md active:opacity-80"
+                  className="bg-red-500 px-4 py-2 rounded-md active:opacity-80 text-white"
                 >
                   Remove
                 </button>

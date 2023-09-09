@@ -189,7 +189,7 @@ export const AddProduct = () => {
       {open && <AddProductModal setOpen={setOpen} />}
       <button
         onClick={() => setOpen(true)}
-        className="bg-green-800 py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+        className="bg-green-800 py-2 px-4 text-white rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
       >
         <AiOutlinePlus className=" text-xl" />
         <p>Add</p>

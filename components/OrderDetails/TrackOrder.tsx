@@ -33,7 +33,10 @@ export const TrackOrder = ({ status }: { status: string }) => {
           <div>
             <div
               className={`text-6xl text-white ${
-                status === ("pending" || "packed" || "shipped" || "delivered")
+                status === "pending" ||
+                status === "packed" ||
+                status === "shipped" ||
+                status === "delivered"
                   ? "bg-cs-pink-800"
                   : "bg-gray-500"
               } w-32 h-32 rounded-full flex justify-center items-center`}
@@ -42,7 +45,10 @@ export const TrackOrder = ({ status }: { status: string }) => {
             </div>
             <p
               className={`text-center text-xl  ${
-                status === ("pending" || "packed" || "shipped" || "delivered")
+                status === "pending" ||
+                status === "packed" ||
+                status === "shipped" ||
+                status === "delivered"
                   ? "text-cs-pink-800"
                   : "text-gray-500"
               }`}
@@ -52,7 +58,10 @@ export const TrackOrder = ({ status }: { status: string }) => {
           </div>
           <div
             className={` h-10 md:h-3  ${
-              status === ("pending" || "packed" || "shipped" || "delivered")
+              status === "pending" ||
+              status === "packed" ||
+              status === "shipped" ||
+              status === "delivered"
                 ? "bg-cs-pink-800"
                 : "bg-gray-500"
             } rounded-md w-3 md:w-20 xl:w-44 md:ml-2`}
@@ -63,7 +72,9 @@ export const TrackOrder = ({ status }: { status: string }) => {
           <div>
             <div
               className={`text-6xl text-white ${
-                status === ("packed" || "shipped" || "delivered")
+                status === "packed" ||
+                status === "shipped" ||
+                status === "delivered"
                   ? "bg-cs-pink-800"
                   : "bg-gray-500"
               } w-32 h-32 rounded-full flex justify-center items-center`}
@@ -72,7 +83,9 @@ export const TrackOrder = ({ status }: { status: string }) => {
             </div>
             <p
               className={`text-center text-xl  ${
-                status === ("packed" || "shipped" || "delivered")
+                status === "packed" ||
+                status === "shipped" ||
+                status === "delivered"
                   ? "text-cs-pink-800"
                   : "text-gray-500"
               }`}
@@ -82,7 +95,9 @@ export const TrackOrder = ({ status }: { status: string }) => {
           </div>
           <div
             className={` h-10 md:h-3  ${
-              status === ("packed" || "shipped" || "delivered")
+              status === "packed" ||
+              status === "shipped" ||
+              status === "delivered"
                 ? "bg-cs-pink-800"
                 : "bg-gray-500"
             } rounded-md w-3 md:w-20 xl:w-44 md:ml-2`}
@@ -93,7 +108,7 @@ export const TrackOrder = ({ status }: { status: string }) => {
           <div>
             <div
               className={`text-6xl text-white ${
-                status === ("shipped" || "delivered")
+                status === "shipped" || status === "delivered"
                   ? "bg-cs-pink-800"
                   : "bg-gray-500"
               } w-32 h-32 rounded-full flex justify-center items-center`}
@@ -102,7 +117,7 @@ export const TrackOrder = ({ status }: { status: string }) => {
             </div>
             <p
               className={`text-center text-xl  ${
-                status === ("shipped" || "delivered")
+                status === "shipped" || status === "delivered"
                   ? "text-cs-pink-800"
                   : "text-gray-500"
               }`}
@@ -112,7 +127,7 @@ export const TrackOrder = ({ status }: { status: string }) => {
           </div>
           <div
             className={` h-10 md:h-3  ${
-              status === ("shipped" || "delivered")
+              status === "shipped" || status === "delivered"
                 ? "bg-cs-pink-800"
                 : "bg-gray-500"
             } rounded-md w-3 md:w-20 xl:w-44 md:ml-2`}

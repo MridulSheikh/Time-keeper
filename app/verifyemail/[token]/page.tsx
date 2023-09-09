@@ -14,24 +14,27 @@ const Success = ({ params }: { params: any }) => {
     if (params?.token) {
       setLoading(true);
       axios
-        .post(`http://localhost:5000/api/v1/user/confirm`,{}, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer" + " " + params?.token,
-          },
-        })
+        .post(
+          `http://localhost:5000/api/v1/user/confirm`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer" + " " + params?.token,
+            },
+          }
+        )
         .then((res) => {
           if (res.data.status === "success") {
             setSuccess(true);
           }
         })
-        .catch((error) => {
-        })
+        .catch((error) => {})
         .finally(() => setLoading(false));
     }
   }, [params]);
   return (
-    <div className="w-full h-96 flex justify-center items-center bg-cs-nural">
+    <div className="w-full h-screen flex justify-center items-center bg-cs-nural">
       {loading || !params?.token ? (
         <div className="text-center flex flex-col justify-center items-center  rounded-md p-4">
           <RotatingLines
@@ -41,9 +44,7 @@ const Success = ({ params }: { params: any }) => {
             width="100"
             visible={true}
           />
-          <h1 className=" text-2xl font-bold text-green-500">
-            Verifying your email !
-          </h1>
+          <h1 className=" text-2xl font-bold text-green-500">Please wait</h1>
         </div>
       ) : (
         <div>
@@ -53,25 +54,13 @@ const Success = ({ params }: { params: any }) => {
               <h1 className=" text-2xl font-bold text-green-500">
                 successfully verified your email !
               </h1>
-              <button
-                className="text-white bg-green-500 px-4 py-2 rounded-md mt-4 mx-auto active:opacity-80"
-                onClick={() => router.replace("/")}
-              >
-                Back to home
-              </button>
             </div>
           ) : (
             <div className="text-center  rounded-md p-4">
-              <RiErrorWarningLine className=" text-7xl font-bold text-red-500 mx-auto" />
+              <h1 className=" text-7xl font-bold text-red-500 mx-auto">4O4</h1>
               <h1 className=" text-2xl font-bold text-red-500">
                 Page not found!
               </h1>
-              <button
-                className="text-white bg-red-500 px-4 py-2 rounded-md mt-4 mx-auto active:opacity-80"
-                onClick={() => router.replace("/verifyemail")}
-              >
-                back to home
-              </button>
             </div>
           )}
         </div>

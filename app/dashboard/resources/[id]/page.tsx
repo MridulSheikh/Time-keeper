@@ -20,10 +20,10 @@ interface propTypes {
 
 const ImageCard = ({ name, imageUrl, id, create_by, createdAt, folder }: propTypes) => {
   return (
-    <div className=" cursor-pointer shadow-md rounded-md overflow-hidden relative">
-      <button className=" absolute top-2 left-2 border-2 border-white/60 bg-transparent z-20 w-4 h-4 " />
+    <div className=" cursor-pointer rounded-md overflow-hidden relative bg-white border">
+      {/* <button className=" absolute top-2 left-2 border-2 border-white/60 bg-transparent z-20 w-4 h-4 " /> */}
       <a target="_blank" href={imageUrl}>
-        <div className=" w-full h-36 relative overflow-hidden mx-auto bg-slate-300">
+        <div className=" w-full h-36 relative overflow-hidden mx-auto">
           <Image
             alt={name + " " + "images"}
             src={imageUrl}
@@ -74,7 +74,7 @@ const FolderDetails = () => {
   useEffect(() => getFolderData(), []);
   return (
     <div>
-      <div className="px-5 py-2 bg-cs-black text-white flex justify-between items-center sticky top-0 z-30">
+      <div className="px-5 py-2 text-cs-black bg-white flex justify-between items-center sticky top-0 z-30">
         <h1 className="text-2xl font-bold">Resources / {folder?.name}</h1>
         <div className="flex items-center justify-center gap-x-4 text-cs-black">
           <AddImage id={params.id} />

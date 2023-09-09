@@ -14,13 +14,13 @@ interface propsType {
 
 export const BrandCard = ({ logo, name, _id, product, number }: propsType) => {
   return (
-    <div className="grid grid-cols-5 p-2 bg-white rounded-md shadow-md border mb-5">
+    <div className="grid grid-cols-5 p-2 bg-white rounded-md border mt-5">
       <div className=" h-10 relative overflow-hidden z-20">
         <Image
           src={logo}
           alt="brand logo image"
           fill
-          className="object-contain"
+          className="object-contain object-left" 
         />
       </div>
       <div className=" flex items-center">
@@ -33,7 +33,7 @@ export const BrandCard = ({ logo, name, _id, product, number }: propsType) => {
         <h1>{number}</h1>
       </div>
 
-      <div className="flex justify-center items-center gap-x-3">
+      <div className="flex justify-end items-center gap-x-3">
         <DeleteBrand id={_id} name={name} />
         <UpadteBrand id={_id} name={name} logo={logo} number={number} />
         <Link href={`/dashboard/brands/${_id}`}>

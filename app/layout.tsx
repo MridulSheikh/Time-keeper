@@ -1,7 +1,4 @@
-import { Nav } from "@/components";
 import "./globals.css";
-import TopNav from "@/components/Nav/TopNav";
-import { Footer } from "@/components/Footer";
 import AuthProvider from "@/context/AuthProvider";
 import Context from "@/context/Context";
 
@@ -20,9 +17,7 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <Context>
-            <Nav />
             {children}
-            <Footer />
           </Context>
         </AuthProvider>
       </body>

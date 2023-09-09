@@ -1,0 +1,20 @@
+"use client";
+import useAuth from "@/hooks/useAuth";
+import React, { useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+
+export const AdminProtectRoute = ({ children }: any) => {
+  const { user, authLoading } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+  useEffect(() => {
+    if (authLoading) {
+      router.replace(`/login?from=${pathname}`);
+    } else {
+      if (user?.role !== "admin") {
+        router.replace(`/`);
+      }
+    }
+  }, [user]);
+  return <div>{children}</div>;
+};

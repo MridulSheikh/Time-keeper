@@ -1,51 +1,83 @@
 "use client";
+import { AdminProtectRoute } from "@/components";
+import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
+import { BsSmartwatch } from "react-icons/bs";
+import {
+  MdCategory,
+  MdImage,
+  MdOutlineAdminPanelSettings,
+  MdSpaceDashboard,
+} from "react-icons/md";
+import { TbBrandAdobe } from "react-icons/tb";
 
 const admin_links = [
   {
+    name: "Dashboard",
+    link: "/dashboard",
+    icon: <MdSpaceDashboard />,
+  },
+  {
     name: "Category",
-    link: "category",
+    link: "/dashboard/category",
+    icon: <MdCategory />,
   },
   {
     name: "Brands",
-    link: "brands",
+    link: "/dashboard/brands",
+    icon: <TbBrandAdobe />,
   },
   {
     name: "Product",
-    link: "product",
+    link: "/dashboard/product",
+    icon: <BsSmartwatch />,
   },
   {
     name: "Admin",
-    link: "admin",
+    link: "/dashboard/admin",
+    icon: <MdOutlineAdminPanelSettings />,
   },
   {
     name: "Resources",
-    link: "resources",
+    link: "/dashboard/resources",
+    icon: <MdImage />,
   },
 ];
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
+  const { user } = useAuth();
   // console.log(pathname)
   return (
-    <div className="max-w-screen-2xl mx-auto flex border-t">
-      <div className="w-80 bg-cs-black text-white h-screen overflow-y-scroll">
-        {admin_links.map((link) => (
-          <Link key={link.link} href={`/dashboard/${link.link}`}>
-            <div
-              className={`p-3 uppercase hover:bg-slate-800 ${
-                pathname === `/dashboard/${link.link}` && "bg-slate-800"
-              }`}
-            >
-              {link.name}
-            </div>
-          </Link>
-        ))}
+    <AdminProtectRoute>
+      <div className="flex">
+        <div className=" w-full fixed lg:static z-50 lg:z-0 lg:w-80 bg-cs-black text-white h-screen">
+          <div className="flex flex-col gap-y-3 items-center justify-center py-3 border-b">
+            <MdOutlineAdminPanelSettings className="text-5xl" />
+            <h1>{user?.email}</h1>
+          </div>
+          <div>
+            {admin_links.map((link) => (
+              <Link key={link.link} href={`${link.link}`}>
+                <div
+                  className={`p-3 flex justify-start items-center gap-x-2 ${
+                    pathname === `${link.link}` && "bg-slate-800"
+                  }`}
+                >
+                  {link.icon}
+                  <p>{link.name}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="w-full h-screen overflow-y-scroll bg-cs-nural">
+          {children}
+        </div>
       </div>
-      <div className="w-full h-screen overflow-y-scroll">{children}</div>
-    </div>
+    </AdminProtectRoute>
   );
 };
 

@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { BiImageAdd } from "react-icons/bi";
 
 interface propsType {
   id: string;
@@ -148,9 +149,10 @@ export const AddImage = ({ id }: propsType) => {
       )}
       <button
         onClick={() => setCondition(true)}
-        className="bg-white p-1 rounded-sm hover:opacity-70"
+        className="p-1 rounded-sm hover:opacity-70 flex gap-x-2 items-center"
       >
-        Upload Image
+        <BiImageAdd className="text-xl" />
+        <p>Upload Image</p>
       </button>
       <ToastContainer />
     </div>

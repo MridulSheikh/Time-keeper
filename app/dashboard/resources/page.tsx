@@ -7,6 +7,7 @@ import DateFormate from "../../../lib/DateFormate";
 import { useRouter } from "next/navigation";
 import { AddFolder, DeleteFolder, FolderDetails, RenameFolder } from "@/components";
 import useAuth from "@/hooks/useAuth";
+import { GrRefresh } from "react-icons/gr";
 
 interface foldertype {
   _id: string;
@@ -19,7 +20,7 @@ interface foldertype {
 const FolderCard = ({ _id, name, create_by, modified_date, resources }: foldertype) => {
   const router = useRouter();
   return (
-    <div className="grid grid-cols-5 p-2 cursor-pointer hover:bg-slate-100 ease-in-out duration-200">
+    <div className="grid grid-cols-5 p-2 mt-5 bg-white border rounded-sm cursor-pointer hover:bg-slate-100 ease-in-out duration-200">
       <div
         onClick={() => router.push(`/dashboard/resources/${_id}`)}
         className=" flex items-center gap-x-3 text-lg col-span-2"
@@ -65,25 +66,29 @@ const Folder = () => {
       .finally(() => setLoading(false));
   };
   return (
-    <div className="px-5">
-      <div className=" sticky top-0 pt-5 w-full bg-white">
+    <div>
+      <div className="px-5 sticky top-0 pt-5 w-full bg-white border-b">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Resources</h1>
           <div className="flex space-x-3 items-center">
             <AddFolder />
-            <button onClick={getFolderHandler} className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md hover:opacity-70">
-              Refresh
+            <button
+              onClick={getFolderHandler}
+              className="bg-blue-800 text-white py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+            >
+              <GrRefresh className="text-white text-xl" />
+              <p>Refresh</p>
             </button>
           </div>
         </div>
-        <div className="bg-cs-black grid grid-cols-5 p-2 text-white mt-5 rounded-md">
+        <div className="grid grid-cols-5 p-2 text-cs-black mt-5 rounded-md">
           <h2 className=" col-span-2">Name</h2>
           <h2>Date Modified</h2>
           <h2>Files</h2>
           <h2>Action</h2>
         </div>
       </div>
-      <div>
+      <div className="mx-5">
         {loading ? (
           <div className=" w-full h-96 flex justify-center items-center">
             <RotatingLines

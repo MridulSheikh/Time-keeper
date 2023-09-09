@@ -61,22 +61,22 @@ const Page = () => {
   return (
     <div className="relative">
       <div className="sticky top-0 z-20">
-        <div className="bg-cs-black text-white px-5 py-2 flex justify-between items-center">
-          <h1 className=" text-xl">Product</h1>
+        <div className="bg-white text-cs-black px-5 py-2 flex justify-between items-center">
+          <h1 className=" text-xl font-bold">Products</h1>
           <div className=" flex items-center gap-x-3">
             <AddProduct />
             {selectItem?.length > 0 && <DeletProduct selectItem={selectItem} />}
 
             <button
               onClick={getProdcutsData}
-              className="bg-blue-800 py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+              className="bg-blue-800 text-white py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
             >
-              <GrRefresh className=" text-white text-xl" />
+              <GrRefresh className="text-white text-xl" />
               <p>Refresh</p>
             </button>
           </div>
         </div>
-        <div className=" grid grid-cols-6 px-5 py-2 bg-white border-b">
+        <div className=" grid grid-cols-7 px-10 py-2 bg-white border-b">
           <div className=" col-span-3 flex justify-start gap-x-2 items-center">
             <button
               onClick={() => handleAllselect(data?.products)}
@@ -93,6 +93,7 @@ const Page = () => {
           <h1>Category</h1>
           <h1>Brand</h1>
           <h1>Price</h1>
+          <div />
         </div>
       </div>
       <div>

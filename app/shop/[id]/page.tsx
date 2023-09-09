@@ -22,7 +22,6 @@ const ProductDetails = async ({ params }: {params : {id : string}}) => {
     },
   });
   const product = await res.json();
-  console.log(product.data)
   return (
     <PrivateRoute>
       <TopBanner

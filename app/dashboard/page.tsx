@@ -5,19 +5,10 @@ import { useEffect } from "react";
 import { RotatingLines } from "react-loader-spinner";
 
 const Page = () => {
-  const router = useRouter();
-  useEffect(() => {
-    router.replace("/dashboard/product");
-  }, []);
+ 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <RotatingLines
-        strokeColor="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        width="20"
-        visible={true}
-      />
+    <div>
+      <h1>dashboard</h1>
     </div>
   );
 };

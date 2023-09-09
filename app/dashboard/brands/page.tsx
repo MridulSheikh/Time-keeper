@@ -34,7 +34,7 @@ const Brand = () => {
   };
   return (
     <>
-      <div className="p-5 sticky top-0 bg-white z-30">
+      <div className="pt-5 px-5 pb-3 border-b sticky top-0 bg-white z-30">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Brands</h1>
           <div className="flex space-x-3 items-center">
@@ -47,9 +47,10 @@ const Brand = () => {
             </button>
           </div>
         </div>
-        <div className="mt-4 border rounded-md overflow-hidden bg-white">
-          <div className="bg-cs-black grid grid-cols-5 p-2 text-white">
-            <h2 className="col-span-2">Name</h2>
+        <div className="mt-4 overflow-hidden bg-white">
+          <div className="grid grid-cols-5 pt-2 text-cs-black">
+            <h2></h2>
+            <h2>Name</h2>
             <h2>Product</h2>
             <h2>Supplier Number</h2>
             <h2></h2>
