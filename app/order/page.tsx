@@ -35,10 +35,16 @@ const OrderRow = ({_id, date, total, items, confirmed, pay} : propsTypes) => {
 const Order = () => {
   const [orders, setOrders] = useState<undefined | Order_data_types[]>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const {user} = useAuth()
+  const {user,token} = useAuth()
   useEffect(() => {
     axios
-      .get(`https://free-time-server.onrender.com/api/v1/order?email=${user?.email}`)
+      .get(`https://free-time-server.onrender.com/api/v1/order?address.email=${user?.email}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer" + " " + token,
+        },
+      })
       .then((res) => setOrders(res.data.data))
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));

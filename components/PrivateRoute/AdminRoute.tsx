@@ -8,12 +8,8 @@ export const AdminProtectRoute = ({ children }: any) => {
   const router = useRouter();
   const pathname = usePathname();
   useEffect(() => {
-    if (authLoading) {
-      router.replace(`/login?from=${pathname}`);
-    } else {
-      if (user?.role !== "admin") {
-        router.replace(`/`);
-      }
+    if ((user?.role != 'admin') || authLoading) {
+      router.replace(`/login?from=${pathname}`)
     }
   }, [user]);
   return <div>{children}</div>;

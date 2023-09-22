@@ -4,7 +4,9 @@ import useAuth from "@/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
+import { AiFillHome } from "react-icons/ai";
 import { BsSmartwatch } from "react-icons/bs";
+import { FaBloggerB, FaOpencart } from "react-icons/fa";
 import {
   MdCategory,
   MdImage,
@@ -44,6 +46,21 @@ const admin_links = [
     link: "/dashboard/resources",
     icon: <MdImage />,
   },
+  {
+    name : "Order",
+    link : "/dashboard/order",
+    icon : <FaOpencart />
+  },
+  {
+    name : "Blog",
+    link : "/dashboard/blog",
+    icon : <FaBloggerB />
+  },
+  {
+    name : "Home",
+    link : "/",
+    icon : <AiFillHome />
+  }
 ];
 
 const Layout = ({ children }: { children: ReactNode }) => {
@@ -53,7 +70,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <AdminProtectRoute>
       <div className="flex">
-        <div className=" w-full fixed lg:static z-50 lg:z-0 lg:w-80 bg-cs-black text-white h-screen">
+        <div className=" w-full hidden fixed lg:inline-block lg:static z-50 lg:z-0 lg:w-80 bg-cs-black text-white h-screen">
           <div className="flex flex-col gap-y-3 items-center justify-center py-3 border-b">
             <MdOutlineAdminPanelSettings className="text-5xl" />
             <h1>{user?.email}</h1>

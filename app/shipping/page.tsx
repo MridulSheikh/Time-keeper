@@ -39,7 +39,7 @@ const Shipping = () => {
               <div className="text-xl font-bold text-cs-black pb-5 border-b">
                 <h1>Items : {cart?.length}</h1>
               </div>
-              <div className="h-80 overflow-y-scroll mt-2">
+              <div className="mt-2">
                 {cart?.map((item: any, index: number) => (
                   <div key={index} className="grid grid-cols-3 mt-4">
                     <div className="relative">
