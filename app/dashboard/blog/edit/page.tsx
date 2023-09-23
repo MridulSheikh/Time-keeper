@@ -5,12 +5,14 @@ import useAuth from "@/hooks/useAuth";
 import axios from "axios";
 import dynamic from 'next/dynamic';
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from "react-toastify";
 
-const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
+const EditBlog = () => {
+  const searchParams = useSearchParams()
+  const query_title = searchParams.get('title')
   const router = useRouter();
   const { user, token } = useAuth();
   const [blog, setblog] = useState<any>();
@@ -26,7 +28,7 @@ const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
     setIsLoading(true);
     axios
       .get(
-        `http://localhost:5000/api/v1/blog/getbytitle/${searchParams?.title}`
+        `http://localhost:5000/api/v1/blog/getbytitle/${query_title}`
       )
       .then((res) => {
         setTitle(res.data.data.title);
@@ -40,7 +42,7 @@ const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
   // load data when page rendaring
   useEffect(() => {
     getData();
-  }, [searchParams.title]);
+  }, [query_title]);
   const handleUpdateBlog = () => {
     if (!title || !imageUrl || !content) {
       toast.error("Plase provide all information");
