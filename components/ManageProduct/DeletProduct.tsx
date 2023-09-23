@@ -12,7 +12,7 @@ export const DeletProduct = ({ selectItem }: { selectItem: any }) => {
     const { token } = useAuth()
     const deleteProduct = () => {
         setIsLoading(true)
-        axios.delete(`http://localhost:5000/api/v1/product`, {
+        axios.delete(`https://free-time-server.onrender.com/api/v1/product`, {
             data: { item: selectItem },
             headers: {
                 "Content-Type": "application/json",

@@ -49,7 +49,7 @@ const UploadImageModal = ({
     fromData.append("image", file);
     fromData.append("data", JSON.stringify(body));
     axios
-      .post(`http://localhost:5000/api/v1/image`, fromData,{
+      .post(`https://free-time-server.onrender.com/api/v1/image`, fromData,{
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": "Bearer" + " " + token,

@@ -38,7 +38,7 @@ const Order = () => {
   const {user,token} = useAuth()
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/order?address.email=${user?.email}`,
+      .get(`https://free-time-server.onrender.com/api/v1/order?address.email=${user?.email}`,
       {
         headers: {
           "Content-Type": "application/json",

@@ -16,7 +16,7 @@ export const DeleteFolder = ({ id, name, resources }: any) => {
           return;
         }
         setIsLoading(true)
-        axios.delete(`http://localhost:5000/api/v1/folder/${id}`,
+        axios.delete(`https://free-time-server.onrender.com/api/v1/folder/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -26,7 +26,7 @@ export const RevewsForm = ({ name, id }: { name: string; id: string }) => {
       review: data.review,
     };
     axios
-      .patch(`http://localhost:5000/api/v1/product/review/${id}`, body,{
+      .patch(`https://free-time-server.onrender.com/api/v1/product/review/${id}`, body,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

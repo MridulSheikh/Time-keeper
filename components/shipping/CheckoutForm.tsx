@@ -65,7 +65,7 @@ const CheckoutForm = ({total, order_id, setIsOpen} : {total : number, order_id :
         toast.error(intentError?.message!);
       } else {
         toast.success("your payment is complete");
-        axios.patch(`http://localhost:5000/api/v1/order/${order_id}`,{paid : true},{
+        axios.patch(`https://free-time-server.onrender.com/api/v1/order/${order_id}`,{paid : true},{
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer" + " " + token,
@@ -82,7 +82,7 @@ const CheckoutForm = ({total, order_id, setIsOpen} : {total : number, order_id :
 
   useEffect(() => {
     axios
-    .post("http://localhost:5000/api/v1/create-payment-intent",{total : total},{
+    .post("https://free-time-server.onrender.com/api/v1/create-payment-intent",{total : total},{
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer" + " " + token,

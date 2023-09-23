@@ -24,7 +24,7 @@ const ImageCard = ({
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/image/${id}`, {
+      .get(`https://free-time-server.onrender.com/api/v1/image/${id}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,
@@ -104,7 +104,7 @@ export const ImageUrlSetter = ({
   const fetchFolderData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/folder", {
+      .get("https://free-time-server.onrender.com/api/v1/folder", {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

@@ -16,7 +16,7 @@ const OrderDetails = ({ params }: { params: { id: string } }) => {
   const getOrder = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/order/${params?.id}`)
+      .get(`https://free-time-server.onrender.com/api/v1/order/${params?.id}`)
       .then((res) => {
         setOrder(res.data.data);
       })
@@ -30,7 +30,7 @@ const OrderDetails = ({ params }: { params: { id: string } }) => {
     toastId.current = toast.loading("please wait...");
     axios
       .patch(
-        `http://localhost:5000/api/v1/order/${params?.id}`,
+        `https://free-time-server.onrender.com/api/v1/order/${params?.id}`,
         { status: e.target.value },
         {
           headers: {

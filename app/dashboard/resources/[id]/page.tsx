@@ -58,7 +58,7 @@ const FolderDetails = () => {
   const getFolderData = () => {
     setIsLoading(true);
     axios
-      .get(`http://localhost:5000/api/v1/folder/${params.id}`,{
+      .get(`https://free-time-server.onrender.com/api/v1/folder/${params.id}`,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

@@ -52,7 +52,7 @@ const Folder = () => {
   const getFolderHandler = () => {
     setLoading(true);
     axios
-      .get("http://localhost:5000/api/v1/folder",{
+      .get("https://free-time-server.onrender.com/api/v1/folder",{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,
