@@ -7,6 +7,7 @@ import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AiOutlineFolderAdd } from "react-icons/ai";
 
 type Inputs = {
   name: string;
@@ -94,13 +95,13 @@ export const AddFolder = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
-        <ToastContainer />
       <AddFolderForm condition={isOpen} setCondition={setIsOpen} />
       <button
         onClick={() => setIsOpen(true)}
-        className="bg-cs-black text-white px-3 py-1.5 h-full rounded-md hover:opacity-70"
+        className="p-1 rounded-sm hover:opacity-70 flex gap-x-2 items-center"
       >
-        Add folder
+        <AiOutlineFolderAdd className="text-xl" />
+        <p>Add folder</p>
       </button>
     </div>
   );

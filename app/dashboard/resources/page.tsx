@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { AddFolder, DeleteFolder, FolderDetails, RenameFolder } from "@/components";
 import useAuth from "@/hooks/useAuth";
 import { GrRefresh } from "react-icons/gr";
+import { ToastContainer } from "react-toastify";
 
 interface foldertype {
   _id: string;
@@ -67,6 +68,7 @@ const Folder = () => {
   };
   return (
     <div>
+      <ToastContainer />
       <div className="px-5 sticky top-0 pt-5 w-full bg-white border-b">
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Resources</h1>
@@ -74,9 +76,9 @@ const Folder = () => {
             <AddFolder />
             <button
               onClick={getFolderHandler}
-              className="bg-blue-800 text-white py-2 px-4 rounded-md active:opacity-80 flex justify-center items-center gap-x-2"
+              className="p-1 rounded-sm hover:opacity-70 flex gap-x-2 items-center"
             >
-              <GrRefresh className="text-white text-xl" />
+              <GrRefresh className="text-xl" />
               <p>Refresh</p>
             </button>
           </div>

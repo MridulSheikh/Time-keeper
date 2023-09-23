@@ -154,7 +154,6 @@ export const AddImage = ({ id }: propsType) => {
         <BiImageAdd className="text-xl" />
         <p>Upload Image</p>
       </button>
-      <ToastContainer />
     </div>
   );
 };

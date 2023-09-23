@@ -23,7 +23,7 @@ const Order = async ({searchParams} : {searchParams : any}) => {
   return (
     <div>
         <ManageOrderHeader />
-        <div className='mt-5'>
+        <div className='my-5'>
             {
               orders?.data ? 
               <div>

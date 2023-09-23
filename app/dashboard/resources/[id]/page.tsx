@@ -5,9 +5,10 @@ import { useParams } from "next/navigation";
 import DateFormate from "../../../../lib/DateFormate";
 import React, { useEffect, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { AddImage, DeleteOneImage, RenameImage } from "@/components";
 import useAuth from "@/hooks/useAuth";
+import { GrRefresh } from "react-icons/gr";
 
 interface propTypes {
   name: string;
@@ -74,16 +75,18 @@ const FolderDetails = () => {
   useEffect(() => getFolderData(), []);
   return (
     <div>
-      <div className="px-5 py-2 text-cs-black bg-white flex justify-between items-center sticky top-0 z-30">
+      <ToastContainer />
+      <div className="px-5 py-2 text-cs-black bg-white border-b flex justify-between items-center sticky top-0 z-30">
         <h1 className="text-2xl font-bold">Resources / {folder?.name}</h1>
         <div className="flex items-center justify-center gap-x-4 text-cs-black">
           <AddImage id={params.id} />
           <button
-            onClick={getFolderData}
-            className="bg-white p-1 rounded-sm hover:opacity-70"
-          >
-            Refresh
-          </button>
+              onClick={getFolderData}
+              className="p-1 rounded-sm hover:opacity-70 flex gap-x-2 items-center"
+            >
+              <GrRefresh className="text-xl" />
+              <p>Refresh</p>
+            </button>
         </div>
       </div>
       <div>

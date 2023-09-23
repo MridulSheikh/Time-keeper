@@ -57,7 +57,7 @@ export const SetImageContainer = ({
 
 const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
   const [imageUrl, setImageUrl] = useState<string | null>();
-  const {token} = useAuth()
+  const { token } = useAuth();
   const toastId = useRef<any>(null);
   const {
     register,
@@ -78,7 +78,7 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
       logo: imageUrl,
     };
     axios
-      .post("https://free-time-server.onrender.com/api/v1/brand", body,{
+      .post("https://free-time-server.onrender.com/api/v1/brand", body, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,
@@ -113,8 +113,14 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
       >
         X
       </div>
+      <div>
+        <p>Brand Logo*</p>
+        <div className="w-full h-40">
+          <SetImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} />
+        </div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <div className="mt-5">
           <p>Name*</p>
           {errors.name && (
             <p className="text-sm text-red-800 pt-1">{errors.name.message}</p>
@@ -139,12 +145,6 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
             className="border rounded-md px-5 py-2 w-full mt-2"
             placeholder="Enter the supllier Number"
           />
-        </div>
-        <div className="mt-5">
-          <p>Brand Logo*</p>
-          <div className="w-full h-40">
-            <SetImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} />
-          </div>
         </div>
         <button className="w-full py-2 rounded-md bg-cs-black text-white mt-5 focus:opacity-50">
           Save
