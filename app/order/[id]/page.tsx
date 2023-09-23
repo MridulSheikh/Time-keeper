@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 async function getData(id: string) {
-  const res = await fetch(`https://free-time-server.onrender.com/api/v1/order/${id}`, {cache : "no-cache"});
+  const res = await fetch(`http://localhost:5000/api/v1/order/${id}`, {cache : "no-cache"});
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 

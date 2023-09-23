@@ -21,7 +21,7 @@ const Page = () => {
   const getAdminData = () => {
     setIsLoading(true);
     axios
-      .get("https://free-time-server.onrender.com/api/v1/user", {
+      .get("http://localhost:5000/api/v1/user", {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer" + " " + token,
@@ -42,7 +42,7 @@ const Page = () => {
     toastId.current = toast.loading("please wait...");
     axios
       .patch(
-        `https://free-time-server.onrender.com/api/v1/user/${email}`,
+        `http://localhost:5000/api/v1/user/${email}`,
         { role: "admin" },
         {
           headers: {
@@ -77,7 +77,7 @@ const Page = () => {
     toastId.current = toast.loading("please wait...");
     axios
       .patch(
-        `https://free-time-server.onrender.com/api/v1/user/${email}`,
+        `http://localhost:5000/api/v1/user/${email}`,
         { role: "buyer" },
         {
           headers: {

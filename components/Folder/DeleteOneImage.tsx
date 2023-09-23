@@ -24,7 +24,7 @@ export const DeleteOneImage = ({ imageUrl, folder, id }: propsType) => {
       folder: folder
     }
     axios
-      .delete(`https://free-time-server.onrender.com/api/v1/image/${id}`, {
+      .delete(`http://localhost:5000/api/v1/image/${id}`, {
         data: body,
         headers: {
           "Content-Type": "application/json",

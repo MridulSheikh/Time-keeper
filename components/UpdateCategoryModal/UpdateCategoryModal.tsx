@@ -23,7 +23,7 @@ const UpdateModal = ({ name, id, setIsOpen }: any) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     setIsLoading(true);
     axios
-      .patch("https://free-time-server.onrender.com/api/v1/category", {
+      .patch("http://localhost:5000/api/v1/category", {
         id: id,
         name: data.name,
       },{

@@ -6,7 +6,12 @@ import { AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import { MdOutlineSpaceDashboard, MdVerified } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
 import { GrLogin } from "react-icons/gr";
@@ -44,71 +49,40 @@ const NavLink = ({ name, href }: linktype) => {
 };
 
 const UserIdentity = ({ text, signout }: any) => {
-  const [open, setOpen] = useState<boolean>(false);
   const { user } = useAuth();
   return (
-    <div className="relative font-semibold ease-in-out duration-700">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center focus:text-cs-pink-800 ease-in-out duration-200"
-      >
+    <div className="relative group font-semibold ease-in-out duration-700 py-5">
+      <button className="flex items-center hover:text-cs-pink-800 ease-in-out duration-200">
         <BiUserCircle className="text-3xl" />
-        {/* {open ? (
-          <MdOutlineKeyboardArrowUp className="text-2xl pt-1" />
-        ) : (
-          <MdOutlineKeyboardArrowDown className="text-2xl pt-1" />
-        )} */}
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="absolute top-14 right-0 w-40 bg-white p-3 rounded-md z-50 ease-in transition-all duration-200 text-cs-pink-800 shadow-md overflow-hidden"
-          >
-            {user?.role === "admin" && (
-              <p
-                onClick={() => setOpen(!open)}
-                className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg mb-5"
-              >
-                <MdOutlineSpaceDashboard />
-                <Link href={"/dashboard"}>Dashboard</Link>
-              </p>
-            )}
-            <p
-              onClick={() => setOpen(!open)}
-              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg"
-            >
-              <AiOutlineHistory />
-              <Link href={"/order"}>My order</Link>
-            </p>
-            <p
-              onClick={() => setOpen(!open)}
-              className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
-            >
-              <BsCart4 />
-              <Link href={"/cart"}>My cart</Link>
-            </p>
-            {!user?.verified && (
-              <p
-                onClick={() => setOpen(!open)}
-                className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg"
-              >
-                <MdVerified />
-                <Link href={"/verifyemail"}>verificaiton</Link>
-              </p>
-            )}
-            <button
-              onClick={signout}
-              className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800"
-            >
-              Logout
-            </button>
-          </motion.div>
+      <div className="absolute hidden group-hover:inline-block top-14 right-0 w-40 bg-white p-3 rounded-md z-40 ease-in transition-all duration-500 text-cs-pink-800 shadow-md overflow-hidden">
+        {user?.role === "admin" && (
+          <p className=" hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg mb-5">
+            <MdOutlineSpaceDashboard />
+            <Link href={"/dashboard"}>Dashboard</Link>
+          </p>
         )}
-      </AnimatePresence>
+        <p className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center text-lg">
+          <AiOutlineHistory />
+          <Link href={"/order"}>My order</Link>
+        </p>
+        <p className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg">
+          <BsCart4 />
+          <Link href={"/cart"}>My cart</Link>
+        </p>
+        {!user?.verified && (
+          <p className="hover:bg-cs-pink-200 rounded-md ease-in-out duration-200 px-2 flex gap-x-3 items-center mt-5 text-lg">
+            <MdVerified />
+            <Link href={"/verifyemail"}>verificaiton</Link>
+          </p>
+        )}
+        <button
+          onClick={signout}
+          className=" w-full text-white py-1 mt-4 px-2 rounded-md bg-cs-pink-800"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
@@ -116,8 +90,28 @@ const UserIdentity = ({ text, signout }: any) => {
 export const Nav = () => {
   const router = useRouter();
   const { user, sign_out, authLoading } = useAuth();
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const prvious = scrollY.getPrevious();
+    if (latest > prvious && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
-    <header className="py-5 top-0 bg-white z-40">
+    <motion.header
+      variants={{
+        visible: { y: 0, opacity: "100%" },
+        hidden: { y: "-100%", opacity: "0%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className="sticky w-full top-0 bg-white z-40"
+    >
       <div className=" max-w-screen-2xl mx-auto flex justify-between items-center text-cs-black px-4">
         <h1
           onClick={() => router.push("/")}
@@ -157,6 +151,6 @@ export const Nav = () => {
           </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };

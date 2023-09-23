@@ -26,7 +26,7 @@ const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
     setIsLoading(true);
     axios
       .get(
-        `https://free-time-server.onrender.com/api/v1/blog/getbytitle/${searchParams?.title}`
+        `http://localhost:5000/api/v1/blog/getbytitle/${searchParams?.title}`
       )
       .then((res) => {
         setTitle(res.data.data.title);
@@ -54,7 +54,7 @@ const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
       author: user.email,
     };
     axios
-      .patch(`https://free-time-server.onrender.com/api/v1/blog/${blog._id}`, body, {
+      .patch(`http://localhost:5000/api/v1/blog/${blog._id}`, body, {
         headers: {
           "Content-Type": "application/json",
           " Authorization": "Bearer" + " " + token,
@@ -86,7 +86,7 @@ const EditBlog = ({ searchParams }: { searchParams: { title: string } }) => {
   const handledeleteBlog = () => {
     toastId.current = toast.loading("please wait...");
     axios
-      .delete(`https://free-time-server.onrender.com/api/v1/blog/${blog._id}`, {
+      .delete(`http://localhost:5000/api/v1/blog/${blog._id}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

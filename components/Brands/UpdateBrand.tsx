@@ -40,7 +40,7 @@ const UpdateBrandForm = ({
       logo: image,
     };
     axios
-      .patch(`https://free-time-server.onrender.com/api/v1/brand/${id}`, body,{
+      .patch(`http://localhost:5000/api/v1/brand/${id}`, body,{
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

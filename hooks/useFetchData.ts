@@ -15,7 +15,7 @@ export const useFetchData = () => {
     const getBrands = () => {
         setLoading(true);
         axios
-          .get("https://free-time-server.onrender.com/api/v1/brand")
+          .get("http://localhost:5000/api/v1/brand")
           .then((res) => {
             setBrands(res.data.data);
           })
@@ -28,7 +28,7 @@ export const useFetchData = () => {
       const getCategory = () => {
         setLoading(true);
         axios
-          .get("https://free-time-server.onrender.com/api/v1/category")
+          .get("http://localhost:5000/api/v1/category")
           .then((res) => {
             setCategories(res.data.data);
           })

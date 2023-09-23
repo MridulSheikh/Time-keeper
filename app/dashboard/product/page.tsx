@@ -46,7 +46,7 @@ const Page = () => {
     setSelectItem([]);
     setIsLoading(true);
     axios
-      .get(`https://free-time-server.onrender.com/api/v1/product?page=${page}&limit=${limit}&populate=brand,category&fields=img,_id,category,brand,name,price`)
+      .get(`http://localhost:5000/api/v1/product?page=${page}&limit=${limit}&populate=brand,category&fields=img,_id,category,brand,name,price`)
       .then((res) => {
         setData(res.data.data);
       })

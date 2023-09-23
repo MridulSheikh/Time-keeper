@@ -19,7 +19,7 @@ const Shop = async ({ searchParams }: { searchParams: any }) => {
 
   const searchQuery = queryString.stringify(urlParam);
 
-  const uri = `https://free-time-server.onrender.com/api/v1/product?${searchQuery}`;
+  const uri = `http://localhost:5000/api/v1/product?${searchQuery}`;
   const res = await fetch(uri, { cache: "no-store" });
   const products = await res.json();
   return (

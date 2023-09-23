@@ -19,7 +19,7 @@ const Order = async ({searchParams} : {searchParams : any}) => {
         status : searchParams.status
   }
   const searchQuery = queryString.stringify(queryParmas);
-  const orders = await getData(`https://free-time-server.onrender.com/api/v1/order?${searchQuery}`, token)
+  const orders = await getData(`http://localhost:5000/api/v1/order?${searchQuery}`, token)
   return (
     <div>
         <ManageOrderHeader />

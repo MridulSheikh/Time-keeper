@@ -27,7 +27,7 @@ const RenameFolderForm = ({ condition, setCondition, id, name }: any) => {
       create_by: user?.email,
     };
     axios
-      .patch(`https://free-time-server.onrender.com/api/v1/folder/${id}`, body, {
+      .patch(`http://localhost:5000/api/v1/folder/${id}`, body, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

@@ -4,7 +4,7 @@ import React from "react";
 import { IoIosAdd } from "react-icons/io";
 
 const getData = async () => {
-  const res = await fetch("https://free-time-server.onrender.com/api/v1/blog", {
+  const res = await fetch("http://localhost:5000/api/v1/blog", {
     cache: "no-cache",
   });
   return res.json();

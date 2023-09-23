@@ -78,7 +78,7 @@ const AddBrandFrom = ({ isOpen, setIsOpen }: any) => {
       logo: imageUrl,
     };
     axios
-      .post("https://free-time-server.onrender.com/api/v1/brand", body, {
+      .post("http://localhost:5000/api/v1/brand", body, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": "Bearer" + " " + token,

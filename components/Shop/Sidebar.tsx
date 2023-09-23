@@ -16,7 +16,7 @@ export const Sidebar = () => {
 
   // get categories data
   const getCategories = () => {
-    const uri = `https://free-time-server.onrender.com/api/v1/category`;
+    const uri = `http://localhost:5000/api/v1/category`;
     axios
       .get(uri)
       .then((res) => setCategories(res.data.data))
@@ -24,7 +24,7 @@ export const Sidebar = () => {
   };
 
   const getBrands = () => {
-    const uri = `https://free-time-server.onrender.com/api/v1/brand`;
+    const uri = `http://localhost:5000/api/v1/brand`;
     axios
       .get(uri)
       .then((res) => setBrands(res.data.data))

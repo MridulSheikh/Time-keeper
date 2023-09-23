@@ -15,7 +15,7 @@ const Success = ({ params }: { params: any }) => {
       setLoading(true);
       axios
         .post(
-          `https://free-time-server.onrender.com/api/v1/user/confirm`,
+          `http://localhost:5000/api/v1/user/confirm`,
           {},
           {
             headers: {

@@ -13,13 +13,7 @@ const CartDropDown = ({ setOpen, items }: any) => {
       ? items.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0)
       : 0;
   return (
-    <motion.div
-      initial={{ opacity: 0}}
-      animate={{ opacity: 1}}
-      exit={{ opacity: 0}}
-      transition={{duration : 0.50}}
-      className="absolute top-20 right-14 bg-white p-3 rounded-md z-40 shadow-md w-auto font-semibold overflow-hidden"
-    >
+    <div className="absolute hidden group-hover:inline-block top-14 right-14 bg-white p-3 rounded-md z-40 shadow-md w-auto font-semibold overflow-hidden">
       <div className="pb-3 border-b text-cs-pink-800">
         <h1>Total : ${total} </h1>
       </div>
@@ -57,27 +51,16 @@ const CartDropDown = ({ setOpen, items }: any) => {
       >
         checkout
       </button>
-    </motion.div>
+    </div>
   );
 };
 
 const NavbarCart = () => {
   const { cart } = cartState();
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    setOpen(true);
-  }, []);
   return (
-    <div>
-      <AnimatePresence>
-        {open && cart.length > 0 && (
-          <CartDropDown items={cart} setOpen={setOpen} />
-        )}
-      </AnimatePresence>
-      <div
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-x-2 cursor-pointer font-semibold hover:text-cs-pink-800  ease-in-out duration-200 relative"
-      >
+    <div className="group py-5">
+      <CartDropDown items={cart} />
+      <div className="flex items-center gap-x-2 cursor-pointer font-semibold hover:text-cs-pink-800  ease-in-out duration-200 relative">
         <BsHandbag className="text-3xl md:text-2xl" />
         <div className=" w-4 h-4 bg-cs-pink-800 rounded-full flex justify-center items-center absolute text-white text-sm -top-2 -right-3">
           <p>{cart?.length || 0}</p>

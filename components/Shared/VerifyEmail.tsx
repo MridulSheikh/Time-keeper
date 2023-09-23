@@ -9,7 +9,7 @@ const VerifyEmail = () => {
     const toastId = useRef<any>(null);
     const handlerequest = () =>{
         toastId.current = toast.loading("please wait...");
-         axios.post(`https://free-time-server.onrender.com/api/v1/user/verify/${user.email}`).then(res => {
+         axios.post(`http://localhost:5000/api/v1/user/verify/${user.email}`).then(res => {
             toast.update(toastId.current, {
                 render: res.data.message,
                 type: "success",

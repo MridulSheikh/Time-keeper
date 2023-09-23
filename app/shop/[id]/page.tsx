@@ -13,7 +13,7 @@ import React from "react";
 const ProductDetails = async ({ params }: {params : {id : string}}) => {
   const {token} = useAuth()
   const { id } = params;
-  const uri = `https://free-time-server.onrender.com/api/v1/product/${id}`;
+  const uri = `http://localhost:5000/api/v1/product/${id}`;
   const res = await fetch(uri, {
     next: { revalidate: 60 }, 
     headers: {

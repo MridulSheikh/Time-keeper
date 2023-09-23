@@ -14,10 +14,10 @@ const getData = async (url : string) => {
 const OrderDetails = async ({params} : {params : {id : string}}) => {
   const {token} = useAuth()
   const toastId = useRef<any>(null);
-  const order = await getData(`https://free-time-server.onrender.com/api/v1/order/${params?.id}`)
+  const order = await getData(`http://localhost:5000/api/v1/order/${params?.id}`)
   const handleChangeStatus = (e : any) => {
         toastId.current = toast.loading("please wait...");
-        axios.patch(`https://free-time-server.onrender.com/api/v1/order/${params?.id}`,{status : e.target.value},{
+        axios.patch(`http://localhost:5000/api/v1/order/${params?.id}`,{status : e.target.value},{
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer" + " " + token,
