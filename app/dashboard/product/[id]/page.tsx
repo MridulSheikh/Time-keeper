@@ -56,7 +56,7 @@ const Page = () => {
       .patch(`https://free-time-server.onrender.com/api/v1/product/${params.id}`, body, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer" + " " + token,
+         " Authorization": "Bearer" + " " + token,
         },
       })
       .then((res) => {
@@ -88,7 +88,7 @@ const Page = () => {
       .get(`https://free-time-server.onrender.com/api/v1/product/${params.id}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer" + " " + token,
+          "Authorization": "Bearer" + " " + token,
         },
       })
       .then((res) => {

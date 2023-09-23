@@ -67,6 +67,15 @@ const UpdateBrandForm = ({
             >
               X
             </div>
+            <div>
+                  <p>brand logo*</p>
+                  <div className="w-full h-40">
+                    <SetImageContainer
+                      setImageUrl={setImage}
+                      imageUrl={image}
+                    />
+                  </div>
+            </div>
             {isLoading ? (
               <div className="flex justify-center items-center gap-x-2">
                 <RotatingLines
@@ -80,7 +89,7 @@ const UpdateBrandForm = ({
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+                <div className="mt-5">
                   <p>name*</p>
                   {errors.name && (
                     <p className="text-sm text-red-700 mt-2">
@@ -113,15 +122,6 @@ const UpdateBrandForm = ({
                     placeholder={"+880 1XXXXXXXX"}
                     defaultValue={number}
                   />
-                </div>
-                <div className="mt-5">
-                  <p>brand logo*</p>
-                  <div className="w-full h-40">
-                    <SetImageContainer
-                      setImageUrl={setImage}
-                      imageUrl={image}
-                    />
-                  </div>
                 </div>
                 <button className=" bg-cs-black py-2 text-white rounded-md active:opacity-80 w-full mt-5">
                   update
