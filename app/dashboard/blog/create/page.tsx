@@ -1,7 +1,6 @@
 "use client";
 import { SetImageContainer } from "@/components/Brands/AddBrand";
 import React, { useMemo, useRef, useState } from "react";
-import "draft-js/dist/Draft.css";
 import dynamic from 'next/dynamic';
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 import useAuth from "@/hooks/useAuth";

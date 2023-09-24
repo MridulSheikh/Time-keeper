@@ -4,19 +4,18 @@ import React, { useState } from "react";
 import { BsCart4 } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineHistory } from "react-icons/ai";
 import { BiUserCircle } from "react-icons/bi";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 import {
-  AnimatePresence,
   motion,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
 import { MdOutlineSpaceDashboard, MdVerified } from "react-icons/md";
 import NavbarCart from "./NavbarCart";
-import { GrLogin } from "react-icons/gr";
+import { MenuBar } from "./MenuBar";
 
-type linktype = {
+export type linktype = {
   name: string;
   href: string;
 };
@@ -40,9 +39,10 @@ const link = [
   },
 ];
 
-const NavLink = ({ name, href }: linktype) => {
+export const NavLink = ({ name, href }: linktype) => {
+  const pathname = usePathname()
   return (
-    <li className=" cursor-pointer font-semibold hover:text-cs-pink-800 ease-in-out duration-200">
+    <li className={`cursor-pointer h-full font-semibold ${pathname === href && 'text-cs-pink-800 border-b-2 border-cs-pink-800'} hover:text-gray-500 ease-in-out duration-200`}>
       <Link href={href}>{name}</Link>
     </li>
   );
@@ -121,7 +121,7 @@ export const Nav = () => {
         </h1>
         <div className="gap-x-10 flex items-center">
           <ul
-            className={`gap-x-10 font-light text-md  hidden lg:flex items-center`}
+            className={`gap-x-10 font-light text-md  h-full hidden lg:flex items-center`}
           >
             {link.map((link: linktype) => (
               <NavLink key={link.href} name={link.name} href={link.href} />
@@ -138,16 +138,14 @@ export const Nav = () => {
             ) : (
               <button
                 onClick={() => router.push("/login")}
-                className="flex items-center gap-x-2 cursor-pointer hover:border-cs-pink-800 hover:text-white hover:bg-cs-pink-800 ease-in-out duration-200 px-4 py-2 rounded-md border-2 border-cs-black"
+                className="hidden lg:flex items-center gap-x-2 cursor-pointer hover:border-cs-pink-800 hover:text-white hover:bg-cs-pink-800 ease-in-out duration-200 px-4 py-2 rounded-md border-2 border-cs-black"
               >
                 <p className="hidden md:inline-block font-semibold text-md">
                   Login
                 </p>
               </button>
             )}
-            <button>
-              <AiOutlineMenu className="text-2xl md:text-lg lg:hidden" />
-            </button>
+            <MenuBar links={link} />
           </div>
         </div>
       </div>

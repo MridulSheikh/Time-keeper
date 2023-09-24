@@ -3,12 +3,21 @@ import Image from "next/image";
 import React from "react";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 
+interface propsType {
+  id : string
+  title : string;
+  cover : string;
+  create_at : string;
+  slug : string
+}
+
 export const BlogCard = ({
+  id,
   title,
   cover,
   create_at,
   slug,
-}: Blog_card_data_types) => {
+}: propsType) => {
   return (
     <div className="relative h-[400px]">
       <Image src={cover} alt="cover image" fill className="object-cover" />

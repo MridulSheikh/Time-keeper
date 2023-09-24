@@ -14,7 +14,7 @@ export const Blog = () => {
       </p>
       <div className="mt-16 grid md:grid-cols-3 gap-x-[1px] bg-slate-400">
             {
-                blog_mock_data.slice(0,3).map((data) => <BlogCard key={data.id} title={data.title} cover={data.cover} create_at={data.create_at} slug={data.slug} id={data.id} />)
+                blog_mock_data.slice(0,3).map((data) => <BlogCard key={data.id} title={data.title} cover={data.cover} create_at={data.create_at} slug={data.slug} id={""} />)
             }
       </div>
     </div>

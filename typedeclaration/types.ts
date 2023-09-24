@@ -22,20 +22,13 @@ export interface product_card_data_types {
 }
 
 export interface Blog_card_data_types {
-    id : number;
+    _id : number;
     cover: string;
     slug: string;
     title: string;
-    create_at: string;
-}
-
-export interface Blog_feed_card_data_Types {
-    id : number;
-    cover : string;
-    slug : string;
-    title : string;
-    create_at : string;
-    discription : string;
+    author: string;
+    updatedAt : string;
+    body : string;
 }
 
 export interface Category_data_types {
