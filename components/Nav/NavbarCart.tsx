@@ -43,10 +43,7 @@ const CartDropDown = ({ setOpen, items }: any) => {
         ))}
       </div>
       <button
-        onClick={() => {
-          router.push("/cart");
-          setOpen(false);
-        }}
+        onClick={() =>  router.push("/cart")}
         className=" mt-5 bg-cs-black text-white w-full py-1 text-sm rounded-md active:opacity-80"
       >
         checkout
