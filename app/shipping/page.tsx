@@ -69,6 +69,7 @@ const Shipping = () => {
     </PrivateRoute>
   ) : (
     <div className="text-center w-full h-screen flex justify-center flex-col items-center">
+      <ToastContainer />
       <h1 className=" text-7xl font-bold text-red-500 mx-auto">4O4</h1>
       <h1 className=" text-2xl font-bold text-red-500">Page not found!</h1>
     </div>
