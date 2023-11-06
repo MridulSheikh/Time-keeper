@@ -21,18 +21,8 @@ export const IdealHasNever = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-6">
-        <div className=" col-span-5">
-          <ProductCard
-            img="/images/slider3_slide2_02-copyright.png"
-            name="FAAST  TRACK ANALOG GOLDEN DEAL MEN WATCH"
-            _id={1}
-            reviews={4.5}
-            price={500}
-            isbig={true}
-          />
-        </div>
-        <div className="col-span-1 relative">
+      <div>
+        <div className=" h-full  relative">
           <Image
             fill
             src="/images/05.jpg"
