@@ -13,7 +13,7 @@ export interface product_data_types {
 }
 
 export interface product_card_data_types {
-    _id : number;
+    _id : string;
     img : string;
     name : string;
     reviews : any;

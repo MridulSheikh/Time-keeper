@@ -5,12 +5,10 @@ import VerifyEmail from "../Shared/VerifyEmail";
 import { useRouter } from "next/navigation";
 
 export const ProccedToShipping = ({ total }: { total: number }) => {
-  const [open, setIsopen] = useState();
   const {user} = useAuth()
   const router = useRouter()
   return (
     <>
-      {/* <PaymentModal /> */}
       <div className=" bg-white rounded-md shadow-md font-semibold p-4">
         <p>Total : ${total}</p>
         <p className="text-xs font-light mt-1">

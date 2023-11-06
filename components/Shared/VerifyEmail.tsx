@@ -1,13 +1,14 @@
 'use client'
 import useAuth from "@/hooks/useAuth";
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 const VerifyEmail = () => {
     const {user, token} = useAuth()
     const toastId = useRef<any>(null);
-    const handlerequest = () =>{
+    const handlerequest = () : void =>{
+        if(user?.verified) return;
         toastId.current = toast.loading("please wait...");
          axios.post(`https://free-time-server.onrender.com/api/v1/user/verify/${user.email}`).then(res => {
             toast.update(toastId.current, {

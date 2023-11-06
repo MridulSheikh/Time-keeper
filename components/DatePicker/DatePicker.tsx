@@ -64,7 +64,7 @@ export function DatePicker() {
   };
 
   const handleSearch = () => {
-    const uri = `http://localhost:3000/blog?from=${format(range?.from, 'yyyy-MM-dd')}&to=${format(range?.to, 'yyyy-MM-dd')}`
+    const uri = `${window.location.pathname}?from=${format(range?.from, 'yyyy-MM-dd')}&to=${format(range?.to, 'yyyy-MM-dd')}`
     router.push(uri)
   }
 

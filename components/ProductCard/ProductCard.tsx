@@ -16,7 +16,7 @@ export const ProductCard = ({
 }: product_card_data_types) => {
   const router = useRouter();
   const totalRating =
-    reviews.length > 0
+    reviews?.length > 0
       ? reviews?.reduce(
           (total: number, current: any) => total + current?.ratting,
           0

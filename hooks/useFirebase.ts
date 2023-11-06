@@ -86,7 +86,7 @@ const useFirebase = () => {
         setAuthLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setAuthLoading(false);
     }
   };

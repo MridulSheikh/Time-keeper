@@ -3,15 +3,9 @@ import { PrivateRoute, ShippingForm, TopBanner } from "@/components";
 import cartState from "@/context/cartState";
 import useAuth from "@/hooks/useAuth";
 import React, { useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { ToastContainer } from "react-toastify";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "@/components/shipping/CheckoutForm";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-// @ts-ignore
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PK);
 
 const Shipping = () => {
   const { cart } = cartState();

@@ -3,7 +3,7 @@ import React from "react";
 
 export const SwissEssence = () => {
   return (
-    <div className="max-w-screen-2xl mx-auto grid-cols-2 px-4 h-auto lg:h-[700px] hidden lg:grid">
+    <div className="max-w-screen-2xl mx-auto grid-cols-2 px-4 h-auto lg:h-[700px] hidden lg:grid mt-10">
       <div className="relative">
         <Image
           alt="owmen"

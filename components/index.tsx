@@ -31,4 +31,5 @@ export * from "./Cart";
 export * from "./shipping"
 export * from "./OrderDetails"
 export * from "./ManageOrder";
-export * from "./ManageBlog"
+export * from "./ManageBlog";
+export * from "./OurBrands"
